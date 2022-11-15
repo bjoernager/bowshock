@@ -1,0 +1,70 @@
+#include <acm/bs.h>
+
+char const * acm_shipnm(acm_ship const _ship) {
+	switch (_ship) {
+	case acm_ship_add:
+		return "Adder";
+	case acm_ship_ana:
+		return "Anaconda";
+	case acm_ship_asp:
+		return "Asp";
+	case acm_ship_boa:
+		return "Boa";
+	case acm_ship_cob:
+		return "Cobra";
+	case acm_ship_con:
+		return "Constrictor";
+	case acm_ship_cou:
+		return "Courier";
+	case acm_ship_cyg:
+		return "Cygnus";
+	case acm_ship_dov:
+		return "Dove";
+	case acm_ship_eag:
+		return "Eagle";
+	case acm_ship_falc:
+		return "Falcon";
+	case acm_ship_fer:
+		return "Fer-de-lance";
+	case acm_ship_frei:
+		return "Freighter";
+	case acm_ship_geck:
+		return "Gecko";
+	case acm_ship_haul:
+		return "Hauler";
+	case acm_ship_hawk:
+		return "Hawk";
+	case acm_ship_keel:
+		return "Keelback";
+	case acm_ship_kes:
+		return "Kestral";
+	case acm_ship_krait:
+		return "Krait";
+	case acm_ship_lift:
+		return "Lifter";
+	case acm_ship_lion:
+		return "Lion";
+	case acm_ship_mamba:
+		return "Mamba";
+	case acm_ship_moray:
+		return "Moray";
+	case acm_ship_osp:
+		return "Osprey";
+	case acm_ship_pan:
+		return "Panther";
+	case acm_ship_puma:
+		return "Puma";
+	case acm_ship_py:
+		return "Python";
+	case acm_ship_shut:
+		return "Shuttle";
+	case acm_ship_side:
+		return "Sidewinder";
+	case acm_ship_tran:
+		return "Transporter";
+	case acm_ship_vip:
+		return "Viper";
+	case acm_ship_vult:
+		return "Vulture";
+	}
+}
