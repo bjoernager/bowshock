@@ -1,4 +1,5 @@
-#include <acm/bs.h>
+#include <acm/info.h>
+#include <acm/sav.h>
 
 #include <flux.h>
 #include <inttypes.h>
@@ -58,22 +59,23 @@ void acm_cont(acm_pldat * const _pldat) {
 		);
 		goto new;
 	}
-	printf("Loaded CMDR %s, %s @ %" PRIiLEAST64 "\n",pldat.nm,acm_shipnm(pldat.ship),pldat.tm);
+	printf("Loaded CMDR %s, %s @ %" PRIiLEAST64 "\n",pldat.nm,acm_shipnm(pldat.ship.id),pldat.tm);
 	*_pldat = pldat;
 	return;
 new:;
-	pldat.heat   = 0x120u; /* 288K */
-	pldat.pos.px = 0x0u;
-	pldat.pos.py = 0x0u;
-	pldat.pos.pz = 0x0u;
-	pldat.pos.rx = 0x0u;
-	pldat.pos.ry = 0x0u;
-	pldat.pos.rz = 0x0u;
-	pldat.pos.vx = 0x0u;
-	pldat.pos.vy = 0x0u;
-	pldat.pos.vz = 0x0u;
-	pldat.ship   = acm_ship_side;
-	pldat.tm     = 0x9679C2B40u; /* 3250-01-01T12:00:00Z */
+	pldat.heat     = 0x120u; /* 288K */
+	pldat.pos.px   = 0x0u;
+	pldat.pos.py   = 0x0u;
+	pldat.pos.pz   = 0x0u;
+	pldat.pos.rx   = 0x0u;
+	pldat.pos.ry   = 0x0u;
+	pldat.pos.rz   = 0x0u;
+	pldat.pos.vx   = 0x0u;
+	pldat.pos.vy   = 0x0u;
+	pldat.pos.vz   = 0x0u;
+	pldat.ship.drv = acm_drv_h1;
+	pldat.ship.id  = acm_shipid_side;
+	pldat.tm       = 0x9679C2B40u; /* 3250-01-01T12:00:00Z */
 	zap_memcp(acm_dflplnm,acm_plnmlen + 0x1u,pldat.nm);
 	*_pldat = pldat;
 }

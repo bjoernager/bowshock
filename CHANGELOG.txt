@@ -1,3 +1,17 @@
+# 1
+
+* Move save handlers into their own module 'sav';
+* Add new module 'evt';
+* Move shipnm into new module 'info';
+* Update save format;
+* Add jump function;
+* Rename ship to shipid;
+* Add ship structure;
+* Store ship information in player data;
+* Add function for getting the length to a system;
+* Add function for determining the jump range of a ship;
+* Add desktop entry;
+
 # 0
 
 * Initial;

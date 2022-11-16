@@ -7,8 +7,8 @@
 #include <stdio.h>
 #include <zap/bs.h>
 
-#define acm_ver    ((uint_least64_t)+0x0)
-#define acm_savver ((uint_least64_t)+0x0)
+#define acm_ver    ((uint_least64_t)+0x1)
+#define acm_savver ((uint_least64_t)+0x1)
 
 #define acm_plnmlen ((zap_sz)+0x10u)
 
@@ -21,39 +21,54 @@
 #endif
 
 typedef enum {
-	acm_ship_add,
-	acm_ship_ana,
-	acm_ship_asp,
-	acm_ship_boa,
-	acm_ship_cob,
-	acm_ship_con,
-	acm_ship_cou,
-	acm_ship_cyg,
-	acm_ship_dov,
-	acm_ship_eag,
-	acm_ship_falc,
-	acm_ship_fer,
-	acm_ship_frei,
-	acm_ship_geck,
-	acm_ship_haul,
-	acm_ship_hawk,
-	acm_ship_keel,
-	acm_ship_kes,
-	acm_ship_krait,
-	acm_ship_lift,
-	acm_ship_lion,
-	acm_ship_mamba,
-	acm_ship_moray,
-	acm_ship_osp,
-	acm_ship_pan,
-	acm_ship_puma,
-	acm_ship_py,
-	acm_ship_shut,
-	acm_ship_side,
-	acm_ship_tran,
-	acm_ship_vip,
-	acm_ship_vult,
-} acm_ship;
+	acm_drv_h1,
+	acm_drv_h2,
+	acm_drv_h3,
+	acm_drv_h4,
+	acm_drv_h5,
+	acm_drv_h6,
+	acm_drv_h7,
+	acm_drv_h8,
+	acm_drv_m1,
+	acm_drv_m2,
+	acm_drv_m3,
+	acm_drv_m4,
+} acm_drv;
+
+typedef enum {
+	acm_shipid_add,
+	acm_shipid_ana,
+	acm_shipid_asp,
+	acm_shipid_boa,
+	acm_shipid_cob,
+	acm_shipid_con,
+	acm_shipid_cou,
+	acm_shipid_cyg,
+	acm_shipid_dov,
+	acm_shipid_eag,
+	acm_shipid_falc,
+	acm_shipid_fer,
+	acm_shipid_frei,
+	acm_shipid_geck,
+	acm_shipid_haul,
+	acm_shipid_hawk,
+	acm_shipid_keel,
+	acm_shipid_kes,
+	acm_shipid_krait,
+	acm_shipid_lift,
+	acm_shipid_lion,
+	acm_shipid_mamba,
+	acm_shipid_moray,
+	acm_shipid_osp,
+	acm_shipid_pan,
+	acm_shipid_puma,
+	acm_shipid_py,
+	acm_shipid_shut,
+	acm_shipid_side,
+	acm_shipid_tran,
+	acm_shipid_vip,
+	acm_shipid_vult,
+} acm_shipid;
 
 typedef enum {
 	acm_stat_err,
@@ -77,9 +92,15 @@ typedef struct {
 } acm_obj;
 
 typedef struct {
+	acm_drv    drv;
+	acm_shipid id;
+} acm_ship;
+
+typedef struct {
 	char           nm[acm_plnmlen + 0x1u];
 	uint_least16_t heat;
 	acm_objpos     pos;
+	uint_least64_t selsys;
 	acm_ship       ship;
 	uint_least64_t tm;
 } acm_pldat;
@@ -93,11 +114,8 @@ extern struct {
 
 extern sig_atomic_t volatile acm_gotintr;
 
-             void         acm_cont(  acm_pldat *       pldat);
-             void         acm_dbglog(char const *      fmt,...);
-             void         acm_init(  void);
-[[noreturn]] void         acm_exit(  acm_stat          stat);
-             void         acm_sav(   acm_pldat const * pldat);
-             char const * acm_shipnm(acm_ship          ship);
+             void acm_dbglog(char const *      fmt,...);
+             void acm_init(  void);
+[[noreturn]] void acm_exit(  acm_stat          stat);
 
 #endif

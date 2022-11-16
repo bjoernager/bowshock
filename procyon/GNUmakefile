@@ -33,13 +33,16 @@ HDRS := \
 # BINARIES
 
 OBJS := \
-	source/bs/cont.o \
 	source/bs/dbglog.o \
 	source/bs/exit.o \
 	source/bs/init.o \
-	source/bs/sav.o \
 	source/bs/shipnm.o \
+	source/evt/jmp.o \
 	source/gfx/initgfx.o \
+	source/info/jmplen.o \
+	source/info/sysdist.o \
+	source/sav/cont.o \
+	source/sav/sav.o \
 	source/main.o
 
 BIN := procyon.elf

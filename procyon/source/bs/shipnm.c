@@ -1,70 +1,70 @@
 #include <acm/bs.h>
 
-char const * acm_shipnm(acm_ship const _ship) {
+char const * acm_shipnm(acm_shipid const _ship) {
 	switch (_ship) {
-	case acm_ship_add:
+	case acm_shipid_add:
 		return "Adder";
-	case acm_ship_ana:
+	case acm_shipid_ana:
 		return "Anaconda";
-	case acm_ship_asp:
+	case acm_shipid_asp:
 		return "Asp";
-	case acm_ship_boa:
+	case acm_shipid_boa:
 		return "Boa";
-	case acm_ship_cob:
+	case acm_shipid_cob:
 		return "Cobra";
-	case acm_ship_con:
+	case acm_shipid_con:
 		return "Constrictor";
-	case acm_ship_cou:
+	case acm_shipid_cou:
 		return "Courier";
-	case acm_ship_cyg:
+	case acm_shipid_cyg:
 		return "Cygnus";
-	case acm_ship_dov:
+	case acm_shipid_dov:
 		return "Dove";
-	case acm_ship_eag:
+	case acm_shipid_eag:
 		return "Eagle";
-	case acm_ship_falc:
+	case acm_shipid_falc:
 		return "Falcon";
-	case acm_ship_fer:
+	case acm_shipid_fer:
 		return "Fer-de-lance";
-	case acm_ship_frei:
+	case acm_shipid_frei:
 		return "Freighter";
-	case acm_ship_geck:
+	case acm_shipid_geck:
 		return "Gecko";
-	case acm_ship_haul:
+	case acm_shipid_haul:
 		return "Hauler";
-	case acm_ship_hawk:
+	case acm_shipid_hawk:
 		return "Hawk";
-	case acm_ship_keel:
+	case acm_shipid_keel:
 		return "Keelback";
-	case acm_ship_kes:
+	case acm_shipid_kes:
 		return "Kestral";
-	case acm_ship_krait:
+	case acm_shipid_krait:
 		return "Krait";
-	case acm_ship_lift:
+	case acm_shipid_lift:
 		return "Lifter";
-	case acm_ship_lion:
+	case acm_shipid_lion:
 		return "Lion";
-	case acm_ship_mamba:
+	case acm_shipid_mamba:
 		return "Mamba";
-	case acm_ship_moray:
+	case acm_shipid_moray:
 		return "Moray";
-	case acm_ship_osp:
+	case acm_shipid_osp:
 		return "Osprey";
-	case acm_ship_pan:
+	case acm_shipid_pan:
 		return "Panther";
-	case acm_ship_puma:
+	case acm_shipid_puma:
 		return "Puma";
-	case acm_ship_py:
+	case acm_shipid_py:
 		return "Python";
-	case acm_ship_shut:
+	case acm_shipid_shut:
 		return "Shuttle";
-	case acm_ship_side:
+	case acm_shipid_side:
 		return "Sidewinder";
-	case acm_ship_tran:
+	case acm_shipid_tran:
 		return "Transporter";
-	case acm_ship_vip:
+	case acm_shipid_vip:
 		return "Viper";
-	case acm_ship_vult:
+	case acm_shipid_vult:
 		return "Vulture";
 	}
 }
