@@ -1,3 +1,9 @@
+# 2
+
+* Rename project to Bowshock (from Procyon);
+* Rewrite project;
+* Add gravity engine;
+
 # 1
 
 * Move save handlers into their own module 'sav';
