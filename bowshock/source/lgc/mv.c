@@ -1,4 +1,4 @@
-#define bow_sym "grav"
+#define bow_sym "mv"
 
 #include <bow/lgc.h>
 

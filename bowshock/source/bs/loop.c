@@ -1,8 +1,10 @@
 #define bow_sym "loop"
 
+#include <bow/gfx.h>
 #include <bow/lgc.h>
 #include <bow/sav.h>
 
+#include <GLFW/glfw3.h>
 #include <inttypes.h>
 #include <math.h>
 #include <zap/mem.h>
@@ -35,7 +37,9 @@ bow_stat bow_loop(bow_playdat * playdatptr) {
 	playdat.ship.pos.z = 0x100.0p0;
 	star0.vel.x = sqrt(bow_gravconst*star1.mass/0x100.0p0)/0x2.0p0; // orbital speed
 	star1.vel.x = -sqrt(bow_gravconst*star0.mass/0x100.0p0)/0x2.0p0; // orbital speed
-	for (zap_i04 i = 0x0u;;) {
+	bool stop = false;
+	for (zap_i04 i = 0x0u;!stop;) {
+		if (glfwWindowShouldClose(bow_gfxdat.win)) break;
 		// Calculate gravitations:
 		bow_grav(&star0,&star1);
 		bow_grav(&star1,&star0);
@@ -51,9 +55,7 @@ bow_stat bow_loop(bow_playdat * playdatptr) {
 		fprintf(log,"%f\t%f\t%f\n",star1.pos.x,star1.pos.y,star1.pos.z);
 		fprintf(log,"%f\t%f\t%f\n",playdat.ship.pos.x,playdat.ship.pos.y,playdat.ship.pos.z);
 		// Check tick number:
-		if (i++ == 0x7Fu) {
-			break;
-		}
+		if (i++ == 0x7Fu) break;
 	}
 	fclose(log);
 	zap_cp(playdatptr,&playdat,sizeof (playdat));

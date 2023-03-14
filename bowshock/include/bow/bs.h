@@ -70,6 +70,10 @@ typedef enum {
 	bow_star_z, // white hole
 } bow_star;
 
+typedef enum {
+	bow_star_cor, // coriolis
+} bow_stat;
+
 typedef struct {
 	double x;
 	double y;
@@ -79,11 +83,13 @@ typedef struct {
 typedef struct {
 	bow_objtyp typ;
 	bow_xyz    pos;
-	bow_xyz    rot; // rad
+	bow_xyz    rot; // radians
 	bow_xyz    vel;
 	double     mass;
 	union {
 		bow_ship shiptyp;
+		bow_star startyp;
+		bow_stat stattyp;
 	};
 } bow_obj;
 

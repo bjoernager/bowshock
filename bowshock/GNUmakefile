@@ -18,8 +18,10 @@ CFLAGS := \
 endif
 
 LDLIBS := \
+	-lGL   \
 	-lflux \
-	-lm \
+	-lglfw \
+	-lm    \
 	-lzap
 
 OBJS := \
@@ -28,6 +30,7 @@ OBJS := \
 	source/bs/initdat.o    \
 	source/bs/loop.o       \
 	source/bs/quit.o       \
+	source/gfx/initgfx.o   \
 	source/info/shipmass.o \
 	source/lgc/grav.o      \
 	source/lgc/mv.o
