@@ -24,7 +24,9 @@
 #define bow_logxyz(xyz) ((void)0x0u)
 #endif
 
-constexpr zap_i04 bow_ver;
+constexpr zap_i04 bow_ver = 0x4u;
+
+constexpr zap_sz bow_cmdrnmlen = 0xEu;
 
 typedef enum {
 	bow_stat_ok  = 0x0u,
@@ -40,6 +42,15 @@ typedef enum {
 	bow_objtyp_star, // star
 	bow_objtyp_stat, // station
 } bow_objtyp;
+
+typedef enum {
+	bow_world_amm, // ammonium world
+	bow_world_gas, // gas giant
+	bow_world_ice, // icy world
+	bow_world_rck, // rocky world
+	bow_world_lav, // lava world
+	bow_world_wat, // water world
+} bow_world;
 
 typedef enum {
 	bow_ship_aq,   // aquila
@@ -71,8 +82,8 @@ typedef enum {
 } bow_star;
 
 typedef enum {
-	bow_star_cor, // coriolis
-} bow_stat;
+	bow_station_cor, // coriolis
+} bow_station;
 
 typedef struct {
 	double x;
@@ -87,19 +98,21 @@ typedef struct {
 	bow_xyz    vel;
 	double     mass;
 	union {
-		bow_ship shiptyp;
-		bow_star startyp;
-		bow_stat stattyp;
+		bow_world    worldtyp;
+		bow_ship    shiptyp;
+		bow_star    startyp;
+		bow_station stationtyp;
 	};
 } bow_obj;
 
 typedef struct {
-	zap_i04  sysid;
-	bow_obj  ship;
+	char    nm[bow_cmdrnmlen + 0x1u];
+	zap_i04 sysid;
+	bow_obj ship;
 } bow_playdat;
 
 void bow_gendat( bow_playdat * playdat);
-void bow_initdat(bow_playdat * playdat);
+void bow_initdat(bow_playdat * playdat,char const * * savpth);
 
 [[noreturn]] void bow_quit(bow_stat stat);
 

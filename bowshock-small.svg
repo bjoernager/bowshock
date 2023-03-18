@@ -1,0 +1,9 @@
+<!-- Copyright 2023 Gabriel Jensen. -->
+<svg height="96" width="96" xmlns="http://www.w3.org/2000/svg">
+	<!-- background -->
+	<circle cx="48" cy="54" fill="#B61833" r="36" />
+	<circle cx="48" cy="42" fill="#B61833" r="36" />
+	<!-- circles -->
+	<circle cx="48" cy="54" fill="none" r="24" stroke="#FFEEE0" stroke-width="12" />
+	<circle cx="48" cy="42" fill="none" r="24" stroke="#0F0F0F" stroke-width="12" />
+</svg>

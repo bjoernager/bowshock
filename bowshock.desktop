@@ -2,3 +2,4 @@
 Type=Application
 Name=Bowshock
 Exec=/usr/bin/bowshock
+Icon=bowshock
