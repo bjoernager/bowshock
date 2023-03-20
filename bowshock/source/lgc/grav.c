@@ -13,7 +13,7 @@ void bow_grav(bow_obj * objptr,bow_obj const * parptr) {
 	double const distx = par.pos.x-obj.pos.x;
 	double const disty = par.pos.y-obj.pos.y;
 	double const distz = par.pos.z-obj.pos.z;
-	double const dist  = sqrt(pow(distx,0x2.0p0)+pow(disty,0x2.0p0)+pow(distz,0x2.0p0));
+	double const dist  = sqrt(distx*distx+disty*disty+distz*distz);
 	double const acc   = bow_gravconst*par.mass/pow(dist,2.0);
 	double const angy  = atan2(disty,distx);
 	double const angz  = atan2(distz,distx);

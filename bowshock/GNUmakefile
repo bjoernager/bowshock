@@ -48,6 +48,7 @@ OBJS := \
 	source/info/shipmass.o \
 	source/lgc/grav.o      \
 	source/lgc/mv.o        \
+	source/sav/cont.o      \
 	source/sav/sav.o
 
 BIN := bowshock.elf

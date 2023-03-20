@@ -4,8 +4,6 @@
 #include <bow/info.h>
 
 #include <GLFW/glfw3.h>
-#include <flux.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 void bow_quit(bow_stat const stat) {

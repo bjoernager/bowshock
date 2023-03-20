@@ -39,6 +39,10 @@ bow_stat bow_loop(bow_playdat * playdatptr) {
 	star1.vel.x = -sqrt(bow_gravconst*star0.mass/0x100.0p0)/0x2.0p0; // orbital speed
 	bool stop = false;
 	for (zap_i04 i = 0x0u;!stop;) {
+		if (bow_gotintr) {
+			bow_log("got interrupt");
+			glfwSetWindowShouldClose(bow_gfxdat.win,GLFW_TRUE);
+		}
 		if (glfwWindowShouldClose(bow_gfxdat.win)) break;
 		// Calculate gravitations:
 		bow_grav(&star0,&star1);

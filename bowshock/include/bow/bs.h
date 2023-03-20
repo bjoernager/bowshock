@@ -3,6 +3,7 @@
 
 #define constexpr static const
 
+#include <signal.h>
 #include <stdio.h>
 #include <zap/bs.h>
 
@@ -14,6 +15,8 @@
 
 #define bow_log(msg,...) bow_rawlog("\x1B[1m%s\x1B[0m: " msg "\n",bow_sym __VA_OPT__(,) __VA_ARGS__)
 
+#define bow_logerr(msg,...) bow_log("\x1B[38;5;197m[ERROR]\x1B[0m " msg __VA_OPT__(,) __VA_ARGS__)
+
 #if bow_dbg
 #define bow_dbglog(msg,...) bow_log(msg __VA_OPT__ (,) __VA_ARGS__)
 
@@ -24,7 +27,7 @@
 #define bow_logxyz(xyz) ((void)0x0u)
 #endif
 
-constexpr zap_i04 bow_ver = 0x4u;
+constexpr zap_i04 bow_ver = 0x5u;
 
 constexpr zap_sz bow_cmdrnmlen = 0xEu;
 
@@ -98,7 +101,7 @@ typedef struct {
 	bow_xyz    vel;
 	double     mass;
 	union {
-		bow_world    worldtyp;
+		bow_world   worldtyp;
 		bow_ship    shiptyp;
 		bow_star    startyp;
 		bow_station stationtyp;
@@ -108,8 +111,11 @@ typedef struct {
 typedef struct {
 	char    nm[bow_cmdrnmlen + 0x1u];
 	zap_i04 sysid;
+	zap_i04 tm; // 1728th of a second
 	bow_obj ship;
 } bow_playdat;
+
+extern sig_atomic_t volatile bow_gotintr;
 
 void bow_gendat( bow_playdat * playdat);
 void bow_initdat(bow_playdat * playdat,char const * * savpth);
