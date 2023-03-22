@@ -3,6 +3,6 @@
 
 #include <bow/bs.h>
 
-double bow_shipmass(bow_ship id);
+[[unsequenced]] double bow_shipmass(bow_ship id);
 
 #endif

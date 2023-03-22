@@ -27,7 +27,8 @@
 #define bow_logxyz(xyz) ((void)0x0u)
 #endif
 
-constexpr zap_i04 bow_ver = 0x5u;
+constexpr zap_i04 bow_vermaj = 0x0u;
+constexpr zap_i04 bow_vermin = 0x6u;
 
 constexpr zap_sz bow_cmdrnmlen = 0xEu;
 
@@ -37,13 +38,13 @@ typedef enum {
 } bow_stat;
 
 typedef enum {
-	bow_objtyp_can,  // canister
-	bow_objtyp_plan, // planet
-	bow_objtyp_play, // player
-	bow_objtyp_sat,  // satellite (moon)
-	bow_objtyp_ship, // ship
-	bow_objtyp_star, // star
-	bow_objtyp_stat, // station
+	bow_objtyp_can,     // canister
+	bow_objtyp_play,    // player
+	bow_objtyp_sat,     // satellite (moon)
+	bow_objtyp_ship,    // ship
+	bow_objtyp_star,    // star
+	bow_objtyp_station, // station
+	bow_objtyp_wrld,    // world (planet)
 } bow_objtyp;
 
 typedef enum {
@@ -110,8 +111,8 @@ typedef struct {
 
 typedef struct {
 	char    nm[bow_cmdrnmlen + 0x1u];
+	zap_i04 tm;
 	zap_i04 sysid;
-	zap_i04 tm; // 1728th of a second
 	bow_obj ship;
 } bow_playdat;
 

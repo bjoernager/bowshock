@@ -29,11 +29,12 @@ void bow_cont(char const * const pth,bow_playdat * const playdatptr) {
 		goto new;
 	}
 	bow_playdat playdat = {
-		.sysid    = dat.sysid,
-		.tm       = dat.tm,
-		.ship.pos = dat.shippos,
-		.ship.rot = dat.shiprot,
-		.ship.vel = dat.shipvel,
+		.sysid        = dat.sysid,
+		.tm           = dat.tm,
+		.ship.shiptyp = dat.shiptyp,
+		.ship.pos     = dat.shippos,
+		.ship.rot     = dat.shiprot,
+		.ship.vel     = dat.shipvel,
 	};
 	zap_cp(playdat.nm,dat.cmdrnm,bow_cmdrnmlen);
 	playdat.nm[bow_cmdrnmlen] = '\x0';
@@ -46,14 +47,14 @@ new:
 		.tm    = 0x1E187E00000u, // 256 julian years after the Unix Epoch.
 		.ship  = {
 			.pos     = {
-				.x = 0x0.0p0,
-				.y = 0x0.0p0,
-				.z = 0x0.0p0,
+				.x = 0x0p0,
+				.y = 0x0p0,
+				.z = 0x0p0,
 			},
 			.vel     = {
-				.x = 0x0.0p0,
-				.y = 0x0.0p0,
-				.z = 0x0.0p0,
+				.x = 0x0p0,
+				.y = 0x0p0,
+				.z = 0x0p0,
 			},
 			.shiptyp = bow_ship_aq,
 		},

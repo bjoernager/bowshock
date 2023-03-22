@@ -26,6 +26,7 @@ void bow_sav(char const * const pth,bow_playdat const * const playdatptr) {
 		.fmtver  = bow_savfmtver,
 		.sysid   = playdat.sysid,
 		.tm      = playdat.tm,
+		.shiptyp = playdat.ship.shiptyp,
 		.shippos = playdat.ship.pos,
 		.shiprot = playdat.ship.rot,
 		.shipvel = playdat.ship.vel,

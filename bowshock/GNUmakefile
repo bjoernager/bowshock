@@ -27,8 +27,9 @@ endif
 
 ifeq "$(debug)" "true"
 CFLAGS := \
-	$(CFLAGS) \
-	-Dbow_dbg=true
+	$(CFLAGS)      \
+	-Dbow_dbg=true \
+	-Og
 endif
 
 LDLIBS := \
@@ -36,6 +37,7 @@ LDLIBS := \
 	-lflux \
 	-lglfw \
 	-lm    \
+	-lwebp \
 	-lzap
 
 OBJS := \

@@ -5,16 +5,17 @@
 
 #include <zap/bs.h>
 
-constexpr zap_i04 bow_savfmtver = 0x4u;
+constexpr zap_i04 bow_savfmtver = 0x5u;
 
 typedef struct {
-	zap_i04 fmtver;
-	char    cmdrnm[bow_cmdrnmlen];
-	zap_i04 sysid;
-	zap_i04 tm;
-	bow_xyz shippos;
-	bow_xyz shiprot;
-	bow_xyz shipvel;
+	zap_i04  fmtver;
+	char     cmdrnm[bow_cmdrnmlen];
+	zap_i04  tm;
+	zap_i04  sysid;
+	bow_ship shiptyp;
+	bow_xyz  shippos;
+	bow_xyz  shiprot;
+	bow_xyz  shipvel;
 } bow_savdat;
 
 void bow_cont(char const * fil,bow_playdat *       dat);
