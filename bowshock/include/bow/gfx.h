@@ -1,5 +1,4 @@
-#if !defined(bow_hdr_gfx)
-#define bow_hdr_gfx
+#pragma once
 
 #include <bow/bs.h>
 
@@ -12,5 +11,3 @@ extern struct {
 } bow_gfxdat;
 
 void bow_initgfx(void);
-
-#endif

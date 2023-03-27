@@ -14,7 +14,7 @@ void bow_initgfx(void) {
 	}
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,0x3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,0x0);
-	GLFWwindow * win = glfwCreateWindow(0x300,0x200,"Bowshock",nullptr,nullptr);
+	GLFWwindow * win = glfwCreateWindow(0x300,0x200,"Bowshock",glfwGetPrimaryMonitor(),nullptr);
 	if (win == nullptr) {
 		bow_logerr("unable to open window");
 		bow_quit(bow_stat_err);

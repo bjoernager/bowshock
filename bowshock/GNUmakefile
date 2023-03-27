@@ -1,35 +1,42 @@
-LD := $(CC)
+LD = $(CC)
 
 CFLAGS := \
 	-Iinclude  \
-	-Ofast     \
 	-Wall      \
 	-Wextra    \
 	-Wpedantic \
+	-Wno-attributes \
 	-Wno-gnu-folding-constant \
 	-Wno-gnu-empty-initializer \
 	-Wno-gnu-zero-variadic-macro-arguments \
 	-g         \
 	-pipe      \
-	-std=c2x
+	-std=gnu2x
 
 ifeq "$(c2xcompat)" "true"
 CFLAGS := \
-	$(CFLAGS)                        \
-	-Dbool="_Bool"                   \
-	-Dfalse="((_Bool)0x0u)"          \
-	-Dnullptr="((void *)0x0u)"       \
-	-Dstatic_assert="_Static_assert" \
-	-Dthread_safe="_Thread_safe"     \
-	-Dtypeof="__typeof__"            \
-	-Dtrue="((_Bool)0x1u)"
+	$(CFLAGS)                                 \
+	-D"bool=_Bool"                            \
+	-D"false=((_Bool)+0x0u)"                  \
+	-D"nullptr=((void *)0x0u)"                \
+	-D"static_assert=_Static_assert"          \
+	-D"thread_safe=_Thread_safe"              \
+	-D"typeof=__typeof__"                     \
+	-D"true=((_Bool)+0x1u)"                   \
+	-D"unreachable()=__builtin_unreachable()"
 endif
 
 ifeq "$(debug)" "true"
 CFLAGS := \
-	$(CFLAGS)      \
-	-Dbow_dbg=true \
+	$(CFLAGS)        \
+	-D"bow_dbg=true" \
 	-Og
+else
+CFLAGS := \
+	$(CFLAGS)             \
+	-D"_FORTIFY_SOURCE=2" \
+	-DNDEBUG              \
+	-Ofast
 endif
 
 LDLIBS := \
@@ -41,16 +48,19 @@ LDLIBS := \
 	-lzap
 
 OBJS := \
-	source/bs/gendat.o     \
-	source/bs/init.o       \
-	source/bs/initdat.o    \
-	source/bs/loop.o       \
-	source/bs/quit.o       \
-	source/gfx/initgfx.o   \
-	source/info/shipmass.o \
-	source/lgc/grav.o      \
-	source/lgc/mv.o        \
-	source/sav/cont.o      \
+	source/bs/gendat.o      \
+	source/bs/init.o        \
+	source/bs/initdat.o     \
+	source/bs/loop.o        \
+	source/bs/quit.o        \
+	source/gfx/initgfx.o    \
+	source/info/objtypstr.o \
+	source/info/shipmass.o  \
+	source/lgc/addobj.o     \
+	source/lgc/freeobjs.o   \
+	source/lgc/grav.o       \
+	source/lgc/mv.o         \
+	source/sav/cont.o       \
 	source/sav/sav.o
 
 BIN := bowshock.elf

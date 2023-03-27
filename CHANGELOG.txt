@@ -1,3 +1,17 @@
+# 0.7
+
+* Make window fullscreen;
+* Update object data (store both positional and rotational velocity);
+* Update save format;
+* Add credits file;
+* Add more quotes;
+* Standardise and optimise save format;
+* Perform checks on save file;
+* Fix bad module name;
+* Use 'pragma once';
+* (Temporarily) define some constants as macros instead of as compile-time variables;
+* Create object system;
+
 # 0.6
 
 * Update versioning: Use major.minor;

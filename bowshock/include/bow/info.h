@@ -1,8 +1,7 @@
-#if !defined(bow_hdr_info)
-#define bow_hdr_info
+#pragma once
 
 #include <bow/bs.h>
 
-[[unsequenced]] double bow_shipmass(bow_ship id);
+char const * bow_objtypstr(bow_objtyp typ);
 
-#endif
+[[unsequenced]] double bow_shipmass(bow_ship id);

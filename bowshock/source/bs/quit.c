@@ -4,6 +4,7 @@
 #include <bow/info.h>
 
 #include <GLFW/glfw3.h>
+#include <stddef.h>
 #include <stdlib.h>
 
 void bow_quit(bow_stat const stat) {
@@ -12,6 +13,8 @@ void bow_quit(bow_stat const stat) {
 	glfwTerminate();
 	int sysstat;
 	switch (stat) {
+	default:
+		unreachable();
 	case bow_stat_err:
 		sysstat = EXIT_FAILURE;
 		break;

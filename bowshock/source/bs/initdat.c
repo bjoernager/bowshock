@@ -20,7 +20,7 @@ static char * bow_getsavpth(void) {
 	}
 	else hmdirlen = zap_strlen(hmdir);
 	bow_setstr(filnm,filnmlen,".save.bowshock");
-	zap_sz pthsz = hmdirlen + filnmlen + 0x2u;
+	zap_sz pthsz = hmdirlen+filnmlen+0x2u;
 	char * pth = malloc(pthsz);
 	if (pth == nullptr) {
 		bow_log("unable to allocate memory");

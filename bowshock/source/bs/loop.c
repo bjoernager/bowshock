@@ -19,35 +19,65 @@ bow_stat bow_loop(bow_playdat * playdatptr) {
 	zap_sz const imgsz = 0xFFFu * 0xFFFu * 0x3u;
 	zap_i8 * img = malloc(imgsz);
 	zap_fill(img,0x0u,imgsz);
-	bow_obj star = {
-		.pos  = {
+	bow_objroot sysroot = { // For stellar bodies.
+		.objs = nullptr,
+	};
+	[[maybe_unused]] bow_objroot objroot = { // For miscellaneous objects (canisters, ships...).
+		.objs = nullptr,
+	};
+	bow_obj objtmp = {
+		.typ     = bow_objtyp_star,
+		.pos     = {
 			.x = 0x0p0,
 			.y = 0x0p0,
 			.z = 0x0p0,
 		},
-		.typ  = bow_objtyp_star,
-		.mass = 0x1'0000'0000p0,
-	};
-	bow_obj wrld = {
-		.pos  = {
+		.rot     = {
 			.x = 0x0p0,
-			.y = star.pos.y + 0x1'0000p0,
+			.y = 0x0p0,
 			.z = 0x0p0,
 		},
-		.typ  = bow_objtyp_wrld,
-		.mass = 0x1'0000p0,
-	};
-	bow_obj sat = {
-		.pos  = {
+		.posvel  = {
 			.x = 0x0p0,
-			.y = wrld.pos.y + 0x100u,
+			.y = 0x0p0,
 			.z = 0x0p0,
 		},
-		.typ  = bow_objtyp_sat,
-		.mass = 0x1p0,
+		.rotvel  = {
+			.x = 0x0p0,
+			.y = 0x0p0,
+			.z = 0x3.243F'6A89p0,
+		},
+		.mass    = 0x191930A5E75F0C191814000000p0,
+		.startyp = bow_star_g,
+		// next will be overwritten anyways.
 	};
-	wrld.vel.x = sqrt(bow_gravconst*star.mass/(wrld.pos.y - star.pos.y)); // orbital speed
-	sat.vel.x = wrld.vel.x + sqrt(bow_gravconst*wrld.mass/(sat.pos.y - wrld.pos.y)); // orbital speed
+	bow_obj * const sol = bow_addobj(&sysroot,&objtmp);
+	objtmp = (bow_obj) {
+		.typ     = bow_objtyp_wrld,
+		.pos     = {
+			.x = 0x0p0,
+			.y = 0x22'3F8B'93C0p0,
+			.z = 0x0p0,
+		},
+		.rot     = {
+			.x = 0x0p0,
+			.y = 0x0p0,
+			.z = 0x0p0,
+		},
+		.posvel  = {
+			.x = 0x7652p0,
+			.y = 0x0p0,
+			.z = 0x0p0,
+		},
+		.rotvel  = {
+			.x = 0x0p0,
+			.y = 0x0p0,
+			.z = 0x1.31DB66BBp-15,
+		},
+		.mass    = 0x4'F0A9'9C58'8848'32A0'0000p0,
+		.wrldtyp = bow_wrld_rck,
+	};
+	bow_obj * const ter = bow_addobj(&sysroot,&objtmp);
 	for (zap_i04 i = 0x0u;;) {
 		if (bow_gotintr) {
 			bow_log("got interrupt");
@@ -55,40 +85,30 @@ bow_stat bow_loop(bow_playdat * playdatptr) {
 		}
 		if (glfwWindowShouldClose(bow_gfxdat.win)) break;
 		// Calculate gravitations:
-		bow_grav(&star,&wrld);
-		bow_grav(&star,&sat);
-		bow_grav(&wrld,&star);
-		bow_grav(&wrld,&sat);
-		bow_grav(&sat, &star);
-		bow_grav(&sat, &wrld);
+		bow_gravobjs(&sysroot);
 		// Move objects:
-		bow_mv(&star);
-		bow_mv(&wrld);
-		bow_mv(&sat);
+		bow_mvobjs(sysroot.objs);
 		// Plot objects:
 		{
-			constexpr double frm = 0x4'0000p0;
-			zap_i04 const starposx = (zap_i04)((star.pos.x  + frm / 0x2p0) / frm * 0xFFFp0);
-			zap_i04 const starposy = (zap_i04)((-star.pos.y + frm / 0x2p0) / frm * 0xFFFp0);
-			zap_i04 const wrldposx = (zap_i04)((wrld.pos.x  + frm / 0x2p0) / frm * 0xFFFp0);
-			zap_i04 const wrldposy = (zap_i04)((-wrld.pos.y + frm / 0x2p0) / frm * 0xFFFp0);
-			zap_i04 const satposx  = (zap_i04)((sat.pos.x   + frm / 0x2p0) / frm * 0xFFFp0);
-			zap_i04 const satposy  = (zap_i04)((-sat.pos.y  + frm / 0x2p0) / frm * 0xFFFp0);
-			if ((starposx <= 0xFFFu) && (starposy <= 0xFFFu) && (wrldposx <= 0xFFFu) && (wrldposy <= 0xFFFu) && (satposx <= 0xFFFu) && (satposy <= 0xFFFu)) {
-				zap_sz const starpos = (starposy * 0xFFFu + starposx) * 0x3u;
-				zap_sz const wrldpos = (wrldposy * 0xFFFu + wrldposx) * 0x3u;
-				zap_sz const satpos  = (satposy  * 0xFFFu + satposx)  * 0x3u;
-				if (img[starpos + 0x0u] <= 0xFEu) img[starpos + 0x0u] += 0x1u;
-				if (img[wrldpos + 0x1u] <= 0xFEu) img[wrldpos + 0x1u] += 0x1u;
-				if (img[satpos  + 0x2u] <= 0xFEu) img[satpos  + 0x2u] += 0x1u;
+			constexpr double frm = 0x22'3F8B'93C0p0*0x3p0;
+			zap_i04 const solposx = (zap_i04)(( sol->pos.x+frm/0x2p0)/frm*0xFFFp0);
+			zap_i04 const solposy = (zap_i04)((-sol->pos.y+frm/0x2p0)/frm*0xFFFp0);
+			zap_i04 const terposx = (zap_i04)(( ter->pos.x+frm/0x2p0)/frm*0xFFFp0);
+			zap_i04 const terposy = (zap_i04)((-ter->pos.y+frm/0x2p0)/frm*0xFFFp0);
+			if ((solposx <= 0xFFFu) && (solposy <= 0xFFFu) && (terposx <= 0xFFFu) && (terposy <= 0xFFFu)) {
+				zap_sz const solpos = (solposy*0xFFFu+solposx)*0x3u;
+				zap_sz const terpos = (terposy*0xFFFu+terposx)*0x3u;
+				img[solpos+0x0u] = 0xFFu;
+				img[terpos+0x1u] = 0xFFu;
 			}
 		}
 		// Check tick number:
-		if (i++ == 0xFFFFFu) break;
+		if (i++ == 0x1E18557u * bow_tmmod) break; // One Gregorian year
 	}
+	bow_freeobjs(&sysroot);
 	{
 		zap_i8 * enc;
-		zap_sz const enclen = WebPEncodeLosslessRGB((void *)img,0xFFFu,0xFFFu,0xFFFu * 0x3u,&enc);
+		zap_sz const enclen = WebPEncodeLosslessRGB((void *)img,0xFFFu,0xFFFu,0xFFFu*0x3u,&enc);
 		flux_fil * imgfil;
 		flux_err err = flux_mkfil(&imgfil,"img.webp",0644u);
 		if (err == flux_err_exist) {
