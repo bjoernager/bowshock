@@ -1,3 +1,9 @@
+# 0.8.1
+
+* Update renderer;
+* Add canister to simulation;
+* Update mechanical functions;
+
 # 0.8.0
 
 * Make code more modular;

@@ -20,7 +20,7 @@ bow_stat bow_loop(bow_gfxdat * gfxdatptr,bow_playdat * playdatptr) {
 	bow_objroot sysroot = { // For stellar bodies.
 		.objs = nullptr,
 	};
-	[[maybe_unused]] bow_objroot objroot = { // For miscellaneous objects (canisters, ships...).
+	bow_objroot objroot = { // For miscellaneous objects (canisters, ships...).
 		.objs = nullptr,
 	};
 	bow_obj objtmp = {
@@ -49,7 +49,7 @@ bow_stat bow_loop(bow_gfxdat * gfxdatptr,bow_playdat * playdatptr) {
 		.startyp = bow_star_g,
 		// next will be overwritten anyways.
 	};
-	bow_obj * const sol = bow_addobj(&sysroot,&objtmp);
+	bow_addobj(&sysroot,&objtmp);
 	objtmp = (bow_obj) {
 		.typ     = bow_objtyp_wrld,
 		.pos     = {
@@ -75,7 +75,32 @@ bow_stat bow_loop(bow_gfxdat * gfxdatptr,bow_playdat * playdatptr) {
 		.mass    = 0x4'F0A9'9C58'8848'32A0'0000p0,
 		.wrldtyp = bow_wrld_rck,
 	};
-	bow_obj * const ter = bow_addobj(&sysroot,&objtmp);
+	bow_addobj(&sysroot,&objtmp);
+	objtmp = (bow_obj) {
+		.typ     = bow_objtyp_can,
+		.pos     = {
+			.x = 0x20'0000'0000p0,
+			.y = 0x20'0000'0000p0,
+			.z = 0x0p0,
+		},
+		.rot     = {
+			.x = 0x0p0,
+			.y = 0x0p0,
+			.z = 0x0p0,
+		},
+		.posvel  = {
+			.x = 0x16A.09E667F4p0*0x20p0/bow_tmmod,
+			.y = 0x0p0,
+			.z = 0x0p0,
+		},
+		.rotvel  = {
+			.x = 0x0p0,
+			.y = 0x0p0,
+			.z = 0x0p0,
+		},
+		.mass    = 0x1p0,
+	};
+	bow_addobj(&objroot,&objtmp);
 	for (;;++playdat.tm) {
 		glfwPollEvents();
 		if (bow_gotintr) {
@@ -84,31 +109,13 @@ bow_stat bow_loop(bow_gfxdat * gfxdatptr,bow_playdat * playdatptr) {
 		}
 		if (glfwWindowShouldClose(gfxdat.win)) break;
 		// Calculate gravitations:
-		//bow_gravobjs(&sysroot);
-		bow_grav(ter,sol);
+		bow_gravsys(&sysroot);
+		bow_gravobjs(&sysroot,&objroot);
 		// Move objects:
-		bow_mvobjs(sysroot.objs);
+		bow_mvobjs(&sysroot);
+		bow_mvobjs(&objroot);
 		// Render:
-		int frmbufw;
-		int frmbufh;
-		glfwGetFramebufferSize(gfxdat.win,&frmbufw,&frmbufh);
-		GLdouble const vrat = (GLdouble)frmbufh/(GLdouble)frmbufw;
-		glViewport(0x0,0x0,frmbufw,frmbufh);
-		glOrtho(-0x1p0,0x1p0,-0x1p0,0x1p0,0x0p0,0x0p0);
-		double const frm = 0x22'3F8B'93C0p0*0x3p0/0x2p0;
-		GLfloat const solposx = (GLfloat)(sol->pos.x/frm);
-		GLfloat const solposy = (GLfloat)(sol->pos.y/frm/vrat);
-		GLfloat const terposx = (GLfloat)(ter->pos.x/frm);
-		GLfloat const terposy = (GLfloat)(ter->pos.y/frm/vrat);
-		glClear(GL_COLOR_BUFFER_BIT);
-		glPointSize(0x4p0);
-		glBegin(GL_POINTS);
-		glColor3f(0x1p0,0x0p0,0x0p0);
-		glVertex2f(solposx,solposy);
-		glColor3f(0x0p0,0x1p0,0x0p0);
-		glVertex2f(terposx,terposy);
-		glEnd();
-		glfwSwapBuffers(gfxdat.win);
+		bow_drw(&gfxdat,&sysroot,&objroot);
 	}
 	bow_freeobjs(&sysroot);
 	zap_cp(gfxdatptr, &gfxdat, sizeof (gfxdat));

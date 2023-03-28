@@ -44,7 +44,7 @@ static_assert(sizeof (double) == 0x8u);
 
 constexpr zap_i04 bow_vermaj = 0x0u;
 constexpr zap_i04 bow_vermin = 0x8u;
-constexpr zap_i04 bow_verpat = 0x0u;
+constexpr zap_i04 bow_verpat = 0x1u;
 
 #define bow_cmdrnmlen ((zap_sz)0xEu)
 

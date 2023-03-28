@@ -17,7 +17,7 @@ void bow_mv(bow_obj * objptr) {
 	zap_cp(objptr,&obj,sizeof (obj));
 }
 
-void bow_mvobjs(bow_obj * obj) {
-	for (;obj != nullptr;obj = obj->next)
+void bow_mvobjs(bow_objroot const * root) {
+	for (bow_obj * obj = root->objs;obj != nullptr;obj = obj->next)
 		bow_mv(obj);
 }

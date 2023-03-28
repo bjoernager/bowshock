@@ -92,7 +92,8 @@ constexpr double bow_gravconst = 0x1.2589EFFFp-34/(bow_tmmod*bow_tmmod); // grav
 bow_obj * bow_addobj(  bow_objroot *       root,bow_obj const * obj);
 void      bow_freeobjs(bow_objroot const * root);
 
-void bow_grav(    bow_obj *           obj, bow_obj * par);
-void bow_gravobjs(bow_objroot const * root);
+void bow_grav(    bow_obj *           obj, bow_obj *          par);
+void bow_gravsys( bow_objroot const * sys);
+void bow_gravobjs(bow_objroot const * sys,bow_objroot const * objs);
 void bow_mv(      bow_obj *           obj);
-void bow_mvobjs(  bow_obj *           objs);
+void bow_mvobjs(  bow_objroot const * root);
