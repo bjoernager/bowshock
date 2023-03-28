@@ -1,30 +1,30 @@
-#define bow_sym "initdat"
+// Copyright 2022-2023 Gabriel Jensen.
 
-#include <bow/sav.h>
+#include <bow/bs.h>
 
 #include <flux/stats.h>
 #include <stdlib.h>
 #include <zap/mem.h>
 #include <zap/str.h>
 
-#define bow_setstr(ptr,len,str) ((void)(ptr = str,len = sizeof (str)))
+#define bow_setstrlen(ptr,len,str) ((void)(ptr = str,len = sizeof (str)))
 
-static char * bow_getsavpth(void) {
+char const * bow_getsavpth(void) {
 	char const * hmdir    = flux_hmdir();
 	zap_sz       hmdirlen;
 	char const * filnm;
 	zap_sz       filnmlen;
 	if (hmdir == nullptr) {
 		bow_log("unable to get home directory");
-		bow_setstr(hmdir,hmdirlen,"./");
+		bow_setstrlen(hmdir,hmdirlen,"./");
 	}
 	else hmdirlen = zap_strlen(hmdir);
-	bow_setstr(filnm,filnmlen,".save.bowshock");
+	bow_setstrlen(filnm,filnmlen,".save.bowshock");
 	zap_sz pthsz = hmdirlen+filnmlen+0x2u;
 	char * pth = malloc(pthsz);
 	if (pth == nullptr) {
 		bow_log("unable to allocate memory");
-		bow_quit(bow_stat_err);
+		bow_abrt();
 	}
 	zap_cp(pth,hmdir,hmdirlen);
 	pth += hmdirlen;
@@ -34,14 +34,4 @@ static char * bow_getsavpth(void) {
 	*pth++ = '\x0';
 	pth -= pthsz;
 	return pth;
-}
-
-void bow_initdat(bow_playdat * const playdatptr,char const * * const savpthptr) {
-	bow_log("initialising data");
-	char const * savpth = bow_getsavpth();
-	bow_playdat playdat;
-	bow_cont(savpth,&playdat);
-	bow_gendat(&playdat);
-	*savpthptr = savpth;
-	zap_cp(playdatptr,&playdat,sizeof (playdat));
 }

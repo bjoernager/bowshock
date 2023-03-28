@@ -1,6 +1,8 @@
+// Copyright 2022-2023 Gabriel Jensen.
+
 #pragma once
 
-#include <bow/bs.h>
+#include <bow/lgc.h>
 
 char const * bow_objtypstr(bow_objtyp typ);
 

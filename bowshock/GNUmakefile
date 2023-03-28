@@ -1,17 +1,25 @@
+# Copyright 2022-2023 Gabriel Jensen.
+
 LD = $(CC)
 
 CFLAGS := \
-	-Iinclude  \
-	-Wall      \
-	-Wextra    \
-	-Wpedantic \
-	-Wno-attributes \
-	-Wno-gnu-folding-constant \
-	-Wno-gnu-empty-initializer \
-	-Wno-gnu-zero-variadic-macro-arguments \
-	-g         \
-	-pipe      \
+	-Iinclude            \
+	-Wall                \
+	-Wextra              \
+	-Wmissing-prototypes \
+	-Wpedantic           \
+	-Wno-attributes      \
+	-g                   \
+	-pipe                \
 	-std=gnu2x
+
+ifeq "$(CC)" "clang"
+CFLAGS := \
+	$(CFLAGS)                              \
+	-Wno-gnu-folding-constant              \
+	-Wno-gnu-empty-initializer             \
+	-Wno-gnu-zero-variadic-macro-arguments 
+endif
 
 ifeq "$(c2xcompat)" "true"
 CFLAGS := \
@@ -39,20 +47,16 @@ CFLAGS := \
 	-Ofast
 endif
 
-LDLIBS := \
-	-lGL   \
-	-lflux \
-	-lglfw \
-	-lm    \
-	-lwebp \
-	-lzap
-
 OBJS := \
+	source/bs/abrt.o        \
 	source/bs/gendat.o      \
+	source/bs/getquot.o     \
+	source/bs/getsavpth.o   \
+	source/bs/help.o        \
 	source/bs/init.o        \
-	source/bs/initdat.o     \
 	source/bs/loop.o        \
 	source/bs/quit.o        \
+	source/gfx/drw.o        \
 	source/gfx/initgfx.o    \
 	source/info/objtypstr.o \
 	source/info/shipmass.o  \
@@ -62,6 +66,13 @@ OBJS := \
 	source/lgc/mv.o         \
 	source/sav/cont.o       \
 	source/sav/sav.o
+
+LDLIBS := \
+	-lGL   \
+	-lflux \
+	-lglfw \
+	-lm    \
+	-lzap
 
 BIN := bowshock.elf
 

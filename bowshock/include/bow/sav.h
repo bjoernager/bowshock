@@ -1,3 +1,5 @@
+// Copyright 2022-2023 Gabriel Jensen.
+
 #pragma once
 
 #include <bow/bs.h>
@@ -51,5 +53,7 @@ typedef struct {
 	double   shiprotvelz;
 } bow_savdat;
 
-void bow_cont(char const * fil,bow_playdat *       dat);
-void bow_sav( char const * fil,bow_playdat const * dat);
+void bow_cont(  char const *  fil,    bow_playdat * dat,bool skipld);
+void bow_gendat(bow_playdat * playdat);
+
+void bow_sav(char const * fil,bow_playdat const * dat);

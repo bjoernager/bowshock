@@ -1,4 +1,4 @@
-#define bow_sym "objtypstr"
+// Copyright 2022-2023 Gabriel Jensen.
 
 #include <bow/info.h>
 
@@ -7,8 +7,6 @@
 char const * bow_objtypstr(bow_objtyp const typ) {
 	char const * str;
 	switch (typ) {
-	default:
-		unreachable();
 	case bow_objtyp_can:
 		str = "canister";
 		break;

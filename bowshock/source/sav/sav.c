@@ -1,5 +1,6 @@
-#define bow_sym "sav"
+// Copyright 2022-2023 Gabriel Jensen.
 
+#include <bow/lgc.h>
 #include <bow/sav.h>
 
 #include <flux/io.h>
@@ -32,12 +33,12 @@ void bow_sav(char const * const pth,bow_playdat const * const playdat) {
 	if (err) {
 		if (err != flux_err_exist) {
 			bow_logerr("unable to open save file \"%s\"",pth);
-			bow_quit(bow_stat_err);
+			bow_abrt();
 		}
 		err = flux_op(&fil,pth,flux_md_wr,flux_disc);
 		if (err) {
 			bow_logerr("unable to create save file \"%s\"",pth);
-			bow_quit(bow_stat_err);
+			bow_abrt();
 		}
 	}
 	zap_i8 dat[bow_savlen];

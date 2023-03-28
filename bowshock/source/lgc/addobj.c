@@ -1,4 +1,4 @@
-#define bow_sym "addobj"
+// Copyright 2022-2023 Gabriel Jensen.
 
 #include <bow/info.h>
 #include <bow/lgc.h>
@@ -11,7 +11,7 @@ bow_obj * bow_addobj(bow_objroot * const root,bow_obj const * const objval) {
 	bow_obj * const obj = malloc(sizeof (bow_obj));
 	if (obj == nullptr) {
 		bow_dbglog("unable to allocate memory for object");
-		bow_quit(bow_stat_err);
+		bow_abrt();
 	}
 	zap_cp(obj,objval,sizeof (bow_obj));
 	obj->next  = root->objs;

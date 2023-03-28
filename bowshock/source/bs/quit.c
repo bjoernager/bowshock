@@ -1,4 +1,4 @@
-#define bow_sym "quit"
+// Copyright 2022-2023 Gabriel Jensen.
 
 #include <bow/gfx.h>
 #include <bow/info.h>
@@ -6,15 +6,16 @@
 #include <GLFW/glfw3.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <zap/mem.h>
 
-void bow_quit(bow_stat const stat) {
+void bow_quit(bow_gfxdat * gfxdatptr,bow_stat const stat) {
 	bow_log("quitting");
-	glfwDestroyWindow(bow_gfxdat.win);
+	bow_gfxdat gfxdat;
+	zap_cp(&gfxdat,gfxdatptr,sizeof (gfxdat));
+	glfwDestroyWindow(gfxdat.win);
 	glfwTerminate();
 	int sysstat;
 	switch (stat) {
-	default:
-		unreachable();
 	case bow_stat_err:
 		sysstat = EXIT_FAILURE;
 		break;

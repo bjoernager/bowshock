@@ -1,4 +1,4 @@
-#define bow_sym "mv"
+// Copyright 2022-2023 Gabriel Jensen.
 
 #include <bow/lgc.h>
 

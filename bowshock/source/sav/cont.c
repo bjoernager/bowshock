@@ -1,5 +1,6 @@
-#define bow_sym "cont"
+// Copyright 2022-2023 Gabriel Jensen.
 
+#include <bow/lgc.h>
 #include <bow/sav.h>
 
 #include <flux/io.h>
@@ -26,7 +27,11 @@ static void bow_decsav(bow_savdat * buf,zap_i8 * dat) {
 	dat = zap_cp(&buf->shiprotvelz,dat,0x8u).src;
 }
 
-void bow_cont(char const * const pth,bow_playdat * const playdatptr) {
+void bow_cont(char const * const pth,bow_playdat * const playdatptr,bool const skipld) {
+	if (skipld) {
+		bow_log("skipping save load");
+		goto new;
+	}
 	bow_log("loading save file at \"%s\"",pth);
 	flux_fil * fil;
 	flux_err err = flux_op(&fil,pth,flux_md_rd,flux_keep);
@@ -38,9 +43,7 @@ void bow_cont(char const * const pth,bow_playdat * const playdatptr) {
 	err = flux_rd(rawdat,fil,bow_savlen,nullptr);
 	if (err) {
 		flux_cl(fil);
-		if (err == flux_err_eof) {
-			bow_logerr("corrupt save file at \"%s\"",pth);
-		}
+		if (err == flux_err_eof) bow_logerr("corrupt save file at \"%s\"",pth);
 		else bow_logerr("unable to read file at \"%s\"",pth);
 		goto new;
 	}
@@ -107,5 +110,6 @@ new:
 	};
 	bow_log("generated commander %s",playdat.nm);
 ret:
+	bow_gendat(&playdat);
 	zap_cp(playdatptr,&playdat,sizeof (playdat));
 }

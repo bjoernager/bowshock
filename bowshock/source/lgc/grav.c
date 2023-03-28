@@ -1,4 +1,4 @@
-#define bow_sym "grav"
+// Copyright 2022-2023 Gabriel Jensen.
 
 #include <bow/lgc.h>
 
@@ -13,7 +13,7 @@ void bow_grav(bow_obj * obj0ptr,bow_obj * obj1ptr) {
 	double const distx  = obj1.pos.x-obj0.pos.x;
 	double const disty  = obj1.pos.y-obj0.pos.y;
 	double const distz  = obj1.pos.z-obj0.pos.z;
-	double const dist   = sqrt(distx *distx+disty*disty+distz*distz);
+	double const dist   = sqrt(distx*distx+disty*disty+distz*distz);
 	double const angy   = atan2(disty,distx);
 	double const angz   = atan2(distz,distx);
 	double       acc0   = bow_gravconst/pow(dist,2.0);
@@ -40,7 +40,6 @@ void bow_grav(bow_obj * obj0ptr,bow_obj * obj1ptr) {
 
 void bow_gravobjs(bow_objroot const * const root) {
 	for (bow_obj * obj0 = root->objs;obj0 != nullptr;obj0 = obj0->next) 
-		for (bow_obj * obj1 = obj0->next;obj1 != nullptr;obj1 = obj1->next) {
+		for (bow_obj * obj1 = obj0->next;obj1 != nullptr;obj1 = obj1->next)
 			bow_grav(obj0,obj1);
-		}
 }

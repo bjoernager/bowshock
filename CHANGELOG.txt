@@ -1,3 +1,15 @@
+# 0.8.0
+
+* Make code more modular;
+* Don't use global variables;
+* Add more launch options;
+* Fix memory leak;
+* Add abort routine;
+* Add copyright notices to source files;
+* Add patch version to version number;
+* Enable more warnings;
+* Draw simulation in window;
+
 # 0.7
 
 * Make window fullscreen;
