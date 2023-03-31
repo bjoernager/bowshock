@@ -1,7 +1,7 @@
 // Copyright 2022-2023 Gabriel Jensen.
 
 #include <bow/gfx.h>
-#include <bow/info.h>
+#include <bow/lgc.h>
 
 #include <GLFW/glfw3.h>
 #include <stddef.h>

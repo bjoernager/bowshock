@@ -60,11 +60,11 @@ typedef enum {
 
 struct bow_impl_obj {
 	bow_objtyp typ;
-	bow_xyz    pos;
-	bow_xyz    rot; // radians
-	bow_xyz    posvel;
-	bow_xyz    rotvel;
-	double     mass;
+	bow_xyz    pos;    // astronomical units
+	bow_xyz    rot;    // radians
+	bow_xyz    posvel; // astronomical units per second
+	bow_xyz    rotvel; // radians per second
+	double     mass;   // kilograms
 	union {
 		bow_wrld    wrldtyp;
 		bow_ship    shiptyp;
@@ -85,15 +85,26 @@ struct bow_impl_playdat {
 	bow_obj ship;
 };
 
-constexpr double bow_tmmod = 0x1p-14; // time modifier
+constexpr double bow_distmod = 0x1.16A5D2D3p37; // distance modifier (1 au)
+constexpr double bow_massmod = 0x1p0;           // mass modifier
+constexpr double bow_tmmod   = 0x1p12;          // time modifier
 
-constexpr double bow_gravconst = 0x1.2589EFFFp-34/(bow_tmmod*bow_tmmod); // gravitational constant (s^2*m*t^2)
+constexpr double bow_gravconstfac = (bow_massmod*(bow_tmmod*bow_tmmod))/((bow_distmod*bow_distmod*bow_distmod)); // inverse
+
+constexpr double bow_gravconst = 0x1.2589EFFFp-34*bow_gravconstfac; // gravitational constant (s^2*m*t^2)
+
+char const * bow_objtypstr(bow_objtyp typ);
+
+[[unsequenced]] double bow_shipmass(bow_ship id);
+
+void bow_gravsys( bow_objroot * sys);
+void bow_gravobjs(bow_objroot * sys,bow_objroot * objs);
+void bow_mv(      bow_obj *     obj);
+void bow_mvobjs(  bow_objroot * root);
+
+void bow_sim(bow_objroot * sys,zap_i04 dur);
 
 bow_obj * bow_addobj(  bow_objroot *       root,bow_obj const * obj);
-void      bow_freeobjs(bow_objroot const * root);
+void      bow_freeobjs(bow_objroot * root);
 
-void bow_grav(    bow_obj *           obj, bow_obj *          par);
-void bow_gravsys( bow_objroot const * sys);
-void bow_gravobjs(bow_objroot const * sys,bow_objroot const * objs);
-void bow_mv(      bow_obj *           obj);
-void bow_mvobjs(  bow_objroot const * root);
+void bow_gensys(bow_objroot * sys,zap_i04 id,zap_i04 tm);

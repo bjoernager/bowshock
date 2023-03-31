@@ -1,7 +1,6 @@
-/procyon
+/assets
 *.elf
 *.exe
 *.o
-*.webp
-log.*
+*.zst
 vgcore.*

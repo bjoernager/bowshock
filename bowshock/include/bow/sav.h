@@ -53,7 +53,9 @@ typedef struct {
 	double   shiprotvelz;
 } bow_savdat;
 
-void bow_cont(  char const *  fil,    bow_playdat * dat,bool skipld);
-void bow_gendat(bow_playdat * playdat);
+void bow_rstart(bow_playdat * dat);
+
+void bow_cont(  bow_playdat * dat,char const *  fil);
+void bow_gendat(bow_playdat * dat);
 
 void bow_sav(char const * fil,bow_playdat const * dat);

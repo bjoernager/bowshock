@@ -14,8 +14,8 @@ void bow_help(char const * const prognm) {
 		"Usage: %s <options> [savefile]\n"
 		"\n"
 		"Options:\n"
-		"    --help     Print help screen.\n"
-		"    --reset    Don't load save file.\n"
+		"    --help       Print help screen\n"
+		"    --restart    Generate default commander\n"
 		"\n",
 		bow_vermaj,bow_vermin,bow_verpat,prognm);
 	exit(EXIT_SUCCESS);

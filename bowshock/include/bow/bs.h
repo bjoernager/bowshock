@@ -43,8 +43,8 @@ static_assert(sizeof (double) == 0x8u);
 #define bow_logxyz(xyz) bow_dbglog("%.03f    %.03f    %.03f",(xyz).x,(xyz).y,(xyz).z)
 
 constexpr zap_i04 bow_vermaj = 0x0u;
-constexpr zap_i04 bow_vermin = 0x8u;
-constexpr zap_i04 bow_verpat = 0x1u;
+constexpr zap_i04 bow_vermin = 0x9u;
+constexpr zap_i04 bow_verpat = 0x0u;
 
 #define bow_cmdrnmlen ((zap_sz)0xEu)
 
@@ -67,14 +67,32 @@ typedef struct bow_impl_playdat bow_playdat;
 
 typedef struct bow_impl_gfxdat bow_gfxdat;
 
+typedef struct {
+	char const * savpth;
+	bool         hassavpth:0x1u;
+	bool         rstart:0x1u;
+	bool         skip:0x1u;
+} bow_termopts;
+
 extern sig_atomic_t volatile bow_gotintr;
+
+zap_i04 bow_rnd(void);
 
 char const * bow_getsavpth(void);
 bool         bow_getquot(  char const * * quot,char const * * src,zap_i8 id);
 
-bow_stat bow_loop(bow_gfxdat * gfxdat,bow_playdat * playdat);
+void bow_loop(bow_gfxdat * gfxdat,bow_playdat * playdat);
 
 [[noreturn]] void bow_help(char const * prognm);
+
+void bow_chkparams(bow_termopts * opts,int argc,char const * const * argv);
+
+void bow_initrnd(void);
+void bow_initsig(void);
+
+bool bow_intro(bow_gfxdat * gfxdat);
+
+[[noreturn]] void bow_init(int argc,char const * const * argv);
 
 [[noreturn]] void bow_abrt(void);
 [[noreturn]] void bow_quit(bow_gfxdat * gfxdat,bow_stat stat);

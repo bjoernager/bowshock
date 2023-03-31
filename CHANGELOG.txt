@@ -1,3 +1,17 @@
+# 0.9.0
+
+* Fix compilation warning;
+* Optimise mechanical functions;
+* Add system generation routine;
+* Remove 'info' module;
+* Add intro;
+* Add terminal parameters;
+* Update units;
+* Make window fullscreen;
+* Resume time;
+* Update gitignore;
+* Make code more modular;
+
 # 0.8.1
 
 * Update renderer;

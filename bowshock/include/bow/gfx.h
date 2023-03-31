@@ -8,9 +8,11 @@
 
 struct bow_impl_gfxdat {
 	GLFWwindow * win;
-	int          frmbufw;
-	int          frmbufh;
+	int          frmw;
+	int          frmh;
+	float        zoom;
 };
 
-void bow_drw(    bow_gfxdat * gfxdat,bow_objroot * sys,bow_objroot * objs);
 void bow_initgfx(bow_gfxdat * dat);
+
+void bow_drw(bow_gfxdat * gfxdat,bow_objroot * sys,bow_objroot * objs,float zoom);

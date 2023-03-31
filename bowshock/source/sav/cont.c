@@ -27,11 +27,7 @@ static void bow_decsav(bow_savdat * buf,zap_i8 * dat) {
 	dat = zap_cp(&buf->shiprotvelz,dat,0x8u).src;
 }
 
-void bow_cont(char const * const pth,bow_playdat * const playdatptr,bool const skipld) {
-	if (skipld) {
-		bow_log("skipping save load");
-		goto new;
-	}
+void bow_cont(bow_playdat * const playdatptr,char const * const pth) {
 	bow_log("loading save file at \"%s\"",pth);
 	flux_fil * fil;
 	flux_err err = flux_op(&fil,pth,flux_md_rd,flux_keep);
@@ -77,39 +73,10 @@ void bow_cont(char const * const pth,bow_playdat * const playdatptr,bool const s
 	};
 	zap_cp(playdat.nm,dat.cmdrnm,bow_cmdrnmlen);
 	playdat.nm[bow_cmdrnmlen] = '\x0';
-	bow_log("welcome back commander %s",playdat.nm);
-	goto ret;
-new:
-	playdat = (bow_playdat) {
-		.nm    = "Caelum\x0\x0\x0\x0\x0\x0\x0\x0\x0",
-		.sysid = 0x0u,
-		.tm    = 0x1E187E00000u, // 256 julian years after the Unix Epoch.
-		.ship  = {
-			.pos     = {
-				.x = 0x0p0,
-				.y = 0x0p0,
-				.z = 0x0p0,
-			},
-			.rot     = {
-				.x = 0x0p0,
-				.y = 0x0p0,
-				.z = 0x0p0,
-			},
-			.posvel  = {
-				.x = 0x0p0,
-				.y = 0x0p0,
-				.z = 0x0p0,
-			},
-			.rotvel  = {
-				.x = 0x0p0,
-				.y = 0x0p0,
-				.z = 0x0p0,
-			},
-			.shiptyp = bow_ship_aq,
-		},
-	};
-	bow_log("generated commander %s",playdat.nm);
-ret:
+	bow_log("welcome back, commander %s",playdat.nm);
 	bow_gendat(&playdat);
 	zap_cp(playdatptr,&playdat,sizeof (playdat));
+	return;
+new:
+	bow_rstart(playdatptr);
 }

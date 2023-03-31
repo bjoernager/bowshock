@@ -48,23 +48,31 @@ CFLAGS := \
 endif
 
 OBJS := \
-	source/bs/abrt.o        \
-	source/bs/gendat.o      \
-	source/bs/getquot.o     \
-	source/bs/getsavpth.o   \
-	source/bs/help.o        \
-	source/bs/init.o        \
-	source/bs/loop.o        \
-	source/bs/quit.o        \
-	source/gfx/drw.o        \
-	source/gfx/initgfx.o    \
-	source/info/objtypstr.o \
-	source/info/shipmass.o  \
-	source/lgc/addobj.o     \
-	source/lgc/freeobjs.o   \
-	source/lgc/grav.o       \
-	source/lgc/mv.o         \
-	source/sav/cont.o       \
+	source/bs/abrt.o       \
+	source/bs/chkparams.o  \
+	source/bs/getquot.o    \
+	source/bs/getsavpth.o  \
+	source/bs/help.o       \
+	source/bs/init.o       \
+	source/bs/initrnd.o    \
+	source/bs/initsig.o    \
+	source/bs/intro.o      \
+	source/bs/loop.o       \
+	source/bs/quit.o       \
+	source/bs/rnd.o        \
+	source/gfx/drw.o       \
+	source/gfx/initgfx.o   \
+	source/lgc/addobj.o    \
+	source/lgc/freeobjs.o  \
+	source/lgc/gensys.o    \
+	source/lgc/grav.o      \
+	source/lgc/mv.o        \
+	source/lgc/objtypstr.o \
+	source/lgc/shipmass.o  \
+	source/lgc/sim.o       \
+	source/sav/gendat.o    \
+	source/sav/cont.o      \
+	source/sav/rstart.o    \
 	source/sav/sav.o
 
 LDLIBS := \
@@ -77,9 +85,9 @@ LDLIBS := \
 BIN := bowshock.elf
 
 HDRS := \
-	include/bow/bs.h   \
-	include/bow/info.h \
-	include/bow/lgc.h  \
+	include/bow/bs.h  \
+	include/bow/gfx.h \
+	include/bow/lgc.h \
 	include/bow/sav.h
 
 .PHONY: clean purge

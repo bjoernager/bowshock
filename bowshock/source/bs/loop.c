@@ -11,76 +11,28 @@
 #include <stdlib.h>
 #include <zap/mem.h>
 
-bow_stat bow_loop(bow_gfxdat * gfxdatptr,bow_playdat * playdatptr) {
+static void bow_scrllhandl(GLFWwindow * win,[[maybe_unused]] double const xoff,double const yoff) {
+	bow_gfxdat * dat = glfwGetWindowUserPointer(win);
+	dat->zoom *= powf(0x1.1p0f,0x0p0f-(float)yoff);
+}
+
+void bow_loop(bow_gfxdat * gfxdatptr,bow_playdat * playdatptr) {
 	bow_log("entering main loop");
 	bow_gfxdat  gfxdat;
 	bow_playdat playdat;
 	zap_cp(&gfxdat, gfxdatptr, sizeof (gfxdat));
 	zap_cp(&playdat,playdatptr,sizeof (playdat));
-	bow_objroot sysroot = { // For stellar bodies.
-		.objs = nullptr,
-	};
+	glfwSetWindowUserPointer(gfxdat.win,&gfxdat);
+	bow_objroot sysroot; // For stellar bodies.
 	bow_objroot objroot = { // For miscellaneous objects (canisters, ships...).
 		.objs = nullptr,
 	};
+	bow_gensys(&sysroot,playdat.sysid,playdat.tm);
 	bow_obj objtmp = {
-		.typ     = bow_objtyp_star,
-		.pos     = {
-			.x = 0x0p0,
-			.y = 0x0p0,
-			.z = 0x0p0,
-		},
-		.rot     = {
-			.x = 0x0p0,
-			.y = 0x0p0,
-			.z = 0x0p0,
-		},
-		.posvel  = {
-			.x = 0x0p0,
-			.y = 0x0p0,
-			.z = 0x0p0,
-		},
-		.rotvel  = {
-			.x = 0x0p0,
-			.y = 0x0p0,
-			.z = 0x0p0,
-		},
-		.mass    = 0x191930A5E75F0C191814000000p0,
-		.startyp = bow_star_g,
-		// next will be overwritten anyways.
-	};
-	bow_addobj(&sysroot,&objtmp);
-	objtmp = (bow_obj) {
-		.typ     = bow_objtyp_wrld,
-		.pos     = {
-			.x = 0x0p0,
-			.y = 0x22'3F8B'93C0p0,
-			.z = 0x0p0,
-		},
-		.rot     = {
-			.x = 0x0p0,
-			.y = 0x0p0,
-			.z = 0x0p0,
-		},
-		.posvel  = {
-			.x = 0x7652p0/bow_tmmod,
-			.y = 0x0p0,
-			.z = 0x0p0,
-		},
-		.rotvel  = {
-			.x = 0x0p0,
-			.y = 0x0p0,
-			.z = 0x1.31DB66BBp-15,
-		},
-		.mass    = 0x4'F0A9'9C58'8848'32A0'0000p0,
-		.wrldtyp = bow_wrld_rck,
-	};
-	bow_addobj(&sysroot,&objtmp);
-	objtmp = (bow_obj) {
 		.typ     = bow_objtyp_can,
 		.pos     = {
-			.x = 0x20'0000'0000p0,
-			.y = 0x20'0000'0000p0,
+			.x = 0x0p0,
+			.y = -0x2p0,
 			.z = 0x0p0,
 		},
 		.rot     = {
@@ -89,7 +41,7 @@ bow_stat bow_loop(bow_gfxdat * gfxdatptr,bow_playdat * playdatptr) {
 			.z = 0x0p0,
 		},
 		.posvel  = {
-			.x = 0x16A.09E667F4p0*0x20p0/bow_tmmod,
+			.x = -0x1p-12,
 			.y = 0x0p0,
 			.z = 0x0p0,
 		},
@@ -101,6 +53,7 @@ bow_stat bow_loop(bow_gfxdat * gfxdatptr,bow_playdat * playdatptr) {
 		.mass    = 0x1p0,
 	};
 	bow_addobj(&objroot,&objtmp);
+	glfwSetScrollCallback(gfxdat.win,bow_scrllhandl);
 	for (;;++playdat.tm) {
 		glfwPollEvents();
 		if (bow_gotintr) {
@@ -115,10 +68,10 @@ bow_stat bow_loop(bow_gfxdat * gfxdatptr,bow_playdat * playdatptr) {
 		bow_mvobjs(&sysroot);
 		bow_mvobjs(&objroot);
 		// Render:
-		bow_drw(&gfxdat,&sysroot,&objroot);
+		bow_drw(&gfxdat,&sysroot,&objroot,gfxdat.zoom);
 	}
+	glfwSetScrollCallback(gfxdat.win,nullptr);
 	bow_freeobjs(&sysroot);
 	zap_cp(gfxdatptr, &gfxdat, sizeof (gfxdat));
 	zap_cp(playdatptr,&playdat,sizeof (playdat));
-	return bow_stat_ok;
 }
