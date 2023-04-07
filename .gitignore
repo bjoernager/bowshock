@@ -1,6 +1,9 @@
 /assets
-*.elf
-*.exe
-*.o
+/bindir
+/build
+/datdir
+/glad
+*.tar
+*.zip
 *.zst
 vgcore.*

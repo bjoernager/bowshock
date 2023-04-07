@@ -1,3 +1,34 @@
+# 0.A.0
+
+* Remove satellite object type;
+* Fix viewport size being too small on some devices;
+* Update mass unit;
+* Add macros for branch prediction;
+* Add new modules 'init' and 'run';
+* Remove module 'gfx';
+* Add more ship types;
+* Use OpenGL 4.0;
+* Use GLAD;
+* Specify OpenGL profile;
+* Update code style;
+* Update gitignore;
+* Update naming convention;
+* Add more station types;
+* Create script for validating shaders;
+* Add install script;
+* Add script for extracting glad;
+* Add launch option 'credits';
+* Make code more modular;
+* Add readme;
+* Update credits;
+* Switch back to CMake;
+* Add minimal MSVC support;
+* Specify underlying type for enumerations;
+* Add more quotes;
+* Rename launch option 'restart' to 'new';
+* Add assumption macro;
+* Improve precision of gravitational constant;
+
 # 0.9.0
 
 * Fix compilation warning;

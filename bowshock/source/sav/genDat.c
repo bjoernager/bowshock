@@ -7,11 +7,15 @@
 
 #include <string.h>
 
-void bow_gendat(bow_playdat * const datptr) {
+void bow_genDat(bow_plDat * const datptr) {
 	bow_log("generating player data");
-	bow_playdat dat;
+
+	bow_plDat dat;
 	zap_cp(&dat,datptr,sizeof (dat));
-	dat.ship.typ  = bow_objtyp_ship;
-	dat.ship.mass = bow_shipmass(dat.ship.shiptyp);
+	
+	dat.ship.typ  = bow_objTyp_ship;
+	dat.ship.mass = bow_shipMass(dat.ship.shipTyp);
+	dat.zoom      = 0x4p0;
+	
 	zap_cp(datptr,&dat,sizeof (dat));
 }

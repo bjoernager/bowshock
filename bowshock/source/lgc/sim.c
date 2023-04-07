@@ -4,10 +4,11 @@
 
 #include <inttypes.h>
 
-void bow_sim(bow_objroot * const sys,zap_i04 const dur) {
+void bow_sim(bow_objRoot * const sys,zap_i04 const dur) {
 	bow_log("simulating for (%" PRIXLEAST64 ") time units",dur);
+	
 	for (zap_i04 i = 0x0u;i <= dur;++i) {
-		bow_gravsys(sys);
-		bow_mvobjs(sys);
+		bow_gravSys(sys);
+		bow_mvObjs(sys);
 	}
 }

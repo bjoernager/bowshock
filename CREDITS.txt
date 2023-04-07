@@ -1,10 +1,13 @@
 BOWSHOCK             
 
-COPYRIGHT
+COPYRIGHT:
 2022-2023 Gabriel Jensen
 
-LEAD DESIGN
-- Gabriel Jensen
+DESIGN
+    Gabriel Jensen
 
 ARTWORK
-- Gabriel Jensen
+    Gabriel Jensen
+
+SOFTWARE DEVELOPMENT
+    Gabriel Jensen

@@ -2,30 +2,25 @@
 
 #include <bow/lgc.h>
 
-#include <stddef.h>
-
-char const * bow_objtypstr(bow_objtyp const typ) {
+char const * bow_objTypStr(bow_objTyp const typ) {
 	char const * str;
 	switch (typ) {
-	case bow_objtyp_can:
+	case bow_objTyp_can:
 		str = "canister";
 		break;
-	case bow_objtyp_play:
+	case bow_objTyp_pl:
 		str = "player";
 		break;
-	case bow_objtyp_sat:
-		str = "satellite";
-		break;
-	case bow_objtyp_ship:
+	case bow_objTyp_ship:
 		str = "ship";
 		break;
-	case bow_objtyp_star:
+	case bow_objTyp_star:
 		str = "star";
 		break;
-	case bow_objtyp_station:
+	case bow_objTyp_station:
 		str = "station";
 		break;
-	case bow_objtyp_wrld:
+	case bow_objTyp_wrld:
 		str = "world";
 		break;
 	}

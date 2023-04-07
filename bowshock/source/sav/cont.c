@@ -1,82 +1,79 @@
 // Copyright 2022-2023 Gabriel Jensen.
 
-#include <bow/lgc.h>
 #include <bow/sav.h>
 
 #include <flux/io.h>
 #include <inttypes.h>
 #include <zap/mem.h>
 
-static void bow_decsav(bow_savdat * buf,zap_i8 * dat) {
-	dat = zap_cp(&buf->fmtver,     dat,0x8u).src;
-	dat = zap_cp(&buf->cmdrnm,     dat,bow_cmdrnmlen).src;
-	dat = zap_cp(&buf->tm,         dat,0x8u).src;
-	dat = zap_cp(&buf->sysid,      dat,0x8u).src;
-	dat = zap_cp(&buf->shiptyp,    dat,0x1u).src;
-	dat = zap_cp(&buf->shipposx,   dat,0x8u).src;
-	dat = zap_cp(&buf->shipposy,   dat,0x8u).src;
-	dat = zap_cp(&buf->shipposz,   dat,0x8u).src;
-	dat = zap_cp(&buf->shiprotx,   dat,0x8u).src;
-	dat = zap_cp(&buf->shiproty,   dat,0x8u).src;
-	dat = zap_cp(&buf->shiprotz,   dat,0x8u).src;
-	dat = zap_cp(&buf->shipposvelx,dat,0x8u).src;
-	dat = zap_cp(&buf->shipposvely,dat,0x8u).src;
-	dat = zap_cp(&buf->shipposvelz,dat,0x8u).src;
-	dat = zap_cp(&buf->shiprotvelx,dat,0x8u).src;
-	dat = zap_cp(&buf->shiprotvely,dat,0x8u).src;
-	dat = zap_cp(&buf->shiprotvelz,dat,0x8u).src;
-}
-
-void bow_cont(bow_playdat * const playdatptr,char const * const pth) {
+void bow_cont(bow_plDat * const pldatptr,char const * const pth) {
 	bow_log("loading save file at \"%s\"",pth);
+
 	flux_fil * fil;
 	flux_err err = flux_op(&fil,pth,flux_md_rd,flux_keep);
-	if (err) {
-		bow_logerr("unable to open save file \"%s\"",pth);
+	
+	unlikely (err) {
+		bow_logErr("unable to open save file \"%s\"",pth);
 		goto new;
 	}
-	zap_i8 rawdat[bow_savlen];
-	err = flux_rd(rawdat,fil,bow_savlen,nullptr);
-	if (err) {
+
+	zap_i8 rawdat[bow_savLen];
+	err = flux_rd(rawdat,fil,bow_savLen,nullptr);
+	
+	unlikely (err) {
 		flux_cl(fil);
-		if (err == flux_err_eof) bow_logerr("corrupt save file at \"%s\"",pth);
-		else bow_logerr("unable to read file at \"%s\"",pth);
+		
+		if (err == flux_err_eof) bow_logErr("corrupt save file at \"%s\"",pth);
+		else bow_logErr("unable to read file at \"%s\"",pth);
+		
 		goto new;
 	}
+	
 	flux_cl(fil);
-	bow_savdat dat;
-	bow_decsav(&dat,rawdat);
-	if (dat.fmtver != bow_savver) {
-		bow_logerr("invalid format (%" PRIX64 " of save file at \"%s\"",dat.fmtver,pth);
+	
+	bow_savDat dat;
+	
+	bow_decSav(&dat,rawdat);
+	
+	unlikely (dat.fmtVer != bow_savVer) {
+		bow_logErr("invalid format (%" PRIX64 " of save file at \"%s\"",dat.fmtVer,pth);
+		
 		goto new;
 	}
-	if (dat.shiptyp > (zap_i8)bow_ship_ursa) {
-		bow_logerr("invalid ship type (%" PRIX8 ")",dat.shiptyp);
+	unlikely (dat.shipTyp > bow_maxShipId) {
+		bow_logErr("invalid ship type (%" PRIX8 ")",dat.shipTyp);
+		
 		goto new;
 	}
-	bow_playdat playdat = {
+
+	bow_plDat pldat = {
 		.tm            = dat.tm,
-		.sysid         = dat.sysid,
-		.ship.shiptyp  = (bow_ship)dat.shiptyp,
-		.ship.pos.x    = dat.shipposx,
-		.ship.pos.y    = dat.shipposy,
-		.ship.pos.z    = dat.shipposz,
-		.ship.rot.x    = dat.shiprotx,
-		.ship.rot.y    = dat.shiproty,
-		.ship.rot.z    = dat.shiprotz,
-		.ship.posvel.x = dat.shipposvelx,
-		.ship.posvel.y = dat.shipposvely,
-		.ship.posvel.z = dat.shipposvelz,
-		.ship.rotvel.x = dat.shiprotvelx,
-		.ship.rotvel.y = dat.shiprotvely,
-		.ship.rotvel.z = dat.shiprotvelz,
+		.sysId         = dat.sysId,
+		.ship.shipTyp  = (bow_ship)dat.shipTyp,
+		.ship.pos.x    = dat.shipPosX,
+		.ship.pos.y    = dat.shipPosY,
+		.ship.pos.z    = dat.shipPosZ,
+		.ship.rot.x    = dat.shipRotX,
+		.ship.rot.y    = dat.shipRotY,
+		.ship.rot.z    = dat.shipRotZ,
+		.ship.posVel.x = dat.shipPosVelX,
+		.ship.posVel.y = dat.shipPosVelY,
+		.ship.posVel.z = dat.shipPosVelZ,
+		.ship.rotVel.x = dat.shipRotVelX,
+		.ship.rotVel.y = dat.shipRotVelY,
+		.ship.rotVel.z = dat.shipRotVelZ,
 	};
-	zap_cp(playdat.nm,dat.cmdrnm,bow_cmdrnmlen);
-	playdat.nm[bow_cmdrnmlen] = '\x0';
-	bow_log("welcome back, commander %s",playdat.nm);
-	bow_gendat(&playdat);
-	zap_cp(playdatptr,&playdat,sizeof (playdat));
+	zap_cp(pldat.nm,dat.cmdrNm,bow_cmdrNmLen);
+	pldat.nm[bow_cmdrNmLen] = '\x00';
+	
+	bow_log("welcome back, commander %s",pldat.nm);
+	
+	bow_genDat(&pldat);
+	
+	zap_cp(pldatptr,&pldat,sizeof (pldat));
+	
 	return;
+
 new:
-	bow_rstart(playdatptr);
+	bow_new(pldatptr);
 }

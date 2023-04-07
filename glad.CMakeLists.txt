@@ -1,0 +1,25 @@
+cmake_minimum_required(VERSION 3.19)
+
+set(CMAKE_C_STANDARD 99)
+
+add_library(
+	glad STATIC
+	
+	"src/glad.c"
+)
+
+target_enable_optimisations(glad)
+
+target_include_directories(
+	glad PUBLIC
+
+	"include"
+)
+
+if("${CMAKE_C_COMPILER_ID}" MATCHES "Clang|GNU")
+	target_compile_options(
+		glad PRIVATE
+
+		-g
+	)
+endif()

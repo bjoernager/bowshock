@@ -4,11 +4,11 @@
 
 #include <bow/bs.h>
 
-#include <zap/bs.h>
+#define bow_savLen ((zap_sz)((zap_sz)0x79u+(zap_sz)bow_cmdrNmLen))
 
-constexpr zap_i04 bow_savver = 0x6u;
+constexpr zap_i04 bow_savVer = 0x6u;
 
-#define bow_savlen ((zap_sz)((zap_sz)0x79u+(zap_sz)bow_cmdrnmlen))
+constexpr zap_i8 bow_maxShipId = bow_ship_vip;
 
 /*
 	Save format:
@@ -34,28 +34,31 @@ constexpr zap_i04 bow_savver = 0x6u;
 */
 
 typedef struct {
-	zap_i04  fmtver;
-	char     cmdrnm[bow_cmdrnmlen];
-	zap_i04  tm;
-	zap_i04  sysid;
-	zap_i8   shiptyp;
-	double   shipposx;
-	double   shipposy;
-	double   shipposz;
-	double   shiprotx;
-	double   shiproty;
-	double   shiprotz;
-	double   shipposvelx;
-	double   shipposvely;
-	double   shipposvelz;
-	double   shiprotvelx;
-	double   shiprotvely;
-	double   shiprotvelz;
-} bow_savdat;
+	zap_i04 fmtVer;
+	char    cmdrNm[bow_cmdrNmLen];
+	zap_i04 tm;
+	zap_i04 sysId;
+	zap_i8  shipTyp;
+	double  shipPosX;
+	double  shipPosY;
+	double  shipPosZ;
+	double  shipRotX;
+	double  shipRotY;
+	double  shipRotZ;
+	double  shipPosVelX;
+	double  shipPosVelY;
+	double  shipPosVelZ;
+	double  shipRotVelX;
+	double  shipRotVelY;
+	double  shipRotVelZ;
+} bow_savDat;
 
-void bow_rstart(bow_playdat * dat);
+void bow_decSav(bow_savDat * buf,zap_i8 const *    dat);
+void bow_encSav(zap_i8 *     buf,bow_plDat const * dat);
 
-void bow_cont(  bow_playdat * dat,char const *  fil);
-void bow_gendat(bow_playdat * dat);
+void bow_new(bow_plDat * dat);
 
-void bow_sav(char const * fil,bow_playdat const * dat);
+void bow_cont(  bow_plDat * dat,char const *  fil);
+void bow_genDat(bow_plDat * dat);
+
+void bow_sav(char const * fil,bow_plDat const * dat);

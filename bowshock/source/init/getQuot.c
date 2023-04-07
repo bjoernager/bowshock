@@ -1,11 +1,12 @@
 // Copyright 2022-2023 Gabriel Jensen.
 
-#include <bow/bs.h>
+#include <bow/init.h>
 
-bool bow_getquot(char const * * const quot,char const * * src,zap_i8 const id) {
+bool bow_getQuot(char const * * const quot,char const * * src,zap_i8 const id) {
 	switch (id) {
 	default:
 		return true;
+
 	case 0x0u:
 		*quot = "You gotta be heaven to see heaven.";
 		*src = "Jim Carrey";
@@ -135,9 +136,14 @@ bool bow_getquot(char const * * const quot,char const * * src,zap_i8 const id) {
 		*src = "Brian Wilson Kerningham";
 		break;
 	case 0x20u:
-		*quot = "I have always wished for my computer to be as easy to use as my telephone. My wish has come true because I can no longer figure out how to use my telephone.";
+		*quot = "I have always wished for my computer to be as easy to use as my telephone.\nMy wish has come true because I can no longer figure out how to use my telephone.";
 		*src = "Bjarne Stroustrup";
 		break;
+	case 0x21u:
+		*quot = "There is no mathematical sibstitute for philosophy.";
+		*src = "Saul Aaron Kripke";
+		break;
 	}
+
 	return false;
 }
