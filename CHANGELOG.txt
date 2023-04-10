@@ -1,3 +1,15 @@
+# 0.B.0
+
+* Use generator expressions in CMake;
+* Use OpenGL 4.1;
+* Migrate to C++;
+* Implement main program as a class;
+* Use exceptions;
+* Use references;
+* Update readme;
+* Add more quotes;
+* Fix launch options not being listed on the help print;
+
 # 0.A.0
 
 * Remove satellite object type;

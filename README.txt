@@ -12,7 +12,7 @@ build type.
 
 The program is written in C2x, and a conforming compiler is therefore 
 required. It has been tested to work with GCC 12.2 and Clang 15.0, but 
-the option BOW_C2X_COMPATIBILITY may have to be set to "true" when 
+the option BOW_C2X_COMPATIBILITY may have to be set to "True" when 
 invoking CMake.
 
 Before compilation, an appropriate GLAD loader must be downloaded from 
@@ -32,18 +32,20 @@ can be done via the installation script "install.sh":
 
 ## DEVELOPMENT
 
-The commands I use for development are:
+To initialise the environment, I use the following commands:
 
-clear && \
 rm -fr build && \
 rm -fr bindir && \
 rm -fr datdir && \
-./validateShaders.py && \
 ./extractGlad.sh && \
 cmake -Bbuild -DBOW_DATA_DIRECTORY="${PWD}/datdir" -DCMAKE_BUILD_TYPE=Debug . && \
-cmake --build build && \
-./install.sh data "${PWD}/datdir" && \
-build/bowshock/bowshock --skip
+./install.sh data "${PWD}/datdir"
+
+... and from there just use the following to rebuild the project:
+
+clear && \
+./validateShaders.py && \
+cmake --build build && build/bowshock/bowshock --skip
 
 ## SHADER VALIDATION
 

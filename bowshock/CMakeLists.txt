@@ -1,53 +1,53 @@
 cmake_minimum_required(VERSION 3.21)
 
-option(BOW_DATA_DIRECTORY "" "")
-option(BOW_C2X_COMPATIBILITY "Predefined C2x macros for older compilers." FALSE)
+option(BOW_DATA_DIRECTORY "Directory for storing run-time data (assets, shaders...)." "")
 
 if("${BOW_DATA_DIRECTORY}" STREQUAL "")
 	message(FATAL_ERROR "Data directory (BOW_DATA_DIRECTORY) not specified")
 endif()
 
-set(CMAKE_C_STANDARD 23)
+set(CMAKE_CXX_STANDARD 23)
 
 add_executable(
 	bowshock
 	
-	"source/bs/objTypStr.c"
-	"source/bs/rnd.c"
+	"source/bs/objTypStr.cxx"
+	"source/bs/rnd.cxx"
 
-	"source/init/chkParams.c"
-	"source/init/compShd.c"
-	"source/init/compShdProg.c"
-	"source/init/cred.c"
-	"source/init/getQuot.c"
-	"source/init/getSavPth.c"
-	"source/init/help.c"
-	"source/init/init.c"
-	"source/init/initGfx.c"
-	"source/init/initRnd.c"
-	"source/init/initSig.c"
-	"source/init/priQuot.c"
+	"source/init/bow/bow.cxx"
+	"source/init/bow/chkParams.cxx"
+	"source/init/bow/compShd.cxx"
+	"source/init/bow/compShdProg.cxx"
+	"source/init/bow/cred.cxx"
+	"source/init/bow/getQuot.cxx"
+	"source/init/bow/getSavPth.cxx"
+	"source/init/bow/help.cxx"
+	"source/init/bow/init.cxx"
+	"source/init/bow/initGfx.cxx"
+	"source/init/bow/initRnd.cxx"
+	"source/init/bow/initSig.cxx"
+	"source/init/bow/intro.cxx"
+	"source/init/bow/loop.cxx"
+	"source/init/bow/pollEvts.cxx"
+	"source/init/bow/priQuot.cxx"
+	"source/init/bow/quit.cxx"
 
-	"source/lgc/grav.c"
-	"source/lgc/mv.c"
-	"source/lgc/shipMass.c"
-	"source/lgc/sim.c"
+	"source/lgc/grav.cxx"
+	"source/lgc/mv.cxx"
+	"source/lgc/shipMass.cxx"
+	"source/lgc/sim.cxx"
 
-	"source/run/abrt.c"
-	"source/run/addObj.c"
-	"source/run/freeObjs.c"
-	"source/run/genSys.c"
-	"source/run/intro.c"
-	"source/run/loop.c"
-	"source/run/pollEvts.c"
-	"source/run/quit.c"
+	"source/run/abrt.cxx"
+	"source/run/addObj.cxx"
+	"source/run/freeObjs.cxx"
+	"source/run/genSys.cxx"
 
-	"source/sav/genDat.c"
-	"source/sav/cont.c"
-	"source/sav/decSav.c"
-	"source/sav/encSav.c"
-	"source/sav/new.c"
-	"source/sav/sav.c"
+	"source/sav/genDat.cxx"
+	"source/sav/cont.cxx"
+	"source/sav/decSav.cxx"
+	"source/sav/encSav.cxx"
+	"source/sav/newSav.cxx"
+	"source/sav/sav.cxx"
 )
 
 add_dependencies(
@@ -55,10 +55,6 @@ add_dependencies(
 
 	glad
 )
-
-target_enable_warnings(bowshock)
-
-target_enable_optimisations(bowshock)
 
 target_include_directories(
 	bowshock PRIVATE
@@ -82,42 +78,27 @@ target_compile_definitions(
 	_POSIX_C_SOURCE=200112l
 	GLFW_INCLUDE_NONE
 	bow_datDir="/home/delta/Repositories/bowshock/datdir"
+	bow_dbg=$<IF:$<STREQUAL:"${CMAKE_BUILD_TYPE}","Debug">,true,false>
 )
 
-if(${BOW_C2X_COMPATIBILITY})
-	target_compile_definitions(
-		bowshock PRIVATE
-
-		bow_c2xCompat
-	)
-endif()
-
-if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-	target_compile_definitions(
-		bowshock PRIVATE
-
-		bow_dbg
-	)
-endif()
-
-if("${CMAKE_C_COMPILER_ID}" MATCHES "Clang|GNU")
+if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang|GNU")
 	target_compile_options(
 		bowshock PRIVATE
 
+		$<IF:$<STREQUAL:"${CMAKE_BUILD_TYPE}","Debug">,-Og,-Ofast>
+		-Wall
+		-Wextra
 		-Wmissing-prototypes
 		-Wpedantic
 		-fdiagnostics-color=always
 		-g
 	)
-endif()
-
-if("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 	target_compile_options(
 		bowshock PRIVATE
 
-		-Wno-fixed-enum-extension
-		-Wno-gnu-folding-constant
-		-Wno-gnu-empty-initializer
-		-Wno-gnu-zero-variadic-macro-arguments
-	) 
+		/O2
+		/W4
+		$<IF:$<STREQUAL:"${CMAKE_BUILD_TYPE}","Debug">,/Zo>
+	)
 endif()
