@@ -3,41 +3,42 @@
 #include <bow/sav.hxx>
 
 #include <cinttypes>
-#include <flux/io.h>
+#include <flux/io.hh>
 #include <zap/mem.hh>
 
 void ::bow::cont(::bow::plDat & plDat,char const * const pth) noexcept {
 	bow_log("loading save file at \"%s\"",pth);
 
-	::flux_fil * fil;
-	::flux_err err = ::flux_op(&fil,pth,::flux_md_rd,flux_keep);
+	::flux::fil fil;
+
+	::flux::err err = fil.op(pth,::flux::md::rd,::flux::keep);
 	
-	if (err) [[unlikely]] {
+	if (err != ::flux::err::ok) [[unlikely]] {
 		bow_logErr("unable to open save file \"%s\"",pth);
 		
 		return ::bow::newSav(plDat);
 	}
 
 	::zap::i8 rawDat[::bow::savLen];
-	err = ::flux_rd(rawDat,fil,::bow::savLen,nullptr);
+	err = fil.rd(rawDat,::bow::savLen);
 	
-	if (err) [[unlikely]] {
-		::flux_cl(fil);
+	if (err != ::flux::err::ok) [[unlikely]] {
+		fil.cl();
 		
-		if (err == ::flux_err_eof) bow_logErr("corrupt save file at \"%s\"",pth);
-		else bow_logErr("unable to read file at \"%s\"",pth);
+		if (err == ::flux::err::eof) bow_logErr("corrupt save file at \"%s\"",pth);
+		else                         bow_logErr("unable to read file at \"%s\"",pth);
 		
 		return ::bow::newSav(plDat);
 	}
 	
-	::flux_cl(fil);
+	fil.cl();
 	
 	::bow::savDat dat;
 	
 	::bow::decSav(dat,rawDat);
 	
 	if (dat.fmtVer != ::bow::savVer) [[unlikely]] {
-		bow_logErr("invalid format (%" PRIX64 " of save file at \"%s\"",dat.fmtVer,pth);
+		bow_logErr("invalid format (%" PRIX64 ") of save file at \"%s\"",dat.fmtVer,pth);
 		
 		return ::bow::newSav(plDat);
 	}

@@ -2,39 +2,58 @@
 
 #include <bow/init.hxx>
 
-#include <flux/io.h>
-#include <cstdio>
+#include <flux/io.hh>
+#include <flux/stats.hh>
 #include <cstdlib>
+#include <stdexcept>
 
 void ::bow::bow::cred() noexcept {
-	FILE * fp = ::std::fopen(bow_datDir "/CREDITS.txt","r");
+	char const * const pth = bow_datDir "/CREDITS.txt";
 
-	::std::fseek(fp,0x0,SEEK_END);
-	::zap::sz const filsz = (::zap::sz)ftell(fp);
-	::std::rewind(fp);
+	::zap::sz const filsz = [&pth]() {
+		::flux::stats stats;
+		::flux::stat(stats,pth);
 
-	char *       cred      = new char[filsz + 0x3u];
-	char * const credstart = cred;
+		return stats.sz;
+	}();
 
-	if (cred == nullptr) {
-		bow_logErr("unable to allocate memory");
+	::flux::fil fil;
+	::flux::err err = fil.op(pth,::flux::md::rd,::flux::keep);
+
+	if (err != ::flux::err::ok) [[unlikely]] {
+		bow_logErr("unable to open credits file");
+
 		::std::exit(EXIT_FAILURE);
 	}
 
+	char * cred;
+
+	try {cred = new char[filsz + 0x3u];}
+	catch (::std::bad_alloc const & e) {
+		bow_logErr("unable to allocate memory");
+		
+		::std::exit(EXIT_FAILURE);
+	}
+
+	char * const credstart = cred;
+
 	*cred++ = '\n';
 
-	cred += ::std::fread(cred,sizeof (char),filsz,fp);
-	::std::fclose(fp);
+	fil.rd(cred,filsz);
+	fil.cl();
+	cred += filsz;
 
 	*cred++ = '\n';
 	*cred++ = '\x00';
 
 	cred = credstart;
 
-	::flux_err err = ::flux_wrstr(::flux_defout,cred);
+	::flux::dflout.wr(cred,filsz + 0x3u);
 
-	if (err) {
+	if (err != ::flux::err::ok) {
 		bow_logErr("unable to write to defout");
+
+		::std::exit(EXIT_FAILURE);
 	}
 
 	delete[] cred;

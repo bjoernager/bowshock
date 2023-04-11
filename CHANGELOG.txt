@@ -1,3 +1,8 @@
+# 0.B.1
+
+* Fortify sources;
+* Use Flux more;
+
 # 0.B.0
 
 * Use generator expressions in CMake;

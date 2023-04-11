@@ -2,8 +2,9 @@
 
 #include <bow/init.hxx>
 
-#include <cstdio>
 #include <cstdlib>
+#include <flux/io.hh>
+#include <flux/stats.hh>
 #include <glad/glad.h>
 #include <stdexcept>
 #include <zap/mem.hh>
@@ -49,21 +50,26 @@ void ::bow::bow::compShd(GLuint & shd,char const * const nm,GLenum const typ) {
 
 	bow_logDbg("compiling %s shader at \"%s\"",typStr,pth);
 
-	FILE * fp = ::std::fopen(pth,"r");
+	::flux::fil fil;
+	::flux::err err = fil.op(pth,::flux::md::rd,::flux::keep);
+
+	if (err != ::flux::err::ok) [[unlikely]] {throw ::std::runtime_error {"unable to open shader source"};}
+
+	::zap::sz const filsz = [&pth]() {
+		::flux::stats stats;
+		::flux::stat(stats,pth);
+
+		return stats.sz;
+	}();
 
 	delete[] pth;
-
-	if (fp == nullptr) {throw ::std::runtime_error {"unable to open shader source"};}
-
-	::std::fseek(fp,0x0,SEEK_END);
-	::zap::sz const filsz = static_cast<::zap::sz>(ftell(fp));
-	::std::rewind(fp);
 
 	static_assert(sizeof (GLchar) == sizeof (char));
 	GLchar * const src = new GLchar[filsz + 0x1u];
 
-	::std::fread(src,sizeof (GLchar),filsz,fp);
-	::std::fclose(fp);
+	err = fil.rd(src,filsz);
+	if (err != ::flux::err::ok) {throw ::std::runtime_error {"unable to read shader source"};}
+	fil.cl();
 
 	src[filsz] = '\x00';
 

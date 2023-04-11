@@ -2,14 +2,6 @@
 
 #pragma once
 
-// flux is retarded and uses compound literals - even for C++. We override this nonsense with some value initialisations.
-#include <flux/io.h>
-#undef flux_disc
-#undef flux_keep
-#define flux_disc (::flux_priv_disc {._disc = true,})
-#define flux_keep (::flux_priv_disc {._disc = false,})
-// Note: flux will recieve better (C++) support in the future.
-
 #ifndef bow_datDir
 #error Data directory not specified!
 #endif
@@ -36,6 +28,10 @@ static_assert(::zap::bytelen == 0x8u,"Bytes must contain exactly eight bits.");
 #define bow_setStrLen(ptr,len,str) ((void)(ptr = str,len = sizeof (str) - 0x1u))
 
 namespace bow { 
+	constexpr ::zap::i04 verMaj = 0x0u;
+	constexpr ::zap::i04 verMin = 0xBu;
+	constexpr ::zap::i04 verPat = 0x1u;
+
 	constexpr bool dbg = bow_dbg;
 
 	constexpr ::zap::sz cmdrNmLen = 0xEu;
@@ -135,10 +131,6 @@ namespace bow {
 		::bow::obj ship;
 		float   zoom;
 	};
-
-	constexpr ::zap::i04 verMaj = 0x0u;
-	constexpr ::zap::i04 verMin = 0xBu;
-	constexpr ::zap::i04 verPat = 0x0u;
 
 	char const * objTypStr(::bow::objTyp typ) noexcept;
 

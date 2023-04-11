@@ -3,26 +3,18 @@
 #include <bow/run.hxx>
 #include <bow/sav.hxx>
 
-#include <flux/io.h>
+#include <flux/io.hh>
 #include <zap/mem.hh>
 
 void ::bow::sav(char const * const pth,::bow::plDat const & plDat) noexcept {
 	bow_log("saving commander %s at \"%s\"",plDat.nm,pth);
 	
-	::flux_fil * fil;
-	::flux_err err = ::flux_mkfil(&fil,pth,0644);
+	::flux::fil fil;
+	::flux::err err = fil.mk(pth,0644u);
 	
-	if (err) [[unlikely]] {
-		if (err != ::flux_err_exist) [[unlikely]] {
-			bow_logErr("unable to open save file \"%s\"",pth);
-			::bow::abrt();
-		}
-	
-		err = ::flux_op(&fil,pth,::flux_md_wr,flux_disc);
-		if (err) [[unlikely]] {
-			bow_logErr("unable to create save file \"%s\"",pth);
-			::bow::abrt();
-		}
+	if (err != ::flux::err::ok) [[unlikely]] {
+		bow_logErr("unable to open save file \"%s\"",pth);
+		::bow::abrt();
 	}
 	
 	::zap::i8 dat[::bow::savLen];
@@ -49,6 +41,6 @@ void ::bow::sav(char const * const pth,::bow::plDat const & plDat) noexcept {
 
 	::bow::encSav(dat,savDat);
 	
-	::flux_wr(fil,dat,::bow::savLen);
-	::flux_cl(fil);
+	fil.wr(dat,::bow::savLen);
+	fil.cl();
 }

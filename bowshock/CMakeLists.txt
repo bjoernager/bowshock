@@ -75,6 +75,7 @@ target_link_libraries(
 target_compile_definitions(
 	bowshock PRIVATE
 
+	_FORTIFY_SOURCE=$<IF:$<STREQUAL:"${CMAKE_BUILD_TYPE}","Debug">,0x0,0x2>
 	_POSIX_C_SOURCE=200112l
 	GLFW_INCLUDE_NONE
 	bow_datDir="/home/delta/Repositories/bowshock/datdir"

@@ -3,15 +3,15 @@
 #include <bow/init.hxx>
 
 #include <cstdlib>
-#include <flux/stats.h>
+#include <flux/stats.hh>
 #include <zap/mem.hh>
 #include <zap/str.hh>
 
 char const * ::bow::bow::getSavPth() noexcept {
-	char const * hmDir    = ::flux_hmdir();
+	char const * hmDir    = ::flux::hmdir();
 	char const * filNm;
-	::zap::sz       hmDirLen;
-	::zap::sz       filNmLen;
+	::zap::sz    hmDirLen;
+	::zap::sz    filNmLen;
 	
 	if (hmDir == nullptr) [[unlikely]] {
 		bow_log("unable to get home directory, using current directory");
