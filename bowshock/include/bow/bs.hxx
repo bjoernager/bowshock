@@ -30,7 +30,7 @@ static_assert(::zap::bytelen == 0x8u,"Bytes must contain exactly eight bits.");
 namespace bow { 
 	constexpr ::zap::i04 verMaj = 0x0u;
 	constexpr ::zap::i04 verMin = 0xBu;
-	constexpr ::zap::i04 verPat = 0x1u;
+	constexpr ::zap::i04 verPat = 0x2u;
 
 	constexpr bool dbg = bow_dbg;
 

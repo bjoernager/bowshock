@@ -1,3 +1,7 @@
+# 0.B.2
+
+* Fix data directory not being set correctly by CMake;
+
 # 0.B.1
 
 * Fortify sources;
