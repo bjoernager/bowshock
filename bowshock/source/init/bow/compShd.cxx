@@ -3,18 +3,18 @@
 #include <bow/init.hxx>
 
 #include <cstdlib>
-#include <flux/io.hh>
-#include <flux/stats.hh>
+#include <ly/io>
+#include <ly/fs>
 #include <glad/glad.h>
 #include <stdexcept>
-#include <zap/mem.hh>
-#include <zap/str.hh>
+#include <zp/mem>
+#include <zp/str>
 
 void ::bow::bow::compShd(GLuint & shd,char const * const nm,GLenum const typ) {
 	char const * typStr;
 	
 	char const * typExt;
-	::zap::sz    typExtLen;
+	::zp::siz    typExtLen;
 	switch (typ) {
 	default:
 		bow_logErr("bad shader type %lX",static_cast<unsigned long>(typ));
@@ -30,48 +30,48 @@ void ::bow::bow::compShd(GLuint & shd,char const * const nm,GLenum const typ) {
 	}
 
 	char const * dir;
-	::zap::sz    dirLen;
+	::zp::siz    dirLen;
 	bow_setStrLen(dir,dirLen,bow_datDir "/shaders");
 
-	::zap::sz const nmLen  = ::zap::strlen(nm);
-	::zap::sz const pthLen = dirLen + 0x1u + nmLen + 0x1u + typExtLen + 0x1u + sizeof (::bow::shdFilExt);
+	::zp::siz const nmLen  = ::zp::strlen(nm);
+	::zp::siz const pthLen = dirLen + 0x1u + nmLen + 0x1u + typExtLen + 0x1u + sizeof (::bow::shdFilExt);
 
 	char * pth = new char[pthLen + 0x1u];
 
-	pth = ::zap::cp(pth,dir,dirLen).dest;
+	pth = ::zp::cpy(pth,dir,dirLen).dst;
 	*pth++ = '/';
-	pth = ::zap::cp(pth,nm,nmLen).dest;
+	pth = ::zp::cpy(pth,nm,nmLen).dst;
 	*pth++ = '.';
-	pth = ::zap::cp(pth,typExt,typExtLen).dest;
+	pth = ::zp::cpy(pth,typExt,typExtLen).dst;
 	*pth++ = '.';
-	pth = ::zap::cp(pth,::bow::shdFilExt,sizeof (::bow::shdFilExt)).dest;
+	pth = ::zp::cpy(pth,::bow::shdFilExt,sizeof (::bow::shdFilExt)).dst;
 	*pth   = '\x00';
 	pth -= pthLen;
 
 	bow_logDbg("compiling %s shader at \"%s\"",typStr,pth);
 
-	::flux::fil fil;
-	::flux::err err = fil.op(pth,::flux::md::rd,::flux::keep);
+	::ly::fil fil;
+	::ly::err err = fil.opn(pth,::ly::mod::red,::ly::kep);
 
-	if (err != ::flux::err::ok) [[unlikely]] {throw ::std::runtime_error {"unable to open shader source"};}
+	if (err != ::ly::err::ok) [[unlikely]] {throw ::std::runtime_error {"unable to open shader source"};}
 
-	::zap::sz const filsz = [&pth]() {
-		::flux::stats stats;
-		::flux::stat(stats,pth);
+	::zp::siz const filsiz = [&pth]() {
+		::ly::pthinf pthinf;
+		::ly::sttpth(pthinf,pth);
 
-		return stats.sz;
+		return pthinf.siz;
 	}();
 
 	delete[] pth;
 
 	static_assert(sizeof (GLchar) == sizeof (char));
-	GLchar * const src = new GLchar[filsz + 0x1u];
+	GLchar * const src = new GLchar[filsiz + 0x1u];
 
-	err = fil.rd(src,filsz);
-	if (err != ::flux::err::ok) {throw ::std::runtime_error {"unable to read shader source"};}
-	fil.cl();
+	err = fil.red(src,filsiz);
+	if (err != ::ly::err::ok) {throw ::std::runtime_error {"unable to read shader source"};}
+	fil.cls();
 
-	src[filsz] = '\x00';
+	src[filsiz] = '\x00';
 
 	shd = glCreateShader(typ);
 	glShaderSource(shd,0x1,(GLchar const * const *)&src,nullptr);

@@ -2,11 +2,11 @@
 
 #include <bow/sav.hxx>
 
-#include <zap/mem.hh>
+#include <zp/mem>
 
-void ::bow::encSav(::zap::i8 * buf,::bow::savDat const & dat) noexcept {
+void ::bow::encSav(::zp::i8 * buf,::bow::savDat const & dat) noexcept {
 	auto const encVal = [&buf]<typename typ>(typ const & val) {
-		buf = ::zap::bytecp(buf,&val,sizeof (val)).dest;
+		buf = ::zp::memcpy(buf,&val,sizeof (val)).dst;
 	};
 
 	encVal(dat.fmtVer);      // fmtver

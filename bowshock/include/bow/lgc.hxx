@@ -13,11 +13,11 @@ namespace bow {
 
 	constexpr double gravConst = 0x1.258688101B4BB16Dp-34*::bow::gravConstFac; // gravitational constant (s^2*m*t^2)
 
-	zap_attr_unseq double shipMass(::bow::ship id) noexcept;
+	zp_useq double shipMass(::bow::ship id) noexcept;
 
 	void grav(::bow::objRoot & sys)                             noexcept;
 	void grav(::bow::objRoot & objs,::bow::objRoot const & sys) noexcept;
 	void mv(  ::bow::objRoot & root)                            noexcept;
 
-	void sim(::bow::objRoot & sys,::zap::i04 dur) noexcept;
+	void sim(::bow::objRoot & sys,::zp::i04 dur) noexcept;
 }

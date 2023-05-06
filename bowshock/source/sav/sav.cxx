@@ -3,27 +3,27 @@
 #include <bow/run.hxx>
 #include <bow/sav.hxx>
 
-#include <flux/io.hh>
-#include <zap/mem.hh>
+#include <ly/io>
+#include <zp/mem>
 
 void ::bow::sav(char const * const pth,::bow::plDat const & plDat) noexcept {
 	bow_log("saving commander %s at \"%s\"",plDat.nm,pth);
 	
-	::flux::fil fil;
-	::flux::err err = fil.mk(pth,0644u);
+	::ly::fil fil;
+	::ly::err err = fil.crt(pth,0644u);
 	
-	if (err != ::flux::err::ok) [[unlikely]] {
+	if (err != ::ly::err::ok) [[unlikely]] {
 		bow_logErr("unable to open save file \"%s\"",pth);
 		::bow::abrt();
 	}
 	
-	::zap::i8 dat[::bow::savLen];
+	::zp::i8 dat[::bow::savLen];
 
 	::bow::savDat savDat = {
 		.fmtVer      = ::bow::savVer,
 		.tm          = plDat.tm,
 		.sysId       = plDat.sysId,
-		.shipTyp     = static_cast<::zap::i8>(plDat.ship.shipTyp),
+		.shipTyp     = static_cast<::zp::i8>(plDat.ship.shipTyp),
 		.shipPosX    = plDat.ship.pos.x,
 		.shipPosY    = plDat.ship.pos.y,
 		.shipPosZ    = plDat.ship.pos.z,
@@ -37,10 +37,10 @@ void ::bow::sav(char const * const pth,::bow::plDat const & plDat) noexcept {
 		.shipRotVelY = plDat.ship.rotVel.y,
 		.shipRotVelZ = plDat.ship.rotVel.z,
 	};
-	::zap::cp(savDat.cmdrNm,plDat.nm,sizeof (savDat.cmdrNm));
+	::zp::cpy(savDat.cmdrNm,plDat.nm,sizeof (savDat.cmdrNm));
 
 	::bow::encSav(dat,savDat);
 	
-	fil.wr(dat,::bow::savLen);
-	fil.cl();
+	fil.wrt(dat,::bow::savLen);
+	fil.cls();
 }

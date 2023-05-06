@@ -1,3 +1,10 @@
+# 0.C.0
+
+* Migrate from Zap to zp;
+* Migrate from Flux to ly;
+* Tag development versions;
+* Use minimum-width types;
+
 # 0.B.2
 
 * Fix data directory not being set correctly by CMake;

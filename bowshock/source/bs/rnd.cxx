@@ -4,14 +4,14 @@
 
 #include <cstdlib>
 
-static_assert(sizeof (int) == sizeof (::zap::i02));
+static_assert(sizeof (int) == sizeof (::zp::i02));
 
-static_assert(RAND_MAX == ::zap::maxval<int>);
+static_assert(RAND_MAX == ::zp::maxval<int>::val);
 
 unsigned long ::bow::rnd() noexcept {
-	::zap::i02 const rnd0 = (::zap::i02)::std::rand();
-	::zap::i02 const rnd1 = (::zap::i02)::std::rand();
-	::zap::i04 const rnd = (::zap::i04)rnd0 | (::zap::i04)rnd1 >> 0x4u;
+	::zp::i02 const rnd0 = (::zp::i02)::std::rand();
+	::zp::i02 const rnd1 = (::zp::i02)::std::rand();
+	::zp::i04 const rnd = (::zp::i04)rnd0 | (::zp::i04)rnd1 >> 0x4u;
 	
 	return rnd;
 }

@@ -8,7 +8,7 @@
 
 void ::bow::bow::priQuot() noexcept {
 	::std::srand(static_cast<unsigned int>(::std::time(nullptr)));
-	::zap::i8 const quotId = (::zap::i8)rand() % 0x24u;
+	::zp::i8 const quotId = (::zp::i8)rand() % 0x24u;
 	
 	char const * quot;
 	char const * src;

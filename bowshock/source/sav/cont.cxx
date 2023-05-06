@@ -3,35 +3,35 @@
 #include <bow/sav.hxx>
 
 #include <cinttypes>
-#include <flux/io.hh>
-#include <zap/mem.hh>
+#include <ly/io>
+#include <zp/mem>
 
 void ::bow::cont(::bow::plDat & plDat,char const * const pth) noexcept {
 	bow_log("loading save file at \"%s\"",pth);
 
-	::flux::fil fil;
+	::ly::fil fil;
 
-	::flux::err err = fil.op(pth,::flux::md::rd,::flux::keep);
+	::ly::err err = fil.opn(pth,::ly::mod::red,::ly::kep);
 	
-	if (err != ::flux::err::ok) [[unlikely]] {
+	if (err != ::ly::err::ok) [[unlikely]] {
 		bow_logErr("unable to open save file \"%s\"",pth);
 		
 		return ::bow::newSav(plDat);
 	}
 
-	::zap::i8 rawDat[::bow::savLen];
-	err = fil.rd(rawDat,::bow::savLen);
+	::zp::i8 rawDat[::bow::savLen];
+	err = fil.red(rawDat,::bow::savLen);
 	
-	if (err != ::flux::err::ok) [[unlikely]] {
-		fil.cl();
+	if (err != ::ly::err::ok) [[unlikely]] {
+		fil.cls();
 		
-		if (err == ::flux::err::eof) bow_logErr("corrupt save file at \"%s\"",pth);
+		if (err == ::ly::err::eof) bow_logErr("corrupt save file at \"%s\"",pth);
 		else                         bow_logErr("unable to read file at \"%s\"",pth);
 		
 		return ::bow::newSav(plDat);
 	}
 	
-	fil.cl();
+	fil.cls();
 	
 	::bow::savDat dat;
 	
@@ -75,7 +75,7 @@ void ::bow::cont(::bow::plDat & plDat,char const * const pth) noexcept {
 			},
 		},
 	};
-	::zap::cp(plDat.nm,dat.cmdrNm,::bow::cmdrNmLen);
+	::zp::cpy(plDat.nm,dat.cmdrNm,::bow::cmdrNmLen);
 	plDat.nm[::bow::cmdrNmLen] = '\x00';
 	
 	::bow::genDat(plDat);

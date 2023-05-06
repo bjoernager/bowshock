@@ -7,9 +7,9 @@
 #endif
 
 #include <cstdio>
-#include <zap/bs.hh> // We guarantee that this header is included.
+#include <zp/bs> // We guarantee that this header is included.
 
-static_assert(::zap::bytelen == 0x8u,"Bytes must contain exactly eight bits.");
+static_assert(::zp::bytelen == 0x8u,"Bytes must contain exactly eight bits.");
 
 #define bow_logRaw(msg,...) fprintf(stderr,msg __VA_OPT__(,) __VA_ARGS__)
 
@@ -25,23 +25,23 @@ static_assert(::zap::bytelen == 0x8u,"Bytes must contain exactly eight bits.");
 
 #define bow_logXyz(xyz) bow_logDbg("%s: %.03f    %.03f    %.03f",#xyz,(xyz).x,(xyz).y,(xyz).z)
 
-#define bow_setStrLen(ptr,len,str) ((void)(ptr = str,len = sizeof (str) - 0x1u))
+#define bow_setStrLen(ptr,len,str) ((void)(ptr = str,len = sizeof (str)-0x1u))
 
 namespace bow { 
-	constexpr ::zap::i04 verMaj = 0x0u;
-	constexpr ::zap::i04 verMin = 0xBu;
-	constexpr ::zap::i04 verPat = 0x2u;
+	constexpr ::zp::i04m verMaj = 0x0u;
+	constexpr ::zp::i04m verMin = 0xCu;
+	constexpr ::zp::i04m verPat = 0x0u;
 
 	constexpr bool dbg = bow_dbg;
 
-	constexpr ::zap::sz cmdrNmLen = 0xEu;
+	constexpr ::zp::siz cmdrNmLen = 0xEu;
 	
-	enum struct stat : ::zap::i8 {
+	enum struct stat : ::zp::i8m {
 		ok  = 0x0u,
 		err = 0x1u,
 	};
 
-	enum struct objTyp : ::zap::i8 {
+	enum struct objTyp : ::zp::i8m {
 		can,     // canister
 		pl,      // player
 		ship,    // ship
@@ -50,7 +50,7 @@ namespace bow {
 		wrld,    // world (planet/moon)
 	};
 
-	enum struct wrld : ::zap::i8 {
+	enum struct wrld : ::zp::i8m {
 		amm, // ammonium world
 		gas, // gas giant
 		ice, // icy world
@@ -59,7 +59,7 @@ namespace bow {
 		wat, // water world
 	};
 
-	enum struct ship : ::zap::i8 {
+	enum struct ship : ::zp::i8m {
 		aq,   // aquila
 		cas,  // cassiopeia
 		cent, // centaurus
@@ -74,7 +74,7 @@ namespace bow {
 		// Remember maxShipId in sav
 	};
 
-	enum struct star : ::zap::i8 {
+	enum struct star : ::zp::i8m {
 		a, // main sequence
 		b, // main sequence
 		c, // carbon
@@ -93,7 +93,7 @@ namespace bow {
 		z, // white hole
 	};
 
-	enum struct station : ::zap::i8 {
+	enum struct station : ::zp::i8m {
 		station_glob, // globus
 		station_orb,  // orbis
 	};
@@ -125,14 +125,14 @@ namespace bow {
 	};
 
 	struct plDat {
-		char    nm[::bow::cmdrNmLen+0x1u];
-		::zap::i04 tm;
-		::zap::i04 sysId;
+		char       nm[::bow::cmdrNmLen+0x1u];
+		::zp::i04m tm;
+		::zp::i04m sysId;
 		::bow::obj ship;
-		float   zoom;
+		float      zoom;
 	};
 
 	char const * objTypStr(::bow::objTyp typ) noexcept;
 
-	::zap::i04 rnd() noexcept;
+	::zp::i04 rnd() noexcept;
 }

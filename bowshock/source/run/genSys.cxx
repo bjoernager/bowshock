@@ -5,12 +5,12 @@
 
 #include <cinttypes>
 
-void ::bow::genSys(::bow::objRoot & sys,::zap::i04 const id,::zap::i04 const tm) {
+void ::bow::genSys(::bow::objRoot & sys,::zp::i04 const id,::zp::i04 const tm) {
 	bow_log("generating system (%" PRIXLEAST64 ")",id);
 
 	sys.objs = nullptr;
 	::bow::obj objTmp;
-	objTmp = {
+	objTmp = ::bow::obj {
 		.typ     = ::bow::objTyp::star,
 		.starTyp = ::bow::star::g,
 		.pos     = {
@@ -37,7 +37,7 @@ void ::bow::genSys(::bow::objRoot & sys,::zap::i04 const id,::zap::i04 const tm)
 		// next will be overwritten anyways.
 	};
 	::bow::addObj(sys,objTmp);
-	objTmp = {
+	objTmp = ::bow::obj {
 		.typ     = ::bow::objTyp::wrld,
 		.wrldTyp = ::bow::wrld::rck,
 		.pos     = {

@@ -5,11 +5,11 @@
 #include <bow/bs.hxx>
 
 namespace bow {
-	constexpr ::zap::i04 savVer = 0x6u;
+	constexpr ::zp::i04 savVer = 0x6u;
 
-	constexpr ::zap::sz savLen = 0x79u+::bow::cmdrNmLen; 
+	constexpr ::zp::siz savLen = 0x79u+::bow::cmdrNmLen;
 
-	constexpr ::zap::i8 maxShipId = static_cast<::zap::i8>(::bow::ship::vip);
+	constexpr ::zp::i8 maxShipId = static_cast<::zp::i8>(::bow::ship::vip);
 
 	/*
 		Save format:
@@ -36,11 +36,11 @@ namespace bow {
 	*/
 
 	struct savDat {
-		::zap::i04 fmtVer;
+		::zp::i04 fmtVer;
 		char       cmdrNm[::bow::cmdrNmLen];
-		::zap::i04 tm;
-		::zap::i04 sysId;
-		::zap::i8  shipTyp;
+		::zp::i04 tm;
+		::zp::i04 sysId;
+		::zp::i8  shipTyp;
 		double     shipPosX;
 		double     shipPosY;
 		double     shipPosZ;
@@ -55,8 +55,8 @@ namespace bow {
 		double     shipRotVelZ;
 	};
 
-	void decSav(::bow::savDat & buf,::zap::i8 const *     dat) noexcept;
-	void encSav(::zap::i8 *     buf,::bow::savDat const & dat) noexcept;
+	void decSav(::bow::savDat & buf,::zp::i8 const *     dat) noexcept;
+	void encSav(::zp::i8 *     buf,::bow::savDat const & dat) noexcept;
 
 	void newSav(::bow::plDat & dat) noexcept;
 

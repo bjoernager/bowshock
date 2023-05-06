@@ -10,5 +10,5 @@ namespace bow {
 	void addObj(  ::bow::objRoot &       root,::bow::obj const & obj);
 	void freeObjs(::bow::objRoot const & root)                        noexcept;
 
-	void genSys(::bow::objRoot & sys,::zap::i04 id,::zap::i04 tm);
+	void genSys(::bow::objRoot & sys,::zp::i04 id,::zp::i04 tm);
 }

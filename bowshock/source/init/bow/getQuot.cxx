@@ -4,7 +4,7 @@
 
 #include <cinttypes>
 
-void ::bow::bow::getQuot(char const * * const quot,char const * * src,::zap::i8 const id) noexcept {
+void ::bow::bow::getQuot(char const * * const quot,char const * * src,::zp::i8m const id) noexcept {
 	switch (id) {
 	default:
 		bow_logErr("invalid quote identifier (%" PRIX8 ")",id);

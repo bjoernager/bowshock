@@ -2,11 +2,11 @@
 
 #include <bow/sav.hxx>
 
-#include <zap/mem.hh>
+#include <zp/mem>
 
-void ::bow::decSav(::bow::savDat & buf,::zap::i8 const * dat) noexcept {
+void ::bow::decSav(::bow::savDat & buf,::zp::i8 const * dat) noexcept {
 	auto const decVal = [&dat]<typename typ>(typ & buf) {
-		dat = ::zap::bytecp(&buf,dat,sizeof (buf)).src;
+		dat = ::zp::memcpy(&buf,dat,sizeof (buf)).src;
 	};
 
 	decVal(buf.fmtVer);      // fmtver

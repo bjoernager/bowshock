@@ -65,11 +65,11 @@ target_include_directories(
 target_link_libraries(
 	bowshock PRIVATE
 
-	flux
 	glad
 	glfw
+	ly
 	m
-	zap
+	zp
 )
 
 target_compile_definitions(

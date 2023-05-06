@@ -33,7 +33,7 @@ namespace bow {
 		::bow::gfxDat gfxDat;
 
 		char const * getSavPth()                                                    noexcept;
-		void         getQuot(  char const * * quot,char const * * src,::zap::i8 id) noexcept;
+		void         getQuot(  char const * * quot,char const * * src,::zp::i8m id) noexcept;
 
 		void priQuot() noexcept;
 

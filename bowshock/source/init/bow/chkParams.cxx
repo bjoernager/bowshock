@@ -2,8 +2,8 @@
 
 #include <bow/init.hxx>
 
-#include <zap/mem.hh>
-#include <zap/str.hh>
+#include <zp/mem>
+#include <zp/str>
 
 void ::bow::bow::chkParams(::bow::termOpts & opts,int const argc,char const * const * argv) noexcept {
 	char const * const progNm = *argv;
@@ -15,17 +15,17 @@ void ::bow::bow::chkParams(::bow::termOpts & opts,int const argc,char const * co
 	};
 	
 	if (argc >= 0x2) [[unlikely]] {
-		char const * const * const stop = (argv++)+(::zap::sz)argc;
+		char const * const * const stop = (argv++)+(::zp::siz)argc;
 		
 		for (;argv != stop;++argv) {
 			char const * param = *argv;
 			
 			if (param[0x0u] == '-' && param[0x1u] == '-') {
 				param += 0x2u;
-				     if (::zap::streq(param,"credits")) cred();
-				else if (::zap::streq(param,"help"))    help(progNm);
-				else if (::zap::streq(param,"new"))     opts.newSav  = true;
-				else if (::zap::streq(param,"skip"))    opts.skip = true;
+				     if (::zp::strequ(param,"credits")) cred();
+				else if (::zp::strequ(param,"help"))    help(progNm);
+				else if (::zp::strequ(param,"new"))     opts.newSav  = true;
+				else if (::zp::strequ(param,"skip"))    opts.skip = true;
 				else                                    bow_logErr("invalid parameter \"%s\"",param);
 				continue;
 			}
