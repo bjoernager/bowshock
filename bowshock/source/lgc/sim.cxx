@@ -6,11 +6,11 @@
 
 #include <cinttypes>
 
-void ::bow::sim(::bow::objRoot & sys,::zp::i04 const dur) noexcept {
+auto ::bow::sim(::bow::objroot & sys,::zp::i04 const dur) noexcept -> void {
 	bow_log("simulating for (%" PRIX64 ") time units",dur);
 
 	for (::zp::i04 i = 0x0u;i <= dur;++i) {
-		::bow::grav(sys);
-		::bow::mv(sys);
+		::bow::grv(sys);
+		::bow::mov(sys);
 	}
 }

@@ -3,6 +3,7 @@
 /build
 /datdir
 /glad
+/rust
 *.tar
 *.zip
 *.zst

@@ -5,63 +5,63 @@
 #include <bow/bs.hxx>
 
 namespace bow {
-	constexpr ::zp::i04 savVer = 0x6u;
+	constexpr ::zp::i04 savver = 0x6u;
 
-	constexpr ::zp::siz savLen = 0x79u+::bow::cmdrNmLen;
+	constexpr ::zp::siz savlen = 0x79u+::bow::cmdnamlen;
 
-	constexpr ::zp::i8 maxShipId = static_cast<::zp::i8>(::bow::ship::vip);
+	constexpr ::zp::i8 maxshpid = static_cast<::zp::i8>(::bow::shp::vip);
 
 	/*
 		Save format:
 
 		offset: id:         size [bytes]: format:
 
-		0x00    fmtver      8             unsigned
-		0x08    cmdrnm      E             UTF-8
-		0x16    tm          8             unsigned
-		0x1E    sysid       8             unsigned
-		0x1F    shiptyp     1             unsigned
-		0x27    shipposx    8             binary64
-		0x2F    shipposy    8             binary64
-		0x37    shipposz    8             binary64
-		0x3F    shiprotx    8             binary64
-		0x47    shiproty    8             binary64
-		0x4F    shiprotz    8             binary64
-		0x57    shipposvelx 8             binary64
-		0x5F    shipposvely 8             binary64
-		0x67    shipposvelz 8             binary64
-		0x6F    shiprotvelx 8             binary64
-		0x77    shiprotvely 8             binary64
-		0x7F    shiprotvelz 8             binary64
+		0x00    fmtver     8             unsigned
+		0x08    cmdnam     E             UTF-8
+		0x16    tim        8             unsigned
+		0x1E    sysidt     8             unsigned
+		0x1F    shptyp     1             unsigned
+		0x27    shpposx    8             binary64
+		0x2F    shpposy    8             binary64
+		0x37    shpposz    8             binary64
+		0x3F    shprotx    8             binary64
+		0x47    shproty    8             binary64
+		0x4F    shprotz    8             binary64
+		0x57    shpposvelx 8             binary64
+		0x5F    shpposvely 8             binary64
+		0x67    shpposvelz 8             binary64
+		0x6F    shprotvelx 8             binary64
+		0x77    shprotvely 8             binary64
+		0x7F    shprotvelz 8             binary64
 	*/
 
-	struct savDat {
+	struct savdat {
 		::zp::i04 fmtVer;
-		char       cmdrNm[::bow::cmdrNmLen];
-		::zp::i04 tm;
-		::zp::i04 sysId;
-		::zp::i8  shipTyp;
-		double     shipPosX;
-		double     shipPosY;
-		double     shipPosZ;
-		double     shipRotX;
-		double     shipRotY;
-		double     shipRotZ;
-		double     shipPosVelX;
-		double     shipPosVelY;
-		double     shipPosVelZ;
-		double     shipRotVelX;
-		double     shipRotVelY;
-		double     shipRotVelZ;
+		char8_t   cmdnam[::bow::cmdnamlen];
+		::zp::i04 tim;
+		::zp::i04 sysidt;
+		::zp::i8  shptyp;
+		::zp::f04 shpposx;
+		::zp::f04 shpposy;
+		::zp::f04 shpposz;
+		::zp::f04 shprotx;
+		::zp::f04 shproty;
+		::zp::f04 shprotz;
+		::zp::f04 shpposvelx;
+		::zp::f04 shpposvely;
+		::zp::f04 shpposvelz;
+		::zp::f04 shprotvelx;
+		::zp::f04 shprotvely;
+		::zp::f04 shprotvelz;
 	};
 
-	void decSav(::bow::savDat & buf,::zp::i8 const *     dat) noexcept;
-	void encSav(::zp::i8 *     buf,::bow::savDat const & dat) noexcept;
+	auto decsav(::bow::savdat & buf,::zp::i8 const *      dat) noexcept -> void;
+	auto encsav(::zp::i8 *      buf,::bow::savdat const & dat) noexcept -> void;
 
-	void newSav(::bow::plDat & dat) noexcept;
+	auto newsav(::bow::pldat & dat) noexcept -> void;
 
-	void cont(  ::bow::plDat & dat,char const * fil) noexcept;
-	void genDat(::bow::plDat & dat)                  noexcept;
+	auto cnt(  ::bow::pldat &  dat,char const * fil) noexcept -> void;
+	auto gendat(::bow::pldat & dat)                  noexcept -> void;
 
-	void sav(char const * fil,::bow::plDat const & dat) noexcept;
+	auto sav(char const * fil,::bow::pldat const & dat) noexcept -> void;
 }

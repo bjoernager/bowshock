@@ -2,7 +2,7 @@
 
 #pragma once
 
-#ifndef bow_datDir
+#ifndef bow_datdir
 #error Data directory not specified!
 #endif
 
@@ -11,46 +11,46 @@
 
 static_assert(::zp::bytelen == 0x8u,"Bytes must contain exactly eight bits.");
 
-#define bow_logRaw(msg,...) fprintf(stderr,msg __VA_OPT__(,) __VA_ARGS__)
+#define bow_lograw(msg,...) fprintf(stderr,msg __VA_OPT__(,) __VA_ARGS__)
 
-#define bow_log(msg,...) bow_logRaw("\x1B[1m%s\x1B[0m: " msg "\n",__func__ __VA_OPT__(,) __VA_ARGS__)
+#define bow_log(msg,...) bow_lograw("\x1B[1m%s\x1B[0m: " msg "\n",__func__ __VA_OPT__(,) __VA_ARGS__)
 
-#define bow_logErr(msg,...) bow_log("\x1B[38;5;197m[ERROR]\x1B[0m " msg __VA_OPT__(,) __VA_ARGS__)
+#define bow_logerr(msg,...) bow_log("\x1B[38;5;197m[ERROR]\x1B[0m " msg __VA_OPT__(,) __VA_ARGS__)
 
 #if bow_dbg
-#define bow_logDbg(msg,...) bow_log(msg __VA_OPT__ (,) __VA_ARGS__)
+#define bow_logdbg(msg,...) bow_log(msg __VA_OPT__ (,) __VA_ARGS__)
 #else
-#define bow_logDbg(msg,...) ((void)0x0u)
+#define bow_logdbg(msg,...) ((void)0x0u)
 #endif
 
-#define bow_logXyz(xyz) bow_logDbg("%s: %.03f    %.03f    %.03f",#xyz,(xyz).x,(xyz).y,(xyz).z)
+#define bow_logxyz(xyz) bow_logdbg("%s: %.03f    %.03f    %.03f",#xyz,(xyz).x,(xyz).y,(xyz).z)
 
-#define bow_setStrLen(ptr,len,str) ((void)(ptr = str,len = sizeof (str)-0x1u))
+#define bow_setstrlen(ptr,len,str) ((void)(ptr = str,len = sizeof (str)-0x1u))
 
 namespace bow { 
-	constexpr ::zp::i04m verMaj = 0x0u;
-	constexpr ::zp::i04m verMin = 0xCu;
-	constexpr ::zp::i04m verPat = 0x0u;
+	constexpr ::zp::i04 vermaj = 0x0u;
+	constexpr ::zp::i04 vermin = 0xCu;
+	constexpr ::zp::i04 verpat = 0x0u;
 
-	constexpr bool dbg = bow_dbg;
+	constexpr auto dbg = bow_dbg;
 
-	constexpr ::zp::siz cmdrNmLen = 0xEu;
-	
-	enum struct stat : ::zp::i8m {
-		ok  = 0x0u,
-		err = 0x1u,
+	constexpr ::zp::siz cmdnamlen = 0xEu;
+
+	enum struct cnd : ::zp::i8 {
+		err, // error
+		oky, // okay
 	};
 
-	enum struct objTyp : ::zp::i8m {
-		can,     // canister
-		pl,      // player
-		ship,    // ship
-		star,    // star
-		station, // station
-		wrld,    // world (planet/moon)
+	enum struct objtyp : ::zp::i8 {
+		can, // canister
+		ply, // player
+		shp, // ship
+		tar, // star
+		stn, // station
+		wrl, // world (planet/moon)
 	};
 
-	enum struct wrld : ::zp::i8m {
+	enum struct wrl : ::zp::i8 {
 		amm, // ammonium world
 		gas, // gas giant
 		ice, // icy world
@@ -59,22 +59,22 @@ namespace bow {
 		wat, // water world
 	};
 
-	enum struct ship : ::zp::i8m {
-		aq,   // aquila
-		cas,  // cassiopeia
-		cent, // centaurus
-		cov,  // corvus
-		cur,  // cursor
-		eri,  // eridanus
-		fal,  // falco
-		lyra, // lyra
-		tau,  // taurus
-		ursa, // ursa
-		vip,  // vipera
-		// Remember maxShipId in sav
+	enum struct shp : ::zp::i8 {
+		aqu, // aquila
+		cas, // cassiopeia
+		cen, // centaurus
+		cov, // corvus
+		cur, // cursor
+		eri, // eridanus
+		fal, // falco
+		lyr, // lyra
+		tau, // taurus
+		urs, // ursa
+		vip, // vipera
+		// Remember maxshpid in sav
 	};
 
-	enum struct star : ::zp::i8m {
+	enum struct tar : ::zp::i8 {
 		a, // main sequence
 		b, // main sequence
 		c, // carbon
@@ -93,9 +93,9 @@ namespace bow {
 		z, // white hole
 	};
 
-	enum struct station : ::zp::i8m {
-		station_glob, // globus
-		station_orb,  // orbis
+	enum struct stn : ::zp::i8 {
+		stn_glb, // globus
+		stn_orb, // orbis
 	};
 
 	struct xyz {
@@ -105,34 +105,34 @@ namespace bow {
 	};
 
 	struct obj {
-		::bow::objTyp typ;
+		::bow::objtyp typ;
 		union {
-			::bow::wrld    wrldTyp;
-			::bow::ship    shipTyp;
-			::bow::star    starTyp;
-			::bow::station stationTyp;
+			::bow::wrl wrldTyp;
+			::bow::shp shptyp;
+			::bow::tar tartyp;
+			::bow::stn stnTyp;
 		};
-		::bow::xyz    pos;    // astronomical units
-		::bow::xyz    rot;    // radians
-		::bow::xyz    posVel; // astronomical units per second
-		::bow::xyz    rotVel; // radians per second
-		double        mass;   // kilograms
-		::bow::obj *  next;
+		::bow::xyz   pos;    // astronomical units
+		::bow::xyz   rot;    // radians
+		::bow::xyz   posVel; // astronomical units per second
+		::bow::xyz   rotVel; // radians per second
+		double       mas;    // kilograms
+		::bow::obj * nxt;
 	};
 
-	struct objRoot {
+	struct objroot {
 		::bow::obj * objs;
 	};
 
-	struct plDat {
-		char       nm[::bow::cmdrNmLen+0x1u];
-		::zp::i04m tm;
-		::zp::i04m sysId;
-		::bow::obj ship;
-		float      zoom;
+	struct pldat {
+		char       nam[::bow::cmdnamlen+0x1u];
+		::zp::i04  tim;
+		::zp::i04  sysidt;
+		::bow::obj shp;
+		float      zom;
 	};
 
-	char const * objTypStr(::bow::objTyp typ) noexcept;
+	auto objtypstr(::bow::objtyp typ) noexcept -> char const *;
 
-	::zp::i04 rnd() noexcept;
+	auto rnd() noexcept -> ::zp::i04;
 }

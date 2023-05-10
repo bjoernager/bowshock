@@ -5,6 +5,13 @@
 * Tag development versions;
 * Use minimum-width types;
 
+* Update naming convention;
+* Use trailing return types;
+* Use C++20;
+* Don't use minimum-width types;
+* Update some typings;
+* Rename intro to start sequence;
+
 # 0.B.2
 
 * Fix data directory not being set correctly by CMake;

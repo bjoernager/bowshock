@@ -4,11 +4,13 @@
 
 #include <bow/bs.hxx>
 
+#include <source_location>
+
 namespace bow {
-	[[noreturn]] void abrt() noexcept;
+	[[noreturn]] auto abr(::std::source_location srcloc = ::std::source_location::current()) noexcept -> void;
 
-	void addObj(  ::bow::objRoot &       root,::bow::obj const & obj);
-	void freeObjs(::bow::objRoot const & root)                        noexcept;
+	auto addobj(::bow::objroot &       root,::bow::obj const & obj)          -> void;
+	auto remobj(::bow::objroot const & root)                        noexcept -> void;
 
-	void genSys(::bow::objRoot & sys,::zp::i04 id,::zp::i04 tm);
+	auto gensys(::bow::objroot & sys,::zp::i04 id,::zp::i04 tim) -> void;
 }

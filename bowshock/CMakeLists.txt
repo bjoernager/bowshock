@@ -6,47 +6,46 @@ if("${BOW_DATA_DIRECTORY}" STREQUAL "")
 	message(FATAL_ERROR "Data directory (BOW_DATA_DIRECTORY) not specified")
 endif()
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 20)
 
 add_executable(
 	bowshock
 	
-	"source/bs/objTypStr.cxx"
+	"source/bs/objtypstr.cxx"
 	"source/bs/rnd.cxx"
 
-	"source/init/bow/bow.cxx"
-	"source/init/bow/chkParams.cxx"
-	"source/init/bow/compShd.cxx"
-	"source/init/bow/compShdProg.cxx"
-	"source/init/bow/cred.cxx"
-	"source/init/bow/getQuot.cxx"
-	"source/init/bow/getSavPth.cxx"
-	"source/init/bow/help.cxx"
-	"source/init/bow/init.cxx"
-	"source/init/bow/initGfx.cxx"
-	"source/init/bow/initRnd.cxx"
-	"source/init/bow/initSig.cxx"
-	"source/init/bow/intro.cxx"
-	"source/init/bow/loop.cxx"
-	"source/init/bow/pollEvts.cxx"
-	"source/init/bow/priQuot.cxx"
-	"source/init/bow/quit.cxx"
+	"source/ini/bow/chkpar.cxx"
+	"source/ini/bow/cmpshd.cxx"
+	"source/ini/bow/cmpshdprg.cxx"
+	"source/ini/bow/crd.cxx"
+	"source/ini/bow/exi.cxx"
+	"source/ini/bow/getquo.cxx"
+	"source/ini/bow/getsavpth.cxx"
+	"source/ini/bow/hlp.cxx"
+	"source/ini/bow/ini.cxx"
+	"source/ini/bow/inigfx.cxx"
+	"source/ini/bow/inirnd.cxx"
+	"source/ini/bow/inisig.cxx"
+	"source/ini/bow/lop.cxx"
+	"source/ini/bow/polevt.cxx"
+	"source/ini/bow/priquo.cxx"
+	"source/ini/bow/srtseq.cxx"
 
-	"source/lgc/grav.cxx"
-	"source/lgc/mv.cxx"
-	"source/lgc/shipMass.cxx"
+	"source/lgc/grv.cxx"
+	"source/lgc/mov.cxx"
+	"source/lgc/shpmas.cxx"
 	"source/lgc/sim.cxx"
 
-	"source/run/abrt.cxx"
-	"source/run/addObj.cxx"
-	"source/run/freeObjs.cxx"
-	"source/run/genSys.cxx"
+	"source/run/abr.cxx"
+	"source/run/addobj.cxx"
+	"source/run/remobj.cxx"
+	"source/run/gensys.cxx"
 
-	"source/sav/genDat.cxx"
-	"source/sav/cont.cxx"
-	"source/sav/decSav.cxx"
-	"source/sav/encSav.cxx"
-	"source/sav/newSav.cxx"
+	"source/sav/gendat.cxx"
+	"source/sav/cnt.cxx"
+	"source/sav/decsav.cxx"
+	"source/sav/encsav.cxx"
+	"source/sav/newsav.cxx"
 	"source/sav/sav.cxx"
 )
 
@@ -78,7 +77,7 @@ target_compile_definitions(
 	_FORTIFY_SOURCE=$<IF:$<STREQUAL:"${CMAKE_BUILD_TYPE}","Debug">,0x0,0x2>
 	_POSIX_C_SOURCE=200112l
 	GLFW_INCLUDE_NONE
-	bow_datDir="${BOW_DATA_DIRECTORY}"
+	bow_datdir="${BOW_DATA_DIRECTORY}"
 	bow_dbg=$<IF:$<STREQUAL:"${CMAKE_BUILD_TYPE}","Debug">,true,false>
 )
 
