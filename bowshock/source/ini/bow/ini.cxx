@@ -19,7 +19,7 @@ auto ::bow::bow::ini(int const argc,char const * const * const argv) noexcept ->
 	
 	bow_logdbg("debug mode is enabled");
 	bow_logdbg("data directory at \"" bow_datdir "\"");
-	bow_logdbg("angle unit:             %.3f radians",0x1p0f);
+	bow_logdbg("angle unit:             %.3f radians",0x1p0);
 	bow_logdbg("distance unit:          %.3f metres",::bow::dstmod);
 	bow_logdbg("mass unit:              %.3f kilograms",::bow::masmod);
 	bow_logdbg("time unit:              %.3f seconds",::bow::timmod);

@@ -86,9 +86,17 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang|GNU")
 
 		$<IF:$<STREQUAL:"${CMAKE_BUILD_TYPE}","Debug">,-Og,-Ofast>
 		-Wall
+		-Wdouble-promotion
 		-Wextra
-		-Wmissing-prototypes
+		-Wfloat-equal
+		-Wformat=2
+		-Winvalid-utf8
+		-Wmissing-declarations
+		-Wmissing-include-dirs
+		-Wnull-dereference
 		-Wpedantic
+		-Wpointer-arith
+		-Wstrict-overflow=5
 		-fdiagnostics-color=always
 		-g
 	)

@@ -15,7 +15,7 @@ namespace bow {
 }
 
 static auto ::bow::cmpshd(::GLuint & shd,char const * const nam,::GLenum const typ) -> void {
-	char const * typstr;
+	/*[[maybe_unused]]*/ char const * typstr;
 	
 	char const * typExt;
 	::zp::siz    typExtLen;

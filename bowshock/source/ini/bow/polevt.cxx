@@ -12,7 +12,7 @@ auto ::bow::bow::polevt() noexcept -> bool {
 		::glfwSetWindowShouldClose(gfxdat.win,GLFW_TRUE);
 	
 	}
-	if (::glfwWindowShouldClose(gfxdat.win)) [[unlikely]] return true;
+	if (::glfwWindowShouldClose(gfxdat.win)) [[unlikely]] {return true;}
 
 	return false;
 }

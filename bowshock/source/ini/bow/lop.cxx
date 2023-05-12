@@ -84,7 +84,7 @@ auto ::bow::bow::lop() noexcept -> void {
 		::bow::mov(sysRoot);
 		::bow::mov(objroot);
 
-		::GLfloat const frm = 0x1p0*plydat.zom;
+		::GLfloat const frm = 0x1p0f*plydat.zom;
 
 		vtx[0x0u] = (::GLfloat)sysRoot.objs->nxt->pos.x/frm;
 		vtx[0x1u] = (::GLfloat)sysRoot.objs->nxt->pos.y/frm;

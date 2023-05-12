@@ -20,6 +20,8 @@
 * Make cmpshd static;
 * Rename crd to prcrd;
 
+* Enable more warnings;
+
 # 0.B.2
 
 * Fix data directory not being set correctly by CMake;
