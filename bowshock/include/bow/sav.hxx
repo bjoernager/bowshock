@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include <bow/bs.hxx>
+#include <bow/bas.hxx>
 
 namespace bow {
 	constexpr ::zp::i04 savver = 0x6u;
@@ -58,10 +58,10 @@ namespace bow {
 	auto decsav(::bow::savdat & buf,::zp::i8 const *      dat) noexcept -> void;
 	auto encsav(::zp::i8 *      buf,::bow::savdat const & dat) noexcept -> void;
 
-	auto newsav(::bow::pldat & dat) noexcept -> void;
+	auto newsav(::bow::plydat & dat) noexcept -> void;
 
-	auto cnt(  ::bow::pldat &  dat,char const * fil) noexcept -> void;
-	auto gendat(::bow::pldat & dat)                  noexcept -> void;
+	auto cnt(  ::bow::plydat &  dat,char const * fil) noexcept -> void;
+	auto gendat(::bow::plydat & dat)                  noexcept -> void;
 
-	auto sav(char const * fil,::bow::pldat const & dat) noexcept -> void;
+	auto sav(char const * fil,::bow::plydat const & dat) noexcept -> void;
 }

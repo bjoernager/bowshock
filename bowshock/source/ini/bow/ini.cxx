@@ -29,17 +29,17 @@ auto ::bow::bow::ini(int const argc,char const * const * const argv) noexcept ->
 	inisig();
 	inigfx();
 	
-	if (opt.skip || !srtseq()) [[likely]] {
-		if (!opt.hassavpth) {opt.savPth = getsavpth();}
+	if (opt.skp || !srtseq()) [[likely]] {
+		if (!opt.hassavpth) {opt.savpth = getsavpth();}
 
-		if (opt.newsav) ::bow::newsav(pldat);
-		else             ::bow::cnt(pldat,opt.savPth);
+		if (opt.newsav) {::bow::newsav(plydat);}
+		else            {::bow::cnt(plydat,opt.savpth);}
 
 		lop();
 
-		::bow::sav(opt.savPth,pldat);
+		::bow::sav(opt.savpth,plydat);
 
-		if (!opt.hassavpth) delete[] const_cast<char *>(opt.savPth);
+		if (!opt.hassavpth) {delete[] const_cast<char *>(opt.savpth);}
 	}
 
 	exi(::bow::cnd::oky);

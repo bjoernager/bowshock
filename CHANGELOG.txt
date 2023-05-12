@@ -12,6 +12,14 @@
 * Update some typings;
 * Rename intro to start sequence;
 
+* Enforce new naming convention;
+* Use fixed-width floating-point types;
+* Update shader validation script;
+* Rename bs module to bas;
+* Register SIGTERM handler;
+* Make cmpshd static;
+* Rename crd to prcrd;
+
 # 0.B.2
 
 * Fix data directory not being set correctly by CMake;

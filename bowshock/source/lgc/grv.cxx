@@ -6,19 +6,19 @@
 
 namespace bow {
 	static auto grav1(::bow::obj & obj,::bow::obj const & par) noexcept -> void {
-		double const distx = par.pos.x-obj.pos.x;
-		double const disty = par.pos.y-obj.pos.y;
-		double const distz = par.pos.z-obj.pos.z;
-		double const dist  = ::std::sqrt(distx*distx+disty*disty+distz*distz);
+		::zp::f04 const distx = par.pos.x-obj.pos.x;
+		::zp::f04 const disty = par.pos.y-obj.pos.y;
+		::zp::f04 const distz = par.pos.z-obj.pos.z;
+		::zp::f04 const dist  = ::std::sqrt(distx*distx+disty*disty+distz*distz);
 
-		double const angy  = ::std::atan2(disty,distx);
-		double const angz  = ::std::atan2(distz,distx);
+		::zp::f04 const angy  = ::std::atan2(disty,distx);
+		::zp::f04 const angz  = ::std::atan2(distz,distx);
 
-		double       acc   = par.mas/(dist*dist)*::bow::grvval;
+		::zp::f04     acc   = par.mas/(dist*dist)*::bow::grvval;
 
-		double const vx    = ::std::cos(angy)*acc;
-		double const vy    = ::std::sin(angy)*acc;
-		double const vz    = ::std::sin(angz)*acc;
+		::zp::f04 const vx    = ::std::cos(angy)*acc;
+		::zp::f04 const vy    = ::std::sin(angy)*acc;
+		::zp::f04 const vz    = ::std::sin(angz)*acc;
 
 		obj.posVel.x += vx;
 		obj.posVel.y += vy;
@@ -26,24 +26,24 @@ namespace bow {
 	}
 
 	static void grav2(::bow::obj & obj0,::bow::obj & obj1) noexcept {
-		double const distx  = obj1.pos.x-obj0.pos.x;
-		double const disty  = obj1.pos.y-obj0.pos.y;
-		double const distz  = obj1.pos.z-obj0.pos.z;
-		double const dist   = ::std::sqrt(distx*distx+disty*disty+distz*distz);
+		::zp::f04 const distx  = obj1.pos.x-obj0.pos.x;
+		::zp::f04 const disty  = obj1.pos.y-obj0.pos.y;
+		::zp::f04 const distz  = obj1.pos.z-obj0.pos.z;
+		::zp::f04 const dist   = ::std::sqrt(distx*distx+disty*disty+distz*distz);
 
-		double const angy   = ::std::atan2(disty,distx);
-		double const angz   = ::std::atan2(distz,distx);
+		::zp::f04 const angy   = ::std::atan2(disty,distx);
+		::zp::f04 const angz   = ::std::atan2(distz,distx);
 
-		double       acc0   = ::bow::grvval/(dist*dist);
-		double const acc1   = acc0*obj0.mas; // This is negative.
+		::zp::f04     acc0   = ::bow::grvval/(dist*dist);
+		::zp::f04 const acc1   = acc0*obj0.mas; // This is negative.
 		             acc0  *= obj1.mas;
 
-		double       vx0    = ::std::cos(angy);
-		double       vy0    = ::std::sin(angy);
-		double       vz0    = ::std::sin(angz);
-		double const vx1    = vx0*acc1;
-		double const vy1    = vy0*acc1;
-		double const vz1    = vz0*acc1;
+		::zp::f04     vx0    = ::std::cos(angy);
+		::zp::f04     vy0    = ::std::sin(angy);
+		::zp::f04     vz0    = ::std::sin(angz);
+		::zp::f04 const vx1    = vx0*acc1;
+		::zp::f04 const vy1    = vy0*acc1;
+		::zp::f04 const vz1    = vz0*acc1;
 		             vx0   *= acc0;
 		             vy0   *= acc0;
 		             vz0   *= acc0;

@@ -71,7 +71,7 @@ namespace bow {
 		tau, // taurus
 		urs, // ursa
 		vip, // vipera
-		// Remember maxshpid in sav
+		// Remember maxshpid in sav!
 	};
 
 	enum struct tar : ::zp::i8 {
@@ -99,9 +99,9 @@ namespace bow {
 	};
 
 	struct xyz {
-		double x;
-		double y;
-		double z;
+		::zp::f04 x;
+		::zp::f04 y;
+		::zp::f04 z;
 	};
 
 	struct obj {
@@ -116,7 +116,7 @@ namespace bow {
 		::bow::xyz   rot;    // radians
 		::bow::xyz   posVel; // astronomical units per second
 		::bow::xyz   rotVel; // radians per second
-		double       mas;    // kilograms
+		::zp::f04     mas;    // kilograms
 		::bow::obj * nxt;
 	};
 
@@ -124,7 +124,7 @@ namespace bow {
 		::bow::obj * objs;
 	};
 
-	struct pldat {
+	struct plydat {
 		char       nam[::bow::cmdnamlen+0x1u];
 		::zp::i04  tim;
 		::zp::i04  sysidt;

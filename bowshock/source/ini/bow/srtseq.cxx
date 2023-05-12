@@ -14,7 +14,7 @@ auto ::bow::bow::srtseq() noexcept -> bool {
 	constexpr ::GLfloat bowb = 0x1.9999999Ap-3;
 	
 	::glfwSetTime(0x0p0);
-	for (double dur = 0x0p0;dur <= 0x3p0;dur = ::glfwGetTime()) {
+	for (::zp::f04 dur = 0x0p0;dur <= 0x3p0;dur = ::glfwGetTime()) {
 		if (polevt()) [[unlikely]] break;
 		
 		glClearColor(bowr,bowg,bowb,0x1p0);
@@ -22,9 +22,9 @@ auto ::bow::bow::srtseq() noexcept -> bool {
 		::glfwSwapBuffers(gfxdat.win);
 	}
 	
-	double const fadedur = 0x1p0;
+	::zp::f04 const fadedur = 0x1p0;
 	::glfwSetTime(0x0p0);
-	for (double fac = 0x0p0;fac <= fadedur;fac = ::glfwGetTime()) {
+	for (::zp::f04 fac = 0x0p0;fac <= fadedur;fac = ::glfwGetTime()) {
 		if (polevt()) [[unlikely]] {break;}
 		
 		::GLfloat const r = bowr*(0x1p0f-fac/fadedur);

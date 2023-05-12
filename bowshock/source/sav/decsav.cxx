@@ -9,10 +9,10 @@ auto ::bow::decsav(::bow::savdat & buf,::zp::i8 const * dat) noexcept -> void {
 		dat = ::zp::memcpy(&buf,dat,sizeof (buf)).src;
 	};
 
-	decVal(buf.fmtVer);      // fmtver
-	decVal(buf.cmdnam);      // cmdnam
-	decVal(buf.tim);         // tim
-	decVal(buf.sysidt);      // sysidt
+	decVal(buf.fmtVer);     // fmtver
+	decVal(buf.cmdnam);     // cmdnam
+	decVal(buf.tim);        // tim
+	decVal(buf.sysidt);     // sysidt
 	decVal(buf.shptyp);     // shptyp
 	decVal(buf.shpposx);    // shpposx
 	decVal(buf.shpposy);    // shpposy

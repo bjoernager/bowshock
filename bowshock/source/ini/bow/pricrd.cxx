@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <stdexcept>
 
-auto ::bow::bow::crd() noexcept -> void {
+auto ::bow::bow::pricrd() noexcept -> void {
 	char const * const pth = bow_datdir "/CREDITS.txt";
 
 	::zp::siz const filsiz = [&pth]() {
@@ -26,29 +26,29 @@ auto ::bow::bow::crd() noexcept -> void {
 		::std::exit(EXIT_FAILURE);
 	}
 
-	char * crd;
+	char * pricrd;
 
-	try {crd = new char[filsiz + 0x3u];}
+	try {pricrd = new char[filsiz + 0x3u];}
 	catch (::std::bad_alloc const & e) {
 		bow_logerr("unable to allocate memory");
 		
 		::std::exit(EXIT_FAILURE);
 	}
 
-	char * const credsrt = crd;
+	char * const credsrt = pricrd;
 
-	*crd++ = '\n';
+	*pricrd++ = '\n';
 
-	fil.red(crd,filsiz);
+	fil.red(pricrd,filsiz);
 	fil.cls();
-	crd += filsiz;
+	pricrd += filsiz;
 
-	*crd++ = '\n';
-	*crd++ = '\x00';
+	*pricrd++ = '\n';
+	*pricrd++ = '\x00';
 
-	crd = credsrt;
+	pricrd = credsrt;
 
-	::ly::dflout.wrt(crd,filsiz + 0x3u);
+	::ly::dflout.wrt(pricrd,filsiz + 0x3u);
 
 	if (err != ::ly::err::ok) {
 		bow_logerr("unable to write to defout");
@@ -56,7 +56,7 @@ auto ::bow::bow::crd() noexcept -> void {
 		::std::exit(EXIT_FAILURE);
 	}
 
-	delete[] crd;
+	delete[] pricrd;
 
 	::std::exit(EXIT_SUCCESS);
 }

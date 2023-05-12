@@ -6,8 +6,8 @@
 #include <ly/io>
 #include <zp/mem>
 
-auto ::bow::sav(char const * const pth,::bow::pldat const & pldat) noexcept -> void {
-	bow_log("saving commander %s at \"%s\"",pldat.nam,pth);
+auto ::bow::sav(char const * const pth,::bow::plydat const & plydat) noexcept -> void {
+	bow_log("saving commander %s at \"%s\"",plydat.nam,pth);
 	
 	::ly::fil fil;
 	::ly::err err = fil.crt(pth,0644u);
@@ -20,24 +20,24 @@ auto ::bow::sav(char const * const pth,::bow::pldat const & pldat) noexcept -> v
 	::zp::i8 dat[::bow::savlen];
 
 	::bow::savdat savdat = {
-		.fmtVer      = ::bow::savver,
-		.tim          = pldat.tim,
-		.sysidt       = pldat.sysidt,
-		.shptyp     = static_cast<::zp::i8>(pldat.shp.shptyp),
-		.shpposx    = pldat.shp.pos.x,
-		.shpposy    = pldat.shp.pos.y,
-		.shpposz    = pldat.shp.pos.z,
-		.shprotx    = pldat.shp.rot.x,
-		.shproty    = pldat.shp.rot.y,
-		.shprotz    = pldat.shp.rot.z,
-		.shpposvelx = pldat.shp.posVel.x,
-		.shpposvely = pldat.shp.posVel.y,
-		.shpposvelz = pldat.shp.posVel.z,
-		.shprotvelx = pldat.shp.rotVel.x,
-		.shprotvely = pldat.shp.rotVel.y,
-		.shprotvelz = pldat.shp.rotVel.z,
+		.fmtVer     = ::bow::savver,
+		.tim        = plydat.tim,
+		.sysidt     = plydat.sysidt,
+		.shptyp     = static_cast<::zp::i8>(plydat.shp.shptyp),
+		.shpposx    = plydat.shp.pos.x,
+		.shpposy    = plydat.shp.pos.y,
+		.shpposz    = plydat.shp.pos.z,
+		.shprotx    = plydat.shp.rot.x,
+		.shproty    = plydat.shp.rot.y,
+		.shprotz    = plydat.shp.rot.z,
+		.shpposvelx = plydat.shp.posVel.x,
+		.shpposvely = plydat.shp.posVel.y,
+		.shpposvelz = plydat.shp.posVel.z,
+		.shprotvelx = plydat.shp.rotVel.x,
+		.shprotvely = plydat.shp.rotVel.y,
+		.shprotvelz = plydat.shp.rotVel.z,
 	};
-	::zp::cpy(savdat.cmdnam,pldat.nam,sizeof (savdat.cmdnam));
+	::zp::cpy(savdat.cmdnam,plydat.nam,sizeof (savdat.cmdnam));
 
 	::bow::encsav(dat,savdat);
 	

@@ -8,7 +8,7 @@
 auto ::bow::bow::exi(::bow::cnd const cnd) noexcept -> void {
 	bow_log("quitting");
 	
-	glDeleteProgram(gfxdat.shdprog);
+	glDeleteProgram(gfxdat.shdprg);
 
 	::glfwDestroyWindow(gfxdat.win);
 	::glfwTerminate();

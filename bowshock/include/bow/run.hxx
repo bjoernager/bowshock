@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include <bow/bs.hxx>
+#include <bow/bas.hxx>
 
 #include <source_location>
 

@@ -3,7 +3,7 @@
 #include <bow/lgc.hxx>
 #include <bow/sav.hxx>
 
-auto ::bow::gendat(::bow::pldat & dat) noexcept -> void {
+auto ::bow::gendat(::bow::plydat & dat) noexcept -> void {
 	bow_log("generating player data");
 
 	dat.shp.typ = ::bow::objtyp::shp;

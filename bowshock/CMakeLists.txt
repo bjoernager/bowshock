@@ -15,9 +15,7 @@ add_executable(
 	"source/bs/rnd.cxx"
 
 	"source/ini/bow/chkpar.cxx"
-	"source/ini/bow/cmpshd.cxx"
 	"source/ini/bow/cmpshdprg.cxx"
-	"source/ini/bow/crd.cxx"
 	"source/ini/bow/exi.cxx"
 	"source/ini/bow/getquo.cxx"
 	"source/ini/bow/getsavpth.cxx"
@@ -28,6 +26,7 @@ add_executable(
 	"source/ini/bow/inisig.cxx"
 	"source/ini/bow/lop.cxx"
 	"source/ini/bow/polevt.cxx"
+	"source/ini/bow/pricrd.cxx"
 	"source/ini/bow/priquo.cxx"
 	"source/ini/bow/srtseq.cxx"
 

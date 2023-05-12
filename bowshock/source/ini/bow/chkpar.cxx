@@ -6,12 +6,12 @@
 #include <zp/str>
 
 auto ::bow::bow::chkpar(::bow::trmopt & opt,int const argc,char const * const * argv) noexcept -> void {
-	char const * const progNm = *argv;
+	char const * const prognm = *argv;
 
 	opt = ::bow::trmopt {
 		.hassavpth = false,
-		.newsav     = false,
-		.skip      = false,
+		.newsav    = false,
+		.skp       = false,
 	};
 	
 	if (argc >= 0x2) [[unlikely]] {
@@ -23,17 +23,17 @@ auto ::bow::bow::chkpar(::bow::trmopt & opt,int const argc,char const * const * 
 			if (par[0x0u] == '-' && par[0x1u] == '-') {
 				par += 0x2u;
 
-				     if (::zp::strequ(par,"credits")) crd();
-				else if (::zp::strequ(par,"help"))    hlp(progNm);
-				else if (::zp::strequ(par,"new"))     opt.newsav  = true;
-				else if (::zp::strequ(par,"skip"))    opt.skip = true;
-				else                                  bow_logerr("invalid pareter \"%s\"",par);
+				     if (::zp::strequ(par,"credits")) {pricrd();}
+				else if (::zp::strequ(par,"help"))    {hlp(prognm);}
+				else if (::zp::strequ(par,"new"))     {opt.newsav  = true;}
+				else if (::zp::strequ(par,"skip"))    {opt.skp = true;}
+				else                                  {bow_logerr("invalid pareter \"%s\"",par);}
 
 				continue;
 			}
 			
 			// Else: Interpret it as a save path.
-			opt.savPth    = par;
+			opt.savpth    = par;
 			opt.hassavpth = true;
 		}
 	}

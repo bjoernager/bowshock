@@ -2,19 +2,19 @@
 
 from subprocess import PIPE,run
 
-def validate(pth:str):
-	print("validating \"",pth,"\"... ",end='',sep='')
+def validate(path:str):
+	print("validating \"",path,"\"... ",end='',sep='')
 
-	pth  = "bowshock/shader/" + pth + ".glsl"
+	path  = "bowshock/shader/" + path + ".glsl"
 	prog = "glslangValidator"
 
-	stat = run([prog,pth],stdout=PIPE)
+	status = run([prog,path],stdout=PIPE)
 
-	ret = stat.returncode
-	if ret != 0x0:
+	result = status.returncode
+	if result != 0x0:
 		print("\x1B[38;5;161merror\x1B[0m")
 		print()
-		print(stat.stdout.decode("utf-8"))
+		print(status.stdout.decode("utf-8"))
 		quit(0x1)
 
 	print("\x1B[38;5;77mokay\x1B[0m")

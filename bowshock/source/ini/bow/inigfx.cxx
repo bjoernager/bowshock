@@ -38,5 +38,5 @@ auto ::bow::bow::inigfx() noexcept -> void {
 	::glfwSwapBuffers(gfxdat.win);
 	::glfwSwapInterval(0x1);
 
-	compshdprog(gfxdat.shdprog,"main");
+	compshdprg(gfxdat.shdprg,"main");
 }

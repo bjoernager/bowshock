@@ -2,10 +2,10 @@
 
 #include <bow/sav.hxx>
 
-auto ::bow::newsav(::bow::pldat & dat) noexcept -> void {
+auto ::bow::newsav(::bow::plydat & dat) noexcept -> void {
 	bow_log("generating new save file");
 
-	dat = ::bow::pldat {
+	dat = ::bow::plydat {
 		.nam    = "Caelum\x00\x00\x00\x00\x00\x00\x00\x00",
 		.tim    = 0x0u, // 256 julian years after the Unix Epoch.
 		.sysidt = 0x45u,

@@ -2,8 +2,8 @@
 
 #include <bow/lgc.hxx>
 
-auto ::bow::shpmas([[maybe_unused]] ::bow::shp const id) noexcept -> double {
-	double mas = 0x100p0;
+auto ::bow::shpmas([[maybe_unused]] ::bow::shp const id) noexcept -> ::zp::f04 {
+	::zp::f04 mas = 0x100p0;
 	mas /= ::bow::masmod;
 	
 	return mas;

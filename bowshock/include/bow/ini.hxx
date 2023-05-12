@@ -13,14 +13,14 @@ namespace bow {
 
 	struct gfxdat {
 		::GLFWwindow * win;
-		::GLuint       shdprog;
+		::GLuint       shdprg;
 	};
 
 	struct trmopt {
-		char const * savPth;
+		char const * savpth;
 		bool         hassavpth:0x1u;
 		bool         newsav:0x1u;
-		bool         skip:0x1u;
+		bool         skp:0x1u;
 	};
 
 	class bow {
@@ -28,21 +28,20 @@ namespace bow {
 		[[noreturn]] auto ini(int argc,char const * const * argv) noexcept -> void;
 
 	private:
-		::bow::pldat  pldat;
+		::bow::plydat plydat;
 		::bow::gfxdat gfxdat;
 
-		auto getsavpth()                                                    noexcept -> char const *;
+		auto getsavpth()                                                  noexcept -> char const *;
 		auto getquo(   char const * * quo,char const * * src,::zp::i8 id) noexcept -> void;
 
 		auto priquo() noexcept -> void;
 
-		[[noreturn]] auto crd()                    noexcept -> void;
-		[[noreturn]] auto hlp(char const * progNm) noexcept -> void;
+		[[noreturn]] auto pricrd()                    noexcept -> void;
+		[[noreturn]] auto hlp(char const * prognm) noexcept -> void;
 
 		auto chkpar(trmopt & opt,int argc,char const * const * argv) noexcept -> void;
 
-		auto cmpshd(     ::GLuint & shd,    char const * nam,GLenum typ)          -> void;
-		auto compshdprog(::GLuint & shdprog,char const * nam)            noexcept -> void;
+		auto compshdprg(::GLuint & shdprg,char const * nam)             noexcept -> void;
 
 		auto inigfx() noexcept -> void;
 		auto inirnd() noexcept -> void;
@@ -51,7 +50,7 @@ namespace bow {
 		auto polevt() noexcept -> bool;
 
 		auto srtseq() noexcept -> bool;
-		auto lop()   noexcept -> void;
+		auto lop()    noexcept -> void;
 
 		[[noreturn]] auto exi(::bow::cnd stat) noexcept -> void;
 	};

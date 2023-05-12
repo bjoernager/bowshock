@@ -5,7 +5,7 @@
 #include <cinttypes>
 #include <cstdlib>
 
-auto ::bow::bow::hlp(char const * const progNm) noexcept -> void {
+auto ::bow::bow::hlp(char const * const prognm) noexcept -> void {
 	bow_lograw(
 		"\n"
 		"\x1B[1mBowshock\x1B[0m %" PRIX64 ".%" PRIX64 ".%" PRIX64 "\n"
@@ -17,9 +17,9 @@ auto ::bow::bow::hlp(char const * const progNm) noexcept -> void {
 		"    --credits    Print the game \x1B[1mcredits\x1B[0m\n"
 		"    --help       Print \x1B[1mhelp\x1B[0m screen\n"
 		"    --new        srt a \x1B[1mnew\x1B[0m save file\n"
-		"    --skip       \x1B[1mSkip\x1B[0m the intro\n"
+		"    --skp       \x1B[1mskp\x1B[0m the intro\n"
 		"\n",
-		::bow::vermaj,::bow::vermin,::bow::verpat,progNm);
+		::bow::vermaj,::bow::vermin,::bow::verpat,prognm);
 		
 	::std::exit(EXIT_SUCCESS);
 }

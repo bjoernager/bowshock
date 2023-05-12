@@ -35,7 +35,7 @@ auto ::bow::bow::lop() noexcept -> void {
 		.objs = nullptr,
 	};
 
-	try {::bow::gensys(sysRoot,pldat.sysidt,pldat.tim);}
+	try {::bow::gensys(sysRoot,plydat.sysidt,plydat.tim);}
 	catch (::std::bad_alloc const & e) {
 		bow_logerr("unable to allocate memory for object");
 		::bow::abr();
@@ -67,15 +67,15 @@ auto ::bow::bow::lop() noexcept -> void {
 	};
 	::bow::addobj(objroot,objTmp);
 
-	auto const scrlHand = [](::GLFWwindow * const win,[[maybe_unused]] double const xoff,double const yoff) -> void {
-		::bow::pldat * dat = static_cast<::bow::pldat *>(::glfwGetWindowUserPointer(win));
+	auto const scrlHand = [](::GLFWwindow * const win,[[maybe_unused]] ::zp::f04 const xoff,::zp::f04 const yoff) -> void {
+		::bow::plydat * dat = static_cast<::bow::plydat *>(::glfwGetWindowUserPointer(win));
 		dat->zom *= ::std::pow(0x1.04p0f,0x0p0f-static_cast<float>(yoff));
 	};
 
-	::glfwSetWindowUserPointer(gfxdat.win,&pldat);
+	::glfwSetWindowUserPointer(gfxdat.win,&plydat);
 	::glfwSetScrollCallback(gfxdat.win,scrlHand);
 
-	for (;;++pldat.tim) {
+	for (;;++plydat.tim) {
 		if (polevt()) [[unlikely]] break;
 
 		::bow::grv(sysRoot);
@@ -84,7 +84,7 @@ auto ::bow::bow::lop() noexcept -> void {
 		::bow::mov(sysRoot);
 		::bow::mov(objroot);
 
-		::GLfloat const frm = 0x1p0*pldat.zom;
+		::GLfloat const frm = 0x1p0*plydat.zom;
 
 		vtx[0x0u] = (::GLfloat)sysRoot.objs->nxt->pos.x/frm;
 		vtx[0x1u] = (::GLfloat)sysRoot.objs->nxt->pos.y/frm;
@@ -99,7 +99,7 @@ auto ::bow::bow::lop() noexcept -> void {
 		glBindBuffer(GL_ARRAY_BUFFER,vbo);
 		glBufferSubData(GL_ARRAY_BUFFER,0x0,sizeof (vtx),vtx);
 
-		glUseProgram(gfxdat.shdprog);
+		glUseProgram(gfxdat.shdprg);
 		glBindVertexArray(vao);
 		glDrawArrays(GL_TRIANGLES,0x0,0x3 * 0x1);
 

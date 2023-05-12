@@ -1,6 +1,6 @@
 // Copyright 2022-2023 Gabriel Jensen.
 
-#include <bow/bs.hxx>
+#include <bow/bas.hxx>
 
 #include <cstdlib>
 
