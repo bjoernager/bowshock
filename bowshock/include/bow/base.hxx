@@ -27,7 +27,7 @@ namespace bow {
 	constexpr VersionType<::std::uint64_t> VERSION = {
 		.major = 0x0u,
 		.minor = 0xCu,
-		.patch = 0x1u,
+		.patch = 0x0u,
 	};
 
 	constexpr bool DEBUG = bow_debug;
@@ -44,7 +44,7 @@ namespace bow {
 	};
 
 	enum struct World : ::std::uint8_t {
-		Ammonium_world,  // ammonium world
+		Ammonium_world,
 		Gas_giant,
 		Ice_world,
 		Rocky_world,
@@ -68,22 +68,22 @@ namespace bow {
 	};
 
 	enum struct Star : ::std::uint8_t {
-		A, // main sequence
-		B, // main sequence
-		C, // carbon
-		F, // main sequence
-		G, // main sequence
-		K, // main sequence
-		L, // brown dwarf
-		M, // main sequence
-		N, // neutron star
-		O, // main sequence
-		S, // carbon
-		T, // brown dwarf
-		W, // worm hole
-		X, // black hole
-		Y, // brown dwarf
-		Z, // white hole
+		A, // Main sequence
+		B, // Main sequence
+		C, // Carbon
+		F, // Main sequence
+		G, // Main sequence
+		K, // Main sequence
+		L, // Brown dwarf
+		M, // Main sequence
+		N, // Neutron star
+		O, // Main sequence
+		S, // Carbon
+		T, // Brown dwarf
+		W, // Worm hole
+		X, // Black hole
+		Y, // Brown dwarf
+		Z, // White hole
 	};
 
 	enum struct Station : ::std::uint8_t {

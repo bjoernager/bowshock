@@ -34,6 +34,9 @@
 * Update help screen
 * Fix objects not being deleted
 
+* Update readme
+* Fix version constant
+
 # 0.B.2
 
 * Fix data directory not being set correctly by CMake;

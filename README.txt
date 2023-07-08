@@ -51,7 +51,8 @@ before installation, the program will fail to compile them during run-time.
 
 # INSTALLATION
 
-The script "install.sh" will install the executable, the assets, the shaders... to the specified directories:
+The script "install.sh" will install the executable, the assets, the shaders...
+to the specified directories:
 
 ./install.sh [build directory] [binary directory] [data directory]
 
