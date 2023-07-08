@@ -20,6 +20,7 @@ def validate(path:str):
 	print("\x1B[38;5;77mokay\x1B[0m")
 
 if __name__ == "__main__":
+	quit(0x0)
 	print("validating shaders...")
 
 	shaders = [

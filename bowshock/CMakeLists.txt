@@ -10,42 +10,42 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(
 	bowshock
-	
-	"source/bs/objtypstr.cxx"
-	"source/bs/rnd.cxx"
 
-	"source/ini/bow/chkpar.cxx"
-	"source/ini/bow/cmpshdprg.cxx"
-	"source/ini/bow/exi.cxx"
-	"source/ini/bow/getquo.cxx"
-	"source/ini/bow/getsavpth.cxx"
-	"source/ini/bow/hlp.cxx"
-	"source/ini/bow/ini.cxx"
-	"source/ini/bow/inigfx.cxx"
-	"source/ini/bow/inirnd.cxx"
-	"source/ini/bow/inisig.cxx"
-	"source/ini/bow/lop.cxx"
-	"source/ini/bow/polevt.cxx"
-	"source/ini/bow/pricrd.cxx"
-	"source/ini/bow/priquo.cxx"
-	"source/ini/bow/srtseq.cxx"
+	"source/application/bow/check_parameters.cxx"
+	"source/application/bow/compile_shader_program.cxx"
+	"source/application/bow/destructor.cxx"
+	"source/application/bow/get_quote.cxx"
+	"source/application/bow/initialise_graphics.cxx"
+	"source/application/bow/initialise_random.cxx"
+	"source/application/bow/initialise_signal.cxx"
+	"source/application/bow/loop.cxx"
+	"source/application/bow/poll_events.cxx"
+	"source/application/bow/print_credits.cxx"
+	"source/application/bow/print_help.cxx"
+	"source/application/bow/print_quote.cxx"
+	"source/application/bow/run.cxx"
+	"source/application/bow/start_sequence.cxx"
 
-	"source/lgc/grv.cxx"
-	"source/lgc/mov.cxx"
-	"source/lgc/shpmas.cxx"
-	"source/lgc/sim.cxx"
+	"source/base/home_directory.cxx"
+	"source/base/object_type_string.cxx"
+	"source/base/random.cxx"
+	"source/base/save_path.cxx"
 
-	"source/run/abr.cxx"
-	"source/run/addobj.cxx"
-	"source/run/remobj.cxx"
-	"source/run/gensys.cxx"
+	"source/logic/gravitate.cxx"
+	"source/logic/move.cxx"
+	"source/logic/ship_mass.cxx"
+	"source/logic/simulate.cxx"
 
-	"source/sav/gendat.cxx"
-	"source/sav/cnt.cxx"
-	"source/sav/decsav.cxx"
-	"source/sav/encsav.cxx"
-	"source/sav/newsav.cxx"
-	"source/sav/sav.cxx"
+	"source/runtime/add_object.cxx"
+	"source/runtime/generate_system.cxx"
+	"source/runtime/delete_objects.cxx"
+
+	"source/save/continue_save.cxx"
+	"source/save/decode_save.cxx"
+	"source/save/encode_save.cxx"
+	"source/save/generate_data.cxx"
+	"source/save/new_save.cxx"
+	"source/save/save.cxx"
 )
 
 add_dependencies(
@@ -63,11 +63,10 @@ target_include_directories(
 target_link_libraries(
 	bowshock PRIVATE
 
+	fmt
 	glad
 	glfw
-	ly
 	m
-	zp
 )
 
 target_compile_definitions(
@@ -76,8 +75,8 @@ target_compile_definitions(
 	_FORTIFY_SOURCE=$<IF:$<STREQUAL:"${CMAKE_BUILD_TYPE}","Debug">,0x0,0x2>
 	_POSIX_C_SOURCE=200112l
 	GLFW_INCLUDE_NONE
-	bow_datdir="${BOW_DATA_DIRECTORY}"
-	bow_dbg=$<IF:$<STREQUAL:"${CMAKE_BUILD_TYPE}","Debug">,true,false>
+	bow_dataDirectory="${BOW_DATA_DIRECTORY}"
+	bow_debug=$<IF:$<STREQUAL:"${CMAKE_BUILD_TYPE}","Debug">,true,false>
 )
 
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang|GNU")

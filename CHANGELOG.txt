@@ -22,6 +22,18 @@
 
 * Enable more warnings;
 
+* Drop zp in favour of the standard library
+* Drop ly in favour of the standard library
+* Update code style
+* Update naming convention
+* Use libfmt
+* Remove abort function
+* Add background to main logo
+* Update readme
+* Print shader errors at run-time
+* Update help screen
+* Fix objects not being deleted
+
 # 0.B.2
 
 * Fix data directory not being set correctly by CMake;

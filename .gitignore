@@ -3,7 +3,7 @@
 /build
 /datdir
 /glad
-*.tar
+*.star
 *.zip
 *.zst
 vgcore.*

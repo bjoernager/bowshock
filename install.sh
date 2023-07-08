@@ -5,7 +5,7 @@ installBinary() {
 	bindir="${2}"
 
 	mkdir -pvm755 "${bindir}"
-	
+
 	install -vm755 "${builddir}/bowshock/bowshock" "${bindir}"/bowshock
 }
 
@@ -14,7 +14,7 @@ installData() {
 	datdir="${2}"
 
 	mkdir -pvm755 "${datdir}/shaders"
-	
+
 	install -vm644 "${srcdir}/CHANGELOG.txt" "${datdir}"
 	install -vm644 "${srcdir}/CREDITS.txt" "${datdir}"
 	install -vm644 "${srcdir}/bowshock/shader/"*".glsl" "${datdir}/shaders"

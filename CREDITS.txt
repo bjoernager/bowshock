@@ -1,13 +1,13 @@
-BOWSHOCK             
+BOWSHOCK
 
 COPYRIGHT:
-2022-2023 Gabriel Jensen
+2022-2023 Gabriel Bjørnager Jensen
 
 DESIGN
-    Gabriel Jensen
+    Gabriel Bjørnager Jensen
 
 ARTWORK
-    Gabriel Jensen
+    Gabriel Bjørnager Jensen
 
 SOFTWARE DEVELOPMENT
-    Gabriel Jensen
+    Gabriel Bjørnager Jensen
