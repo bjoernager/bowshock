@@ -7,12 +7,13 @@ if("${BOW_DATA_DIRECTORY}" STREQUAL "")
 endif()
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(
 	bowshock
 
-	"source/application/bow/check_parameters.cxx"
 	"source/application/bow/compile_shader_program.cxx"
+	"source/application/bow/configure.cxx"
 	"source/application/bow/destructor.cxx"
 	"source/application/bow/get_quote.cxx"
 	"source/application/bow/initialise_graphics.cxx"
@@ -43,7 +44,6 @@ add_executable(
 	"source/save/continue_save.cxx"
 	"source/save/decode_save.cxx"
 	"source/save/encode_save.cxx"
-	"source/save/generate_data.cxx"
 	"source/save/new_save.cxx"
 	"source/save/save.cxx"
 )

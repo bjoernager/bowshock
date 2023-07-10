@@ -8,8 +8,8 @@
 
 namespace bow {
 	constexpr double DISTANCE_MODIFIER = 0x1.16A5D2D360000000p037; // 1 astronomical unit
-	constexpr double MASS_MODIFIER = 0x1.91930A5E75F0C192p100; // 1 solar mass
-	constexpr double TIME_MODIFIER = 0x1.0000000000000000p012; // 1 second
+	constexpr double MASS_MODIFIER     = 0x1.91930A5E75F0C192p100; // 1 solar mass
+	constexpr double TIME_MODIFIER     = 0x1.0000000000000000p012; // 1 second
 
 	constexpr double GRAVITY_FACTOR = (::bow::MASS_MODIFIER * (::bow::TIME_MODIFIER * ::bow::TIME_MODIFIER)) / ((::bow::DISTANCE_MODIFIER * ::bow::DISTANCE_MODIFIER * ::bow::DISTANCE_MODIFIER)); // Inverse.
 

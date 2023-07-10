@@ -9,18 +9,18 @@
 
 using namespace ::std::literals::string_literals;
 
+namespace { constexpr ::std::string file_name(".save_bowshock"); }
+
 auto ::bow::save_path() noexcept -> ::std::string {
 	auto base_directory = ::bow::home_directory();
 
 	if (base_directory.empty()) [[unlikely]] {
 		::fmt::print(stderr, "unable to get home directory, using current directory\n");
 
-		base_directory = "./"s;
+		base_directory = "."s;
 	}
 
-	auto const file_name = ".save_bowshock"s;
-
-	auto const path = base_directory + "/"s + file_name;
+	auto const path = base_directory + "/"s + ::file_name;
 
 	return path;
 }

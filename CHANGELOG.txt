@@ -37,6 +37,16 @@
 * Update readme
 * Fix version constant
 
+* Check I/O results;
+* Fix credits print;
+* Add structure for wares;
+* Disable language extensions;
+* Don't overwrite save by default;
+* Load save file before start sequence;
+* Fix quotes;
+* Fix logs;
+* Fix save loader;
+
 # 0.B.2
 
 * Fix data directory not being set correctly by CMake;

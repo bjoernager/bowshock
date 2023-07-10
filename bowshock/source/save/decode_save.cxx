@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <cstring>
 
-auto ::bow::decode_save(::bow::save_data& buffer, void const* data_pointer) noexcept -> void {
+auto ::bow::decode_save(::bow::SaveData& buffer, void const* data_pointer) noexcept -> void {
 	auto data = reinterpret_cast<::std::uint8_t const*>(data_pointer);
 
 	auto const decode_value = [&data]<typename T>(T& buffer) {

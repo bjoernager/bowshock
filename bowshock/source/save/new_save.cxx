@@ -1,18 +1,20 @@
 // Copyright 2022-2023 Gabriel Bjørnager Jensen.
 
+#include <bow/logic.hxx>
 #include <bow/save.hxx>
 
 #include <cstdio>
 #include <fmt/core.h>
 
-auto ::bow::new_save(::bow::PlayerData& data) noexcept -> void {
+auto ::bow::new_save(::bow::PlayerData& buffer) noexcept -> void {
 	::fmt::print(stderr, "generating new save file\n");
 
-	data = ::bow::PlayerData {
-		.name              = "Caelum\x00\x00\x00\x00\x00\x00\x00\x00",
+	buffer = ::bow::PlayerData {
+		.name              = "Caelum\000\000\000\000\000\000\000\000",
 		.time              = 0x0u,  // 256 julian years after the Unix Epoch.
 		.system_identifier = 0x45u,
-		.ship  = {
+		.ship              = {
+			.type                = ::bow::ObjectType::Ship,
 			.ship_type           = ::bow::Ship::Aquila,
 			.position            = {
 				.x = 0x0p0,
@@ -34,9 +36,11 @@ auto ::bow::new_save(::bow::PlayerData& data) noexcept -> void {
 				.y = 0x0p0,
 				.z = 0x0p0,
 			},
+			.mass                = ::bow::ship_mass(::bow::Ship::Aquila),
+			.next                = nullptr,
 		},
+		.zoom              = 0x4p0,
 	};
-	::bow::generate_data(data);
 
-	::fmt::print(stderr, "welcome, CMDR {}\n", data.name);
+	::fmt::print(stderr, "welcome, CMDR {}\n", buffer.name);
 }

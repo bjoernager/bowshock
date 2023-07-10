@@ -35,7 +35,7 @@ auto ::bow::Application::print_credits() noexcept -> void {
 
 	credits.append("\n");
 
-	::std::fputs(credits.c_str(), file);
+	::std::fputs(credits.c_str(), stdout);
 
 	credits.~basic_string();
 

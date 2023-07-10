@@ -8,10 +8,13 @@
 #include <string>
 #include <vector>
 
-auto ::bow::Application::check_parameters(::bow::TerminalOptions& options, int const argc, char const* const* argv) noexcept -> void {
+using namespace ::std::literals::string_literals;
+
+auto ::bow::Application::configure(::bow::Configuration& configuration, int const argc, char const* const* argv) noexcept -> void {
 	::std::string const program_name = *argv;
 
-	options = ::bow::TerminalOptions {
+	configuration = ::bow::Configuration {
+		.save_path     = ""s,
 		.has_save_path = false,
 		.new_save      = false,
 		.skip_intro    = false,
@@ -26,16 +29,16 @@ auto ::bow::Application::check_parameters(::bow::TerminalOptions& options, int c
 
 				     if (!::std::strcmp(parameter, "credits"))    { print_credits(); }
 				else if (!::std::strcmp(parameter, "print_help")) { print_help(program_name); }
-				else if (!::std::strcmp(parameter, "new"))        { options.new_save  = true; }
-				else if (!::std::strcmp(parameter, "skip"))       { options.skip_intro = true; }
+				else if (!::std::strcmp(parameter, "new"))        { configuration.new_save  = true; }
+				else if (!::std::strcmp(parameter, "skip"))       { configuration.skip_intro = true; }
 				else                                              { ::fmt::print(stderr, "invalid pareter \"{}\"\n", parameter); }
 
 				continue;
 			}
 
 			// Else: Interpret it as a save path.
-			options.save_path     = parameter;
-			options.has_save_path = true;
+			configuration.save_path     = parameter;
+			configuration.has_save_path = true;
 		}
 	}
 }

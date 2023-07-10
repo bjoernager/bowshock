@@ -78,12 +78,12 @@ static auto ::bow::compile_shader(::GLuint& shader, ::std::string const name, ::
 
 	auto const file_size = ::std::filesystem::file_size(path);
 
-	static_assert(::std::is_same_v<GLchar, char>);
+	static_assert(sizeof (GLchar) == sizeof (char));
 	auto source = ::std::vector<GLchar>(file_size + 0x1u);
 
-	::std::fread(source.data(), 0x1u, file_size, file);
-
-	::std::fclose(file);
+	if (::std::fread(source.data(), 0x1u, file_size, file) < file_size) [[unlikely]] {
+		throw ::std::runtime_error {"unable to read shader source"};
+	}
 
 	source.push_back('\x00');
 

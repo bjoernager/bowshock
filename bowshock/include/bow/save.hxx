@@ -39,7 +39,7 @@ namespace bow {
 		0x7F    ship_rotational_velocity_z 8     binary64
 	*/
 
-	struct save_data {
+	struct SaveData {
 		::std::uint64_t format_version;
 		char8_t         commander_name[::bow::COMMANDER_NAME_LENGTH];
 		::std::uint64_t time;
@@ -59,14 +59,12 @@ namespace bow {
 		double          ship_rotational_velocity_z;
 	};
 
-	auto decode_save(::bow::save_data& buf, void const*             data) noexcept -> void;
-	auto encode_save(void*             buf, ::bow::save_data const& data) noexcept -> void;
+	auto decode_save(::bow::SaveData& buf, void const*            data) noexcept -> void;
+	auto encode_save(void*            buf, ::bow::SaveData const& data) noexcept -> void;
 
 	auto new_save(::bow::PlayerData& data) noexcept -> void;
 
-	auto continue_save(::bow::PlayerData& data, ::std::string file) noexcept -> void;
-
-	auto generate_data(::bow::PlayerData& data) noexcept -> void;
+	auto continue_save(::bow::PlayerData& data, ::std::string file) -> bool;
 
 	auto save(::std::string file, ::bow::PlayerData const& data) noexcept -> void;
 }

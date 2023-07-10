@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <cstring>
 
-auto ::bow::encode_save(void* const buffer_pointer, ::bow::save_data const& data) noexcept -> void {
+auto ::bow::encode_save(void* const buffer_pointer, ::bow::SaveData const& data) noexcept -> void {
 	auto buffer = reinterpret_cast<::std::uint8_t*>(buffer_pointer);
 
 	auto const encode_value = [&buffer]<typename T>(T const& val) {

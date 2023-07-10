@@ -114,7 +114,7 @@ auto ::bow::Application::get_quote(::std::string& quote, ::std::string& source, 
 		source = "David Robert Jones";
 		break;
 	case 0x19u:
-		quote  = "Sooner or later, we must expand life beyond our little blue mud ball \u2013 or go extinct.";
+		quote  = "Sooner or later, we must expand life beyond our little blue mud ball\u2014or go extinct.";
 		source = "Elon Reeve Musk";
 		break;
 	case 0x1Au:
@@ -146,7 +146,7 @@ auto ::bow::Application::get_quote(::std::string& quote, ::std::string& source, 
 		source = "Bjarne Stroustrup";
 		break;
 	case 0x21u:
-		quote  = "There is no mathematical sibstitute for philosophy.";
+		quote  = "There is no mathematical substitute for philosophy.";
 		source = "Saul Aaron Kripke";
 		break;
 	case 0x22u:

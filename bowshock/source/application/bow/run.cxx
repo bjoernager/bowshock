@@ -9,15 +9,16 @@
 #include <fmt/core.h>
 
 auto ::bow::Application::run(int const argc, char const* const* const argv) noexcept -> void {
-	::bow::TerminalOptions options;
-	check_parameters(options, argc, argv);
+	configure(this->configuration, argc, argv);
+
+	if (!this->configuration.has_save_path) { this->configuration.save_path = ::bow::save_path(); }
 
 	print_quote();
 
 	::fmt::print(
 		stderr,
 		"\x1B[0m\x1B[1mBowshock\x1B[0m {:X}.{:X}.{:X} \u2013 Copyright 2022\u20102023 \x1B[1mGabriel Bj\u00F8rnager Jensen\x1B[0m.\n\n",
-		::bow::VERSION.major, ::bow::VERSION.minor, ::bow::VERSION.patch
+		::bow::Application::VERSION.major, ::bow::Application::VERSION.minor, ::bow::Application::VERSION.patch
 	);
 
 	::fmt::print(stderr, "initialising\n");
@@ -36,15 +37,23 @@ auto ::bow::Application::run(int const argc, char const* const* const argv) noex
 	this->initialise_signal();
 	this->initialise_graphics();
 
-	if (options.skip_intro || !start_sequence()) [[likely]] {
-		if (!options.has_save_path) { options.save_path = ::bow::save_path(); }
+	auto invalid_save = false;
 
-		if (options.new_save) { ::bow::new_save(player_data); }
-		else                  { ::bow::continue_save(player_data, options.save_path); }
+	if (this->configuration.new_save) { ::bow::new_save(player_data); }
+	else                              { invalid_save = ::bow::continue_save(player_data, this->configuration.save_path); }
+
+	if (invalid_save) {
+		::fmt::print(stderr, "aborting due to invalid save file\n");
+
+		return;
+	}
+
+	if (this->configuration.skip_intro || !start_sequence()) [[likely]] {
+		if (!this->configuration.has_save_path) { this->configuration.save_path = ::bow::save_path(); }
 
 		this->loop();
 
-		::bow::save(options.save_path, player_data);
+		::bow::save(this->configuration.save_path, player_data);
 	}
 }
 

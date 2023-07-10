@@ -48,6 +48,7 @@ auto ::bow::Application::loop() noexcept -> void {
 
 	::bow::Object object_temporary = {
 		.type                = ::bow::ObjectType::Canister,
+		.canister_content    = ::bow::Ware::Biowaste,
 		.position            = {
 			.x = 0x0p0,
 			.y = -0x2p0,
@@ -69,6 +70,7 @@ auto ::bow::Application::loop() noexcept -> void {
 			.z = 0x0p0,
 		},
 		.mass                = 0x1p0,
+		.next                = nullptr,
 	};
 	::bow::add_object(objects_root, object_temporary);
 

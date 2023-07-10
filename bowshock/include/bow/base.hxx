@@ -16,23 +16,11 @@ static_assert(CHAR_BIT == 0x8, "bytes must contain exactly eight bits.");
 namespace bow {
 	inline ::std::string DATA_DIRECTORY(bow_dataDirectory);
 
-	constexpr ::std::uint8_t NUMBER_OF_QUOTE_IDENTIFIERS = UINT8_C(0x24);
-
-	template<typename T> struct VersionType {
-		T major;
-		T minor;
-		T patch;
-	};
-
-	constexpr VersionType<::std::uint64_t> VERSION = {
-		.major = 0x0u,
-		.minor = 0xCu,
-		.patch = 0x0u,
-	};
-
 	constexpr bool DEBUG = bow_debug;
 
 	constexpr ::std::size_t COMMANDER_NAME_LENGTH = 0xEu;
+
+	constexpr ::std::uint8_t NUMBER_OF_QUOTE_IDENTIFIERS = UINT8_C(0x24);
 
 	enum struct ObjectType : ::std::uint8_t {
 		Canister,
@@ -41,15 +29,6 @@ namespace bow {
 		Star,
 		Station,
 		World, // planet/moon
-	};
-
-	enum struct World : ::std::uint8_t {
-		Ammonium_world,
-		Gas_giant,
-		Ice_world,
-		Rocky_world,
-		Lava_world,
-		Water_world,
 	};
 
 	enum struct Ship : ::std::uint8_t {
@@ -91,6 +70,80 @@ namespace bow {
 		Orbis,
 	};
 
+	enum struct Ware : ::std::uint8_t {
+		Air,
+		Aluminium,
+		AncientArtefacts,
+		AnimalFurs,
+		AnimalMeat,
+		AnimalSkins,
+		Atomics,
+		BattleWeapons,
+		Beer,
+		Biowaste,
+		Cheese,
+		ChemicalWaste,
+		Cobalt,
+		Coffee,
+		ComputerParts,
+		Computers,
+		Copper,
+		Cuttlery,
+		Dairy,
+		Explosives,
+		FruitsAndVegetables,
+		Gemstones,
+		Gold,
+		HandWeapons,
+		HullParts,
+		HydrogenFuel,
+		Iron,
+		Ivory,
+		Lasers,
+		Leather,
+		Liquor,
+		Lithium,
+		LiveAnimals,
+		LuxuryGoods,
+		Magnets,
+		Medicine,
+		Minerals,
+		Monitors,
+		NerveAgents,
+		OrganicDyes,
+		Paper,
+		Pearls,
+		Pesticides,
+		Platinum,
+		Plutonium,
+		Radioactives,
+		Robots,
+		Rockets,
+		Rubbish,
+		Silver,
+		Slaves,
+		StorageDevices,
+		Superconductors,
+		SyntheticMeat,
+		Tea,
+		Titanium,
+		Tobacco,
+		TritiumFuel,
+		Uranium,
+		Water,
+		Wine,
+		XenoRelics,
+	};
+
+	enum struct World : ::std::uint8_t {
+		AmmoniumWorld,
+		GasGiant,
+		IceWorld,
+		LavaWorld,
+		RockyWorld,
+		WaterWorld,
+	};
+
 	struct Xyz {
 		double x;
 		double y;
@@ -100,10 +153,11 @@ namespace bow {
 	struct Object {
 		::bow::ObjectType type;
 		union {
-			::bow::World   world_type;
+			::bow::Ware    canister_content;
 			::bow::Ship    ship_type;
 			::bow::Star    star_type;
 			::bow::Station station_type;
+			::bow::World   world_type;
 		};
 
 		::bow::Xyz        position;            // astronomical units

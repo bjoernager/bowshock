@@ -22,8 +22,10 @@ auto ::bow::save(::std::string const path, ::bow::PlayerData const& player_data)
 		::std::abort();
 	}
 
-	::bow::save_data save_data = {
+	::bow::SaveData save_data = {
 		.format_version             = ::bow::SAVE_VERSION,
+		// Null-terminator is included:
+		.commander_name             = u8"\000\000\000\000\000\000\000\000\000\000\000\000\000",
 		.time                       = player_data.time,
 		.system_identifier          = player_data.system_identifier,
 		.ship_type                  = static_cast<::std::uint8_t>(player_data.ship.ship_type),

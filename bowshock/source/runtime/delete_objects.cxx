@@ -12,7 +12,7 @@ auto ::bow::delete_objects(::bow::ObjectRoot const& root) noexcept -> void {
 	::bow::Object* next;
 
 	for (object = root.objects; object != nullptr; object = next) {
-		::fmt::print(stderr, "freeing object of type {}", ::bow::object_type_string(object->type));
+		::fmt::print(stderr, "freeing object of type {}\n", ::bow::object_type_string(object->type));
 
 		next = object->next;
 		delete object;
