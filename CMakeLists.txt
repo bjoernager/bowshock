@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.21)
 project(
 	bowshock
 
-	VERSION 0.11.2
+	VERSION 0.12.0
 	HOMEPAGE_URL "https://mandelbrot.dk/bowshock"
 	LANGUAGES C CXX
 )

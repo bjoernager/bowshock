@@ -2,15 +2,12 @@
 
 #pragma once
 
-#include <bow/runtime.hxx>
+#include <bow/client.hxx>
+#include <bow/server.hxx>
 
-#include <csignal>
-#include <cstdint>
-#include <cstdio>
-#include <fmt/core.h>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <string>
+#include <tuple>
+#include <vector>
 
 namespace bow {
 	template<typename T> struct VersionType {
@@ -19,61 +16,34 @@ namespace bow {
 		T patch;
 	};
 
-	constexpr ::std::string SHADER_FILE_SUFFIX("glsl");
-
-	struct GraphicsData {
-		::GLFWwindow* window;
-		::GLuint      shader_program;
-	};
-
-	struct Configuration {
-		::std::string save_path;
-		bool          has_save_path:0x1;
-		bool          new_save:0x1;
-		bool          skip_intro:0x1;
+	constexpr ::bow::VersionType<::std::uint64_t> VERSION = {
+		.major = 0x0u,
+		.minor = 0xCu,
+		.patch = 0x0u,
 	};
 
 	class Application {
 	public:
-		Application() noexcept = default;
-
-		auto run(int argc, char const* const* argv) noexcept -> void;
+		explicit Application(int argc, char const* const* argv) noexcept;
 
 		~Application() noexcept;
 
+		auto run() -> int;
+
 	private:
-		constexpr static ::bow::VersionType<::std::uint64_t> VERSION = {
-			.major = 0x0u,
-			.minor = 0xCu,
-			.patch = 0x0u,
-		};
+		::bow::ClientConfiguration client_configuration;
 
-		::bow::Configuration configuration;
-		::bow::PlayerData    player_data;
-		::bow::GraphicsData  graphics_data;
+		::bow::Client*         client;
+		::bow::Server* server;
 
-		auto get_quote(::std::string& quote, ::std::string& source, ::std::uint8_t code) noexcept -> void;
+		[[noreturn]] static auto print_credits() noexcept -> void;
 
-		auto print_quote() noexcept -> void;
+		[[noreturn]] static auto print_help(::std::string const& program_name) noexcept -> void;
 
-		[[noreturn]] auto print_credits() noexcept -> void;
+		[[nodiscard]] static auto get_quote(::std::uint8_t identifier) -> ::std::tuple<::std::string, ::std::string>;
 
-		[[noreturn]] auto print_help(::std::string program_name) noexcept -> void;
+		auto parse_parameters(::std::string const& program_name, ::std::vector<char const*> const& parameters) -> void;
 
-		auto configure(Configuration& configuration, int argc, char const* const* argv) noexcept -> void;
-
-		auto compile_shader_program(::GLuint& shader_program, ::std::string name) noexcept -> void;
-
-		auto initialise_graphics() noexcept -> void;
-		auto initialise_random()   noexcept -> void;
-		auto initialise_signal()   noexcept -> void;
-
-		auto poll_events() noexcept -> bool;
-
-		auto start_sequence() noexcept -> bool;
-
-		auto loop() noexcept -> void;
+		auto initialise_signal() -> void;
 	};
-
-	extern ::std::sig_atomic_t volatile GOT_INTERRUPT;
 }

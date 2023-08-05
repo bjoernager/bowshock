@@ -47,6 +47,24 @@
 * Fix logs;
 * Fix save loader;
 
+* Update readme
+* Split program into client-side and server-side
+* Use inheritance for objects (instead of using unions) and rework them
+* Rework application structure
+* Remove 'random' facilities
+* Improve commenting
+* Update and fix quotes
+* Use OpenGL 3.2
+* Allow sixteen characters in commander names (was 14).
+* Update save format (bump format version)
+* Update default name: Caelum => Corneille
+* Create app-specific directory (save files in a subdirectory here)
+* Rework save path setting
+* Rework terminal parameters
+* Update help print
+* Add copyright symbol to startup notice
+* Bump version specified in CMake
+
 # 0.B.2
 
 * Fix data directory not being set correctly by CMake;
