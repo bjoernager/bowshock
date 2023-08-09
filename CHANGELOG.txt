@@ -65,6 +65,9 @@
 * Add copyright symbol to startup notice
 * Bump version specified in CMake
 
+* Fix shader validation script
+* Fix shader
+
 # 0.B.2
 
 * Fix data directory not being set correctly by CMake;

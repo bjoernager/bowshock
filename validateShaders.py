@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 
-from subprocess import PIPE,run
+from subprocess import PIPE, run
 
-def validate(path:str):
-	print("validating \"",path,"\"... ",end='',sep='')
+def validate(path: str):
+	print("validating \"", path, "\"... ", end='', sep='')
 
-	path  = "bowshock/shader/" + path + ".glsl"
-	prog = "glslangValidator"
+	path    = "bowshock/shader/" + path + ".glsl"
+	program = "glslangValidator"
 
-	status = run([prog,path],stdout=PIPE)
+	status = run([program, path], stdout=PIPE)
 
 	result = status.returncode
 	if result != 0x0:
@@ -20,7 +20,6 @@ def validate(path:str):
 	print("\x1B[38;5;77mokay\x1B[0m")
 
 if __name__ == "__main__":
-	quit(0x0)
 	print("validating shaders...")
 
 	shaders = [
