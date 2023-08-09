@@ -88,6 +88,8 @@
 * Make changelog Markdown
 * Rename home_directory to base_directory
 
+* Update readme (eg. use non-ASCII characters)
+
 # 0.B.2
 
 * Fix data directory not being set correctly by CMake;
