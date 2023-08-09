@@ -23,12 +23,6 @@ auto bow::ShaderProgram::compile_shader(::std::string const& name, ::bow::Shader
 		case ShaderType::Geometry:
 			return GL_GEOMETRY_SHADER;
 
-		case ShaderType::TesselationControl:
-			return GL_TESS_CONTROL_SHADER;
-
-		case ShaderType::TesselationEvaluation:
-			return GL_TESS_EVALUATION_SHADER;
-
 		case ShaderType::Vertex:
 			return GL_VERTEX_SHADER;
 		}
@@ -46,12 +40,6 @@ auto bow::ShaderProgram::compile_shader(::std::string const& name, ::bow::Shader
 		case GL_GEOMETRY_SHADER:
 			return "geom"s;
 
-		case GL_TESS_CONTROL_SHADER:
-			return "tesc"s;
-
-		case GL_TESS_EVALUATION_SHADER:
-			return "tese"s;
-
 		case GL_VERTEX_SHADER:
 			return "vert"s;
 		}
@@ -67,12 +55,6 @@ auto bow::ShaderProgram::compile_shader(::std::string const& name, ::bow::Shader
 
 		case GL_GEOMETRY_SHADER:
 			return "geometry"s;
-
-		case GL_TESS_CONTROL_SHADER:
-			return "tesselation control"s;
-
-		case GL_TESS_EVALUATION_SHADER:
-			return "tesselation evaluation"s;
 
 		case GL_VERTEX_SHADER:
 			return "vertex"s;
@@ -122,7 +104,7 @@ auto bow::ShaderProgram::compile_shader(::std::string const& name, ::bow::Shader
 
 		delete[] log;
 
-		throw ::std::runtime_error {"unable to compile shader"};
+		throw ::std::runtime_error("unable to compile shader");
 	}
 
 	return shader;

@@ -2,6 +2,7 @@
 
 #include <bow/application.hxx>
 #include <bow/client.hxx>
+#include <bow/network.hxx>
 
 #include <cstdio>
 #include <cstdlib>
@@ -16,8 +17,7 @@ bow::Application::Application(int const argc, char const* const* const argv) noe
 
 	auto const program_name = [&argc, argv]() -> ::std::string {
 		if (argc < 0x1) [[unlikely]] {
-			::fmt::print(stderr, "[app] program name not provided\n");
-			::std::abort();
+			::bow::terminate("app", "program not provided");
 		} else {
 			return ::std::string(*argv);
 		}
@@ -25,20 +25,26 @@ bow::Application::Application(int const argc, char const* const* const argv) noe
 
 	this->client_configuration = ::bow::ClientConfiguration {
 		.directory           = ""s,
+		.save_name           = "save"s,
+		.network_port        = ::bow::DEFAULT_NETWORK_PORT,
 		.new_save            = false,
 		.skip_start_sequence = false,
 	};
+
+	this->server_configuration = ::bow::ServerConfiguration {
+		.network_port = ::bow::DEFAULT_NETWORK_PORT,
+	};
+
+	this->client =nullptr;
+	this->server =nullptr;
 
 	::std::vector<char const*> parameters(argv + 0x1u, argv + static_cast<::std::size_t>(argc));
 
 	this->parse_parameters(program_name, parameters);
 
 	if (this->client_configuration.directory.empty()) [[likely]] {
-		auto const base_directory = ::bow::home_directory();
+		auto const base_directory = ::bow::base_directory();
 
 		this->client_configuration.directory = base_directory + "/.bowshock"s;
 	}
-
-	this->client = nullptr;
-	this->server = nullptr;
 }

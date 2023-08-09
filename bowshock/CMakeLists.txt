@@ -2,9 +2,13 @@ cmake_minimum_required(VERSION 3.21)
 
 option(BOW_DATA_DIRECTORY "Directory for storing run-time data (assets, shaders...)." "")
 
-if("${BOW_DATA_DIRECTORY}" STREQUAL "")
+if(NOT DEFINED BOW_DATA_DIRECTORY)
 	message(FATAL_ERROR "Data directory (BOW_DATA_DIRECTORY) not specified")
 endif()
+
+find_package(
+	glfw3 REQUIRED
+)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -25,6 +29,7 @@ add_executable(
 
 	"source/client/Client/constructor.cxx"
 	"source/client/Client/destructor.cxx"
+	"source/client/Client/loop.cxx"
 	"source/client/Client/poll_events.cxx"
 	"source/client/Client/run.cxx"
 	"source/client/Client/save_path.cxx"
@@ -43,7 +48,8 @@ add_executable(
 	"source/client/ShaderProgram/constructor.cxx"
 	"source/client/ShaderProgram/destructor.cxx"
 
-	"source/base/home_directory.cxx"
+	"source/base/base_directory.cxx"
+	"source/base/terminate.cxx"
 
 	"source/logic/Canister/constructor.cxx"
 	"source/logic/Canister/object_type_string.cxx"
@@ -59,11 +65,17 @@ add_executable(
 	"source/logic/World/constructor.cxx"
 	"source/logic/World/object_type_string.cxx"
 
+	"source/server/ObjectIterator/constructor.cxx"
+	"source/server/ObjectIterator/operator_equality.cxx"
+	"source/server/ObjectIterator/operator_increment.cxx"
+	"source/server/ObjectRoot/add.cxx"
+	"source/server/ObjectRoot/begin.cxx"
+	"source/server/ObjectRoot/constructor.cxx"
+	"source/server/ObjectRoot/destructor.cxx"
+	"source/server/ObjectRoot/end.cxx"
 	"source/server/Server/destructor.cxx"
 	"source/server/Server/start.cxx"
-	"source/server/ServerInstance/add_object.cxx"
 	"source/server/ServerInstance/constructor.cxx"
-	"source/server/ServerInstance/delete_objects.cxx"
 	"source/server/ServerInstance/generate_system.cxx"
 	"source/server/ServerInstance/gravitate.cxx"
 	"source/server/ServerInstance/loop.cxx"
@@ -76,6 +88,7 @@ add_dependencies(
 	bowshock
 
 	glad
+	glfw
 )
 
 target_include_directories(
@@ -97,8 +110,8 @@ target_compile_definitions(
 	bowshock PRIVATE
 
 	GLFW_INCLUDE_NONE
-	BOW_DATA_DIRECTORY="${BOW_DATA_DIRECTORY}"
-	BOW_DEBUG=$<IF:$<STREQUAL:"${CMAKE_BUILD_TYPE}","Debug">,true,false>
+	bow_DATA_DIRECTORY="${BOW_DATA_DIRECTORY}"
+	bow_DEBUG=$<IF:$<STREQUAL:"${CMAKE_BUILD_TYPE}","Debug">,true,false>
 )
 
 if(UNIX)
@@ -118,7 +131,6 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang|GNU")
 		-Wall
 		-Wdouble-promotion
 		-Wextra
-		-Wfloat-equal
 		-Wformat=2
 		-Winvalid-utf8
 		-Wmissing-declarations

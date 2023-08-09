@@ -4,9 +4,8 @@
 
 #include <array>
 #include <cstdint>
-#include <cstdio>
 #include <cstring>
-#include <fmt/core.h>
+#include <format>
 #include <stdexcept>
 
 auto bow::PlayerData::decode_save(::bow::PlayerData & buffer, ::std::array<::std::uint8_t, ::bow::SAVE_LENGTH> const& source) -> void {
@@ -58,15 +57,11 @@ auto bow::PlayerData::decode_save(::bow::PlayerData & buffer, ::std::array<::std
 	decode_value(data.ship_rotational_velocity_z);
 
 	if (data.format_version != ::bow::SAVE_FORMAT_VERSION) [[unlikely]] {
-		::fmt::print(stderr, "[client] invalid format ({:#04x}) of save file\n", data.format_version);
-
-		throw ::std::logic_error("invalid format of save file");
+		throw ::std::invalid_argument(::std::format("invalid format ({:#04x}) of save file", data.format_version));
 	}
 
 	if (data.ship_type > ::bow::MAXIMUM_SHIP_IDENTIFIER) [[unlikely]] {
-		::fmt::print(stderr, "[client] invalid ship type ({:#04x})\n", data.ship_type);
-
-		throw ::std::logic_error("invalid ship type");
+		throw ::std::invalid_argument(::std::format("invalid ship type ({:#04x})\n", data.ship_type));
 	}
 
 	buffer.time                       = data.time,

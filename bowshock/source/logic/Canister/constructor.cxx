@@ -18,7 +18,6 @@ bow::Canister::Canister() noexcept {
 	this->rotational_velocity.y = 0x0p0;
 	this->rotational_velocity.z = 0x0p0;
 	this->mass                  = 0x0p0;
-	this->next                  = nullptr;
 	this->content               = ::bow::Ware::Biowaste;
 
 	this->mass = ::bow::ware_mass(this->content) * 0x1p0;

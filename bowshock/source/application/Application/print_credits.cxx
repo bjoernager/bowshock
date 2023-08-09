@@ -7,6 +7,7 @@
 #include <filesystem>
 #include <fmt/core.h>
 #include <stdexcept>
+#include <vector>
 
 auto bow::Application::print_credits() noexcept -> void {
 	::std::string path = ::bow::DATA_DIRECTORY + "/CREDITS.txt";
@@ -21,24 +22,28 @@ auto bow::Application::print_credits() noexcept -> void {
 		::std::exit(EXIT_FAILURE);
 	}
 
-	::std::string credits;
+	auto credits = [file_size]() noexcept -> ::std::vector<char> {
+		try {
+			return ::std::vector<char>(file_size + 0x2u);
+		} catch (...) {
+			::fmt::print(stderr, "[app] unable to allocate memory for credits\n");
+			::std::exit(EXIT_FAILURE);
+		}
+	}();
 
-	try {
-		credits.reserve(file_size);
-	} catch (...) {
-		::fmt::print(stderr, "[app] unable to allocate memory for credits\n");
-
+	if (::std::fread(&credits.data()[0x1], sizeof (char), file_size, file) < file_size) [[unlikely]] {
+		::fmt::print(stderr, "[app] unable to read credits file\n");
 		::std::exit(EXIT_FAILURE);
 	}
 
-	::std::fread(credits.data(), 0x1u, file_size, file);
 	::std::fclose(file);
 
-	credits.append("\n");
+	credits.front() = '\n';
+	credits.back()  = '\n';
 
-	::std::fputs(credits.c_str(), stdout);
+	::std::fwrite(credits.data(), sizeof (char), file_size + 0x2u, stdout);
 
-	credits.~basic_string();
+	credits.~vector();
 
 	::std::exit(EXIT_SUCCESS);
 }

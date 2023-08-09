@@ -18,71 +18,85 @@ namespace bow {
 	constexpr double GRAVITY_VALUE = 0x1.258688101B4BB16Dp-34 * ::bow::GRAVITY_FACTOR; // gravitational constant (s^2*m*t^2)
 
 	enum struct Ware: ::std::uint8_t {
+		AcidsAndBases,
 		Air,
-		Aluminium,
+		AlcoholicBeverages,
 		AncientArtefacts,
-		AnimalFurs,
-		AnimalMeat,
-		AnimalSkins,
+		AnimalMeats,
 		Atomics,
+		Batteries,
 		BattleWeapons,
 		Beer,
 		Biowaste,
-		Cheese,
+		Cameras,
+		Cannabis,
 		ChemicalWaste,
-		Cobalt,
-		Coffee,
+		Clothing,
+		CoffeeAndTea,
 		ComputerParts,
 		Computers,
-		Copper,
+		ComputerSoftware,
 		Cuttlery,
 		Dairy,
+		Drones,
+		ElectronicComponents,
+		EncryptedData,
+		EnergyGenerators,
 		Explosives,
+		Films,
 		FruitsAndVegetables,
 		Gemstones,
-		Gold,
 		HandWeapons,
 		HullParts,
-		HydrogenFuel,
-		Iron,
+		Hypnotics,
 		Ivory,
+		Jewellry,
 		Lasers,
-		Leather,
-		Liquor,
-		Lithium,
 		LiveAnimals,
 		LuxuryGoods,
+		Machinery,
 		Magnets,
 		Medicine,
 		Minerals,
+		Money,
 		Monitors,
+		Music,
+		Narcotics,
 		NerveAgents,
+		NobleGases,
+		NobleMetals,
 		OrganicDyes,
 		Paper,
 		Pearls,
 		Pesticides,
-		Platinum,
-		Plutonium,
+		Petroleums,
+		Pharmaceuticals,
+		Pornography,
+		Probes,
+		ProtiumFuel,
 		Radioactives,
+		Recyclables,
 		Robots,
 		Rockets,
 		Rubbish,
-		Silver,
+		ScientificInstruments,
+		SkinsAndFurs,
 		Slaves,
+		Soils,
+		Spirits,
 		StorageDevices,
 		Superconductors,
+		SyntheticDyes,
 		SyntheticMeat,
-		Tea,
-		Titanium,
 		Tobacco,
 		TritiumFuel,
-		Uranium,
+		VirtualIntelligences,
 		Water,
 		Wine,
 		XenoRelics,
 	};
 
-	enum struct ObjectType : ::std::uint8_t {
+	enum struct ObjectType: ::std::uint8_t {
 		Canister,
 		Ship,
 		Star,
@@ -99,8 +113,6 @@ namespace bow {
 		::bow::Xyz<double> positional_velocity; // astronomical units per second
 		::bow::Xyz<double> rotational_velocity; // radians per second
 		double             mass;                // kilograms
-
-		::bow::Object* next;
 
 		virtual ~Object() noexcept = default;
 
@@ -206,10 +218,6 @@ namespace bow {
 		World() noexcept;
 
 		[[nodiscard]] virtual auto object_type_string() const noexcept -> ::std::string;
-	};
-
-	struct ObjectRoot {
-		::bow::Object* objects;
 	};
 
 	[[nodiscard]] auto ware_mass(::bow::Ware const ware) noexcept -> double;

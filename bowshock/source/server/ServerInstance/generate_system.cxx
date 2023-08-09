@@ -10,23 +10,22 @@
 auto bow::ServerInstance::generate_system(::bow::ObjectRoot& system, ::std::uint64_t const identifier, ::std::uint64_t const time) -> void {
 	::fmt::print(stderr, "[server] generating system ({:x})\n", identifier);
 
-	if (system.objects != nullptr) [[likely]] {
-		this->delete_objects(system);
+	if (system.has_objects()) [[likely]] {
+		system.~ObjectRoot();
 	}
 
 	// Note: The following code is only temporary;
 
-	auto const star = []() -> ::bow::Star {
+	system.add([]() -> ::bow::Star {
 		auto star = ::bow::Star();
 
 		star.mass = 0x1p0,
 		star.type = ::bow::Star::Type::G;
 
 		return star;
-	}();
-	this->add_object(system, star);
+	}());
 
-	auto const world = []() -> ::bow::World {
+	system.add([]() -> ::bow::World {
 		auto world = ::bow::World();
 
 		world.position.y            = 0x1.F76F144Dp-1;
@@ -36,8 +35,7 @@ auto bow::ServerInstance::generate_system(::bow::ObjectRoot& system, ::std::uint
 		world.type                  = ::bow::World::Type::RockyWorld;
 
 		return world;
-	}();
-	this->add_object(system, world);
+	}());
 
 	this->simulate(system, time);
 }

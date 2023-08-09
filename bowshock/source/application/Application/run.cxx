@@ -14,6 +14,8 @@
 #include <string>
 #include <tuple>
 
+#include <format>
+
 auto bow::Application::run() -> int {
 	::std::srand(static_cast<int unsigned>(::std::time(nullptr)));
 
@@ -44,7 +46,7 @@ auto bow::Application::run() -> int {
 	this->initialise_signal();
 
 	// The server handles all of its exceptions.
-	this->server = ::bow::Server::start();
+	this->server = ::bow::Server::start(this->server_configuration);
 
 	this->client = new ::bow::Client(this->client_configuration);
 

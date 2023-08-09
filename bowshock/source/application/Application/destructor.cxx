@@ -9,8 +9,7 @@ bow::Application::~Application() noexcept {
 	::fmt::print(stderr, "[app] quitting\n");
 
 	delete this->client;
-
 	delete this->server;
 
-	::fmt::print(stderr, "\nGoodbye!\n");
+	::fmt::print(stderr, "\nGoodbye! \u2764\n");
 }

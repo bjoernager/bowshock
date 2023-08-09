@@ -32,8 +32,9 @@ namespace bow {
 
 	private:
 		::bow::ClientConfiguration client_configuration;
+		::bow::ServerConfiguration server_configuration;
 
-		::bow::Client*         client;
+		::bow::Client* client;
 		::bow::Server* server;
 
 		[[noreturn]] static auto print_credits() noexcept -> void;

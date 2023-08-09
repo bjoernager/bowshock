@@ -7,6 +7,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <fmt/core.h>
+#include <format>
 #include <stdexcept>
 
 // 31.10.4.
@@ -30,9 +31,7 @@ auto bow::Application::initialise_signal() -> void {
 
 	auto const set_handler = []<typename Handler>(int const signal, Handler const& handler) -> void {
 		if (::std::signal(signal, static_cast<auto (*)(int) -> void>(handler)) == SIG_ERR) [[unlikely]] {
-			::fmt::print(stderr, "[app] unable to set signal handler for {}\n", signal);
-
-			throw ::std::runtime_error("unable to set signal handler");
+			throw ::std::runtime_error(::std::format("unable to set signal handler for {}", signal));
 		}
 	};
 

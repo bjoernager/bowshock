@@ -3,8 +3,8 @@
 #include <bow/application.hxx>
 
 #include <cstdint>
-#include <cstdio>
-#include <fmt/core.h>
+#include <format>
+#include <stdexcept>
 #include <string>
 #include <tuple>
 
@@ -16,9 +16,7 @@ auto bow::Application::get_quote(::std::uint8_t const identifier) -> ::std::tupl
 
 	switch (identifier) {
 	default:
-		::fmt::print(stderr, "[app] invalid quote identifier ({})\n", identifier);
-
-		throw ::std::invalid_argument("invalid quote identifier");
+		throw ::std::invalid_argument(::std::format("invalid quote identifier ({})", identifier));
 
 	case 0x0u:
 		quote  = "You gotta be heaven to see heaven.";

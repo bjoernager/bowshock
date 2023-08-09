@@ -9,12 +9,12 @@
 #include <thread>
 #include <utility>
 
-auto bow::Server::start() -> ::bow::Server* {
+auto bow::Server::start(::bow::ServerConfiguration const& configuration) -> ::bow::Server* {
 	::fmt::print(stderr, "[app] starting server\n");
 
 	auto stop_flag = new ::std::atomic_flag();
 
-	auto server = new ::bow::ServerInstance(stop_flag);
+	auto server = new ::bow::ServerInstance(configuration, stop_flag);
 
 	auto thread = new ::std::thread(::bow::ServerInstance::run, server);
 

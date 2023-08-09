@@ -15,7 +15,7 @@ bow::Renderer::Renderer() {
 	::fmt::print(stderr, "[client] initialising glfw\n");
 
 	if (!::glfwInit()) [[unlikely]] {
-		throw ::std::runtime_error("[client] unable to initialise glfw");
+		throw ::std::runtime_error("unable to initialise glfw");
 	}
 
 	::fmt::print(stderr, "[client] initialising window\n");

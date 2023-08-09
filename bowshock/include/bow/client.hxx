@@ -43,10 +43,11 @@ namespace bow {
 	*/
 
 	struct ClientConfiguration {
-		::std::string directory;
-		::std::string save_name;
-		bool          new_save:            0x1;
-		bool          skip_start_sequence: 0x1;
+		::std::string         directory;
+		::std::string         save_name;
+		::std::uint_least16_t network_port;
+		bool                  new_save:            0x1;
+		bool                  skip_start_sequence: 0x1;
 	};
 
 	class PlayerData {
@@ -96,8 +97,6 @@ namespace bow {
 	enum struct ShaderType {
 		Fragment,
 		Geometry,
-		TesselationControl,
-		TesselationEvaluation,
 		Vertex,
 	};
 
@@ -137,7 +136,6 @@ namespace bow {
 
 		static auto save_path(::std::string const& directory, ::std::string const& name) noexcept -> ::std::string;
 
-
 		auto run() noexcept -> void;
 
 	private:
@@ -149,8 +147,8 @@ namespace bow {
 
 		auto poll_events() noexcept -> bool;
 
-		auto start_sequence() noexcept -> bool;
+		auto start_sequence() -> bool;
 
-		auto loop() noexcept -> void;
+		auto loop() -> void;
 	};
 }

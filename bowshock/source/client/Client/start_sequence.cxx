@@ -6,7 +6,7 @@
 #include <fmt/core.h>
 #include <GLFW/glfw3.h>
 
-auto bow::Client::start_sequence() noexcept -> bool {
+auto bow::Client::start_sequence() -> bool {
 	::fmt::print(stderr, "[client] starting start sequence\n");
 
 	auto exit = false;
@@ -16,7 +16,7 @@ auto bow::Client::start_sequence() noexcept -> bool {
 	constexpr ::GLfloat bowshock_blue  = 0x1.9999999Ap-3f;
 
 	::glfwSetTime(0x0p0);
-	for (double duration = 0x0p0;duration <= 0x3p0;duration = ::glfwGetTime()) {
+	for (double duration = 0x0p0; duration <= 0x3p0; duration = ::glfwGetTime()) {
 		if (poll_events()) [[unlikely]] break;
 
 		glClearColor(bowshock_red, bowshock_green, bowshock_blue, 0x1p0);

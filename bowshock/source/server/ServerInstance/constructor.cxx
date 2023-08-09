@@ -4,6 +4,8 @@
 
 #include <atomic>
 
-::bow::ServerInstance::ServerInstance(::std::atomic_flag* stop_flag) noexcept {
+::bow::ServerInstance::ServerInstance(::bow::ServerConfiguration const& configuration, ::std::atomic_flag* stop_flag) noexcept {
+	this->configuration = configuration;
+
 	this->stop_flag = stop_flag;
 }

@@ -18,6 +18,5 @@ bow::Station::Station() noexcept {
 	this->rotational_velocity.y = 0x0p0;
 	this->rotational_velocity.z = 0x0p0;
 	this->mass                  = 0x0p0;
-	this->next                  = nullptr;
 	this->type                  = ::bow::Station::Type::Orbis;
 }

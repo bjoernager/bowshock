@@ -5,23 +5,70 @@
 #include <bow/logic.hxx>
 
 #include <atomic>
+#include <cstddef>
 #include <cstdint>
 #include <thread>
 
 namespace bow {
+	struct ServerConfiguration {
+		::std::uint_least16_t network_port;
+	};
+
+	struct ObjectElement {
+		::bow::Object*        object;
+		::bow::ObjectElement* next;
+	};
+
+	class ObjectRoot;
+
+	class ObjectIterator {
+	public:
+		ObjectIterator(::bow::ObjectRoot const& root) noexcept;
+
+		~ObjectIterator() noexcept = default;
+
+		inline auto operator *()       noexcept -> ::bow::Object&       { return *this->element->object; }
+		inline auto operator *() const noexcept -> ::bow::Object const& { return *this->element->object; }
+
+		auto operator ==(::bow::ObjectIterator const& other) const noexcept -> bool;
+		auto operator ==(::std::nullptr_t)                   const noexcept -> bool;
+
+		auto operator ++() noexcept -> ::bow::ObjectIterator&;
+
+	private:
+		::bow::ObjectElement* element;
+	};
+
+	class ObjectRoot {
+	public:
+		ObjectRoot() noexcept;
+
+		~ObjectRoot() noexcept;
+
+		auto begin() const noexcept -> ::bow::ObjectIterator;
+		auto end()   const noexcept -> ::bow::ObjectIterator;
+
+		inline auto has_objects() const noexcept -> bool { return this->elements != nullptr; }
+
+		template<::bow::ObjectLike T>
+		auto add(T const& value) -> T*;
+
+	private:
+		friend ::bow::ObjectIterator;
+
+		::bow::ObjectElement* elements;
+	};
+
 	class ServerInstance {
 	public:
-		explicit ServerInstance(::std::atomic_flag* stop_flag) noexcept;
+		explicit ServerInstance(::bow::ServerConfiguration const& configuration, ::std::atomic_flag* stop_flag) noexcept;
 
 		static auto run(::bow::ServerInstance* server) noexcept -> void;
 
 	private:
+		::bow::ServerConfiguration configuration;
+
 		::std::atomic_flag* stop_flag;
-
-		template<::bow::ObjectLike T>
-		auto add_object(::bow::ObjectRoot& root, T const& object) -> void;
-
-		auto delete_objects(::bow::ObjectRoot const& root) noexcept -> void;
 
 		auto generate_system(::bow::ObjectRoot& system, ::std::uint64_t identifier, ::std::uint64_t time) -> void;
 
@@ -37,11 +84,13 @@ namespace bow {
 
 	class Server {
 	public:
-		static auto start() -> ::bow::Server*;
+		static auto start(::bow::ServerConfiguration const& configuration) -> ::bow::Server*;
 
 		~Server() noexcept;
 
 	private:
+		Server() noexcept = default;
+
 		::std::thread* thread;
 
 		::bow::ServerInstance* instance;
@@ -55,4 +104,4 @@ namespace bow {
 }
 
 template<>
-auto bow::ServerInstance::add_object<::bow::Object>(::bow::ObjectRoot& root, ::bow::Object const& object_value) -> void = delete;
+auto bow::ObjectRoot::add<::bow::Object>(::bow::Object const& object_value) -> ::bow::Object* = delete;

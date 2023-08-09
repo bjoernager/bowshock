@@ -68,6 +68,26 @@
 * Fix shader validation script
 * Fix shader
 
+* Fix CMake not complaining about data directory not being specified
+* Find packages in CMake
+* Update exception specifiers
+* Add terminal parameter for specifying the port number
+* Update help screen
+* Rename terminal paramaeter 'name' to 'save'
+* Add server configuration structure
+* Clean up code
+* Improve commenting
+* Update ware list
+* Add linked-list class for object roots
+* Fix gravitate in the case of overlaping objects
+* Add our own terminate functions for unrecoverable errors
+* Improve error handling
+* Add new header for network formats
+* Fix save path
+* Make readme Markdown
+* Make changelog Markdown
+* Rename home_directory to base_directory
+
 # 0.B.2
 
 * Fix data directory not being set correctly by CMake;
