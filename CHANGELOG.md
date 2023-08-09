@@ -1,5 +1,9 @@
 # 0.C.0
 
+*0.C.0-C*
+
+* Update readme (add logo)
+
 *0.C.0-B*
 
 * Update readme

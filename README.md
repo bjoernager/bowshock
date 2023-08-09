@@ -1,8 +1,8 @@
-BOWSHOCK
+![BOWSHOCK](https://mandelbrot.dk/logo/bowshock.svg)
 
 # CHANGELOG
 
-Read: `CHANGELOG.txt`
+Read: `CHANGELOG.md`
 
 # COMPILATION
 
