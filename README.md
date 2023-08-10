@@ -50,7 +50,7 @@ build/bowshock/bowshock --skip
 
 ## SHADER VALIDATION
 
-The shaders at bowshock/shader may be validated using the Python script `validateShaders.py`. If the shaders contain errors, and these are not fixed before installation, the program will fail to compile them during run‐time.
+The shaders at `bowshock/shader`` may be validated using the Python script `validateShaders.py`. If the shaders contain errors, and these are not fixed before installation, the program will fail to compile them during run‐time.
 
 # INSTALLATION
 

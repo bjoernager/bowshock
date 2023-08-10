@@ -53,6 +53,7 @@ add_executable(
 
 	"source/logic/Canister/constructor.cxx"
 	"source/logic/Canister/object_type_string.cxx"
+	"source/logic/hull_mass.cxx"
 	"source/logic/Object/object_type_string.cxx"
 	"source/logic/Ship/constructor.cxx"
 	"source/logic/Ship/net_mass.cxx"
@@ -61,7 +62,7 @@ add_executable(
 	"source/logic/Star/object_type_string.cxx"
 	"source/logic/Station/constructor.cxx"
 	"source/logic/Station/object_type_string.cxx"
-	"source/logic/ware_mass.cxx"
+	"source/logic/ware_density.cxx"
 	"source/logic/World/constructor.cxx"
 	"source/logic/World/object_type_string.cxx"
 

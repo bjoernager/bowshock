@@ -1,5 +1,14 @@
 # 0.C.0
 
+*0.C.0-E*
+
+* Update readme
+* Add function for getting the hull mass of a ship type
+* Update commenting
+* Don't define object-kind type types inside their appropriate class
+* Rename ware_mass to ware_density
+* Add ship type 'canis'
+
 *0.C.0-D*
 
 * Update readme

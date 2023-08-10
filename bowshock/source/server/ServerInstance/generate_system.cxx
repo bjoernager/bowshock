@@ -20,7 +20,7 @@ auto bow::ServerInstance::generate_system(::bow::ObjectRoot& system, ::std::uint
 		auto star = ::bow::Star();
 
 		star.mass = 0x1p0,
-		star.type = ::bow::Star::Type::G;
+		star.type = ::bow::StarType::G;
 
 		return star;
 	}());
@@ -32,7 +32,7 @@ auto bow::ServerInstance::generate_system(::bow::ObjectRoot& system, ::std::uint
 		world.positional_velocity.x = 0x1.B2D06FF3p-23 * ::bow::TIME_MODIFIER;
 		world.rotational_velocity.z = 0x1.31DB66BBp-15;
 		world.mass                  = 0x1.931AFC649369998Fp-19,
-		world.type                  = ::bow::World::Type::RockyWorld;
+		world.type                  = ::bow::WorldType::RockyWorld;
 
 		return world;
 	}());

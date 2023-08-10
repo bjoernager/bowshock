@@ -3,7 +3,7 @@
 #include <bow/logic.hxx>
 
 auto bow::Ship::net_mass() noexcept -> double {
-	double mass = 0x1p0 / ::bow::MASS_MODIFIER;
+	double mass = ::bow::hull_mass(this->type);
 
 	return mass;
 }

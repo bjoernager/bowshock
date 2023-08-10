@@ -66,7 +66,7 @@ auto bow::PlayerData::decode_save(::bow::PlayerData & buffer, ::std::array<::std
 
 	buffer.time                       = data.time,
 	buffer.system_identifier          = data.system_identifier,
-	buffer.ship.type                  = static_cast<::bow::Ship::Type>(data.ship_type),
+	buffer.ship.type                  = static_cast<::bow::ShipType>(data.ship_type),
 	buffer.ship.position.x            = data.ship_position_x,
 	buffer.ship.position.y            = data.ship_position_y,
 	buffer.ship.position.z            = data.ship_position_z,

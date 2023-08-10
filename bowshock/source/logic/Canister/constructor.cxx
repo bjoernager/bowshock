@@ -20,5 +20,5 @@ bow::Canister::Canister() noexcept {
 	this->mass                  = 0x0p0;
 	this->content               = ::bow::Ware::Biowaste;
 
-	this->mass = ::bow::ware_mass(this->content) * 0x1p0;
+	this->mass = ::bow::ware_density(this->content) * 0x1p0;
 }

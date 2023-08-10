@@ -18,5 +18,5 @@ bow::World::World() noexcept {
 	this->rotational_velocity.y = 0x0p0;
 	this->rotational_velocity.z = 0x0p0;
 	this->mass                  = 0x1p0;
-	this->type                  = ::bow::World::Type::RockyWorld;
+	this->type                  = ::bow::WorldType::RockyWorld;
 }
