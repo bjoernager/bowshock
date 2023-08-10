@@ -1,5 +1,11 @@
 # 0.C.0
 
+*0.C.0-F*
+
+* Fix and update readme
+* Update and fix installation script
+* Put version number in readme
+
 *0.C.0-E*
 
 * Update readme

@@ -1,71 +1,70 @@
 #!/bin/sh
 
 installBinary() {
-	builddir="${1}"
-	bindir="${2}"
+	buildDirectory="${1}"
+	binaryDirectory="${2}"
 
-	mkdir -pvm755 "${bindir}"
+	mkdir -pvm755 "${binaryDirectory}"
 
-	install -vm755 "${builddir}/bowshock/bowshock" "${bindir}"/bowshock
+	install -vm755 "${buildDirectory}/bowshock/bowshock" "${binaryDirectory}"/bowshock
 }
 
 installData() {
-	srcdir="${1}"
-	datdir="${2}"
+	sourceDirectory="${1}"
+	dataDirectory="${2}"
 
-	mkdir -pvm755 "${datdir}/shaders"
+	mkdir -pvm755 "${dataDirectory}/shaders"
 
-	install -vm644 "${srcdir}/CHANGELOG.txt" "${datdir}"
-	install -vm644 "${srcdir}/CREDITS.txt" "${datdir}"
-	install -vm644 "${srcdir}/bowshock/shader/"*".glsl" "${datdir}/shaders"
+	install -vm644 "${sourceDirectory}/CHANGELOG.md" "${dataDirectory}"
+	install -vm644 "${sourceDirectory}/CREDITS.txt" "${dataDirectory}"
+	install -vm644 "${sourceDirectory}/bowshock/shader/"*".glsl" "${dataDirectory}/shaders"
 }
+
+echo installing "${1}"
 
 if [ "${1}" == "data" ]
 then
-	echo installing data...
-
 	if [ -z "${2}" ]
 	then
 		echo failure: data directory is not set
 		exit 2
 	fi
 
-	srcdir="${PWD}"
-	datdir="${2}"
+	sourceDirectory="${PWD}"
+	dataDirectory="${2}"
 
-	installData "${srcdir}" "${datdir}"
+	installData "${sourceDirectory}" "${dataDirectory}"
 
 	echo done
 
 	exit 0
-fi
-
-echo installing all...
-
-if [ -z "${1}" ]
+elif [ "${1}" == "all" ]
 then
-	echo failure: build directory is not set
-	exit 3
+	if [ -z "${2}" ]
+	then
+		echo failure: build directory is not set
+		exit 3
+	fi
+
+	if [ -z "${3}" ]
+	then
+		echo failure: binary directory is not set
+		exit 2
+	fi
+
+	if [ -z "${4}" ]
+	then
+		echo failure: data directory is not set
+		exit 1
+	fi
+
+	sourceDirectory="${PWD}"
+	buildDirectory="${2}"
+	binaryDirectory="${3}"
+	dataDirectory="${4}"
+
+	installBinary "${buildDirectory}" "${binaryDirectory}"
+	installData "${sourceDirectory}" "${dataDirectory}"
 fi
-
-if [ -z "${2}" ]
-then
-	echo failure: binary directory is not set
-	exit 2
-fi
-
-if [ -z "${3}" ]
-then
-	echo failure: data directory is not set
-	exit 1
-fi
-
-srcdir="${PWD}"
-builddir="${1}"
-bindir="${2}"
-datdir="${3}"
-
-installBinary "${builddir}" "${bindir}"
-installData "${srcdir}" "${datdir}"
 
 echo done

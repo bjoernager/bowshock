@@ -1,4 +1,6 @@
-![BOWSHOCK](https://mandelbrot.dk/logo/bowshock.svg)
+BOWSHOCK 0.C.0-F
+
+![](https://mandelbrot.dk/logo/bowshock.svg)
 
 # CHANGELOG
 
@@ -50,14 +52,14 @@ build/bowshock/bowshock --skip
 
 ## SHADER VALIDATION
 
-The shaders at `bowshock/shader`` may be validated using the Python script `validateShaders.py`. If the shaders contain errors, and these are not fixed before installation, the program will fail to compile them during run‐time.
+The shaders at `bowshock/shader` may be validated using the Python script `validateShaders.py`. If the shaders contain errors, and these are not fixed before installation, the program will fail to compile them during run‐time.
 
 # INSTALLATION
 
 The script `install.sh` will install the executable, the assets, the shaders, etc. to the specified directories:
 
 ```
-./install.sh [build directory] [binary directory] [data directory]
+./install.sh all [build directory] [binary directory] [data directory]
 ```
 
 # MIRRORS
