@@ -9,6 +9,11 @@
 using namespace ::std::literals::string_literals;
 
 bow::ShaderProgram::ShaderProgram(::std::string const& name) {
+	// Compile a shader program. Currently, this means
+	// compiling a vertex shader and an equivalent
+	// fragment shader, both with the name "name". Cf.
+	// compile_shader for more information.
+
 	::bow::log("client"s, ::std::format("compiling shader program \"{}\"", name));
 
 	// Ignore exceptions:

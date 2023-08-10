@@ -6,12 +6,20 @@
 #include <cmath>
 
 namespace bow {
-	static auto gravitate_single(::bow::Object& object, ::bow::Object const& par) noexcept -> void {
-		auto const distance_x   = par.position.x - object.position.x;
-		auto const distance_y   = par.position.y - object.position.y;
-		auto const distance_z   = par.position.z - object.position.z;
+	static auto gravitate_single(::bow::Object& object, ::bow::Object const& parent) noexcept -> void {
+		// Gravitate a single object to its parent (the
+		// force is unilateral).
+
+		// Calculate the distance between the two objects
+		// using the Pythagorean theorem:
+		// d = sqrt(a^2+b^2+c^2)
+		auto const distance_x   = parent.position.x - object.position.x;
+		auto const distance_y   = parent.position.y - object.position.y;
+		auto const distance_z   = parent.position.z - object.position.z;
 		auto const distance     = ::std::sqrt(distance_x * distance_x + distance_y * distance_y + distance_z * distance_z);
 
+		// Calculate the angle between the X and Y
+		// dimensions and the X and Z dimensions.
 		auto const angle_y      = ::std::atan2(distance_y, distance_x);
 		auto const angle_z      = ::std::atan2(distance_z, distance_x);
 
@@ -21,21 +29,34 @@ namespace bow {
 		// function branchless.
 		auto const no_overlap   = ::std::abs(distance) != 0x0p0;
 
-		auto const acceleration = par.mass/(distance * distance) * ::bow::GRAVITY_VALUE * static_cast<double>(no_overlap);
+		// Calculate the acceleration towards the parent
+		// object using Newtonian physics:
+		// a = (m/(s^2))G
+		auto const acceleration = parent.mass / (distance * distance) * ::bow::GRAVITY_VALUE * static_cast<double>(no_overlap);
 
+		// Calculate the gained velocity on the three
+		// dimensions using trigonometry:
+		// x = cos(theta_y)*a
+		// y = sin(theta_y)*a
+		// z = sin(theta_z)*a
 		auto const velocity_x   = ::std::cos(angle_y) * acceleration;
 		auto const velocity_y   = ::std::sin(angle_y) * acceleration;
 		auto const velocity_z   = ::std::sin(angle_z) * acceleration;
 
+		// Append the gained velocities to the existing
+		// velocities.
 		object.positional_velocity.x += velocity_x;
 		object.positional_velocity.y += velocity_y;
 		object.positional_velocity.z += velocity_z;
 	}
 
-	static void gravitate_pair(::bow::Object& obj0, ::bow::Object& obj1) noexcept {
-		auto const distance_x     = obj1.position.x - obj0.position.x;
-		auto const distance_y     = obj1.position.y - obj0.position.y;
-		auto const distance_z     = obj1.position.z - obj0.position.z;
+	static void gravitate_pair(::bow::Object& object0, ::bow::Object& object1) noexcept {
+		// Gravitate a pair of objects to each other (the
+		// force is mutual). Cf. gravitate_single.
+
+		auto const distance_x     = object1.position.x - object0.position.x;
+		auto const distance_y     = object1.position.y - object0.position.y;
+		auto const distance_z     = object1.position.z - object0.position.z;
 		auto const distance       = ::std::sqrt(distance_x * distance_x + distance_y * distance_y + distance_z * distance_z);
 
 		auto const angle_y        = ::std::atan2(distance_y, distance_x);
@@ -44,8 +65,8 @@ namespace bow {
 		auto const no_overlap     = ::std::abs(distance) != 0x0p0;
 
 		auto       acceleration0  = ::bow::GRAVITY_VALUE / (distance * distance);
-		auto const acceleration1  = acceleration0 * obj0.mass * static_cast<double>(no_overlap); // This is negative.
-		           acceleration0 *= obj1.mass * static_cast<double>(no_overlap);
+		auto const acceleration1  = acceleration0 * object0.mass * static_cast<double>(no_overlap); // This is negative.
+		           acceleration0 *= object1.mass * static_cast<double>(no_overlap);
 
 		auto       velocity_x0    = ::std::cos(angle_y);
 		auto       velocity_y0    = ::std::sin(angle_y);
@@ -57,13 +78,13 @@ namespace bow {
 		           velocity_y0   *= acceleration0;
 		           velocity_z0   *= acceleration0;
 
-		obj0.positional_velocity.x += velocity_x0;
-		obj0.positional_velocity.y += velocity_y0;
-		obj0.positional_velocity.z += velocity_z0;
+		object0.positional_velocity.x += velocity_x0;
+		object0.positional_velocity.y += velocity_y0;
+		object0.positional_velocity.z += velocity_z0;
 
-		obj1.positional_velocity.x -= velocity_x1;
-		obj1.positional_velocity.y -= velocity_y1;
-		obj1.positional_velocity.z -= velocity_z1;
+		object1.positional_velocity.x -= velocity_x1;
+		object1.positional_velocity.y -= velocity_y1;
+		object1.positional_velocity.z -= velocity_z1;
 	}
 }
 

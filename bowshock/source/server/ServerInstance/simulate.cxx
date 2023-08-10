@@ -13,6 +13,9 @@ auto bow::ServerInstance::simulate(::bow::ObjectRoot& system, ::std::uint64_t co
 	::bow::log("server"s, ::std::format("simulating for ({}) time units", duration));
 
 	for (auto i = UINT64_C(0x0); i <= duration; ++i) {
+		// Do a minimal simulation of the target system for
+		// n-units of time. This is for consistency when
+		// loading a system at the same in-game time.
 		this->gravitate(system);
 		this->move(system);
 	}

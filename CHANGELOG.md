@@ -1,5 +1,10 @@
 # 0.C.0
 
+*0.C.0-12*
+
+* Update readme
+* Improve commenting
+
 *0.C.0-11*
 
 * Fix readme

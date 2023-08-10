@@ -12,6 +12,10 @@
 using namespace ::std::literals::string_literals;
 
 auto bow::ShaderProgram::compile_shader(::std::string const& name, ::bow::ShaderType const pretty_type) -> ::GLuint {
+	// Compile a shader according to the provided
+	// shader type. The path of the shader is
+	// calculated from the data directory path.
+
 	auto const type = [pretty_type]() -> ::GLuint {
 		using ::bow::ShaderType;
 

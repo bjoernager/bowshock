@@ -13,8 +13,6 @@ using namespace ::std::literals::string_literals;
 	this->thread->join();
 
 	delete this->stop_flag;
-
 	delete this->instance;
-
 	delete this->thread;
 }

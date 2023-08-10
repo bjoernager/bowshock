@@ -16,7 +16,9 @@ auto bow::ServerInstance::generate_system(::bow::ObjectRoot& system, ::std::uint
 		system.~ObjectRoot();
 	}
 
-	// Note: The following code is only temporary;
+	// Nb.: The following code is only temporary.
+	// Currently, every system has only an Earth-Sol
+	// orbit.
 
 	system.add([]() -> ::bow::Star {
 		auto star = ::bow::Star();

@@ -5,6 +5,11 @@
 
 auto bow::ServerInstance::move(::bow::ObjectRoot& root) noexcept -> void {
 	for (auto& object: root) {
+		// Apply the velocities of each object to their
+		// position:
+		// x = x+v_x
+		// y = y+v_x
+		// z = z+v_x
 		object.position.x += object.positional_velocity.x;
 		object.position.y += object.positional_velocity.y;
 		object.position.z += object.positional_velocity.z;
