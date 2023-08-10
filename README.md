@@ -1,4 +1,4 @@
-**BOWSHOCK 0.C.0-F**
+**BOWSHOCK 0.C.0-11**
 
 ![](https://mandelbrot.dk/logo/bowshock.svg)
 
@@ -36,7 +36,7 @@ Bowshock makes use of the following libraries:
 * GLAD (see below)
 * GLFW3
 
-For {fmt}, the appropriate package is `fmt` (Arch). For GLFW, it's either `glfw-wayland` (Arch) nor `glfw-x11` (Arch) can be used.
+For {fmt}, the appropriate package is `fmt` (Arch). For GLFW, it's either `glfw-wayland` (Arch) or `glfw-x11` (Arch).
 
 ### GLAD
 
