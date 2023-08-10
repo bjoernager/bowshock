@@ -14,7 +14,7 @@ Before compilation, an appropriate *GLAD* loader must be downloaded from a web i
 
 <https://glad.dav1d.de/#language=c&specification=gl&api=gl%3D3.2&api=gles1%3Dnone&api=gles2%3Dnone&api=glsc2%3Dnone&profile=core&loader=on>
 
-The script `extractGlad.sh` will extract `glad.zip` (or any other archive – if specified) to "glad". It also copies a CMake lists file to the directory `glad`:
+The script `extractGlad.sh` will extract `glad.zip` (or any other archive – if specified) to `glad`. It also copies a CMake lists file to the directory.
 
 ```
 ./extractGlad.sh <archive>
