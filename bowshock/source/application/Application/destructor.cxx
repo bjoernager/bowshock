@@ -2,14 +2,16 @@
 
 #include <bow/application.hxx>
 
-#include <cstdio>
 #include <fmt/core.h>
+#include <string>
+
+using namespace ::std::literals::string_literals;
 
 bow::Application::~Application() noexcept {
-	::fmt::print(stderr, "[app] quitting\n");
+	::bow::log("app"s, "quitting"s);
 
 	delete this->client;
 	delete this->server;
 
-	::fmt::print(stderr, "\nGoodbye! \u2764\n");
+	::fmt::print("\nGoodbye! \u2764\n");
 }

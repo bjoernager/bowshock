@@ -4,15 +4,16 @@
 #include <bow/logic.hxx>
 
 #include <cmath>
-#include <cstdio>
 #include <exception>
-#include <fmt/core.h>
 #include <format>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <string>
+
+using namespace ::std::literals::string_literals;
 
 auto bow::Client::run() noexcept -> void {
-	::fmt::print(stderr, "[client] running\n");
+	::bow::log("client"s, "running"s);
 
 	if (!this->configuration.skip_start_sequence) [[likely]] {
 		auto stop = false;
@@ -21,7 +22,7 @@ auto bow::Client::run() noexcept -> void {
 			try {
 				stop = this->start_sequence();
 			} catch (::std::exception const& exception) {
-				::bow::terminate("client", ::std::format("got uncaught exception: {}", exception.what()));
+				::bow::terminate("client"s, ::std::format("got uncaught exception: {}", exception.what()));
 			}
 		} else {
 			stop = this->start_sequence();
@@ -34,7 +35,7 @@ auto bow::Client::run() noexcept -> void {
 		try {
 			this->loop();
 		} catch (::std::exception const& exception) {
-			::bow::terminate("client", ::std::format("got uncaught exception: {}", exception.what()));
+			::bow::terminate("client"s, ::std::format("got uncaught exception: {}", exception.what()));
 		}
 	} else {
 		this->loop();

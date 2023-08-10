@@ -4,13 +4,13 @@
 #include <bow/server.hxx>
 
 #include <atomic>
-#include <cstdio>
-#include <fmt/core.h>
 #include <thread>
 #include <utility>
 
+using namespace ::std::literals::string_literals;
+
 auto bow::Server::start(::bow::ServerConfiguration const& configuration) -> ::bow::Server* {
-	::fmt::print(stderr, "[app] starting server\n");
+	::bow::log("app"s, "starting server"s);
 
 	auto stop_flag = new ::std::atomic_flag();
 

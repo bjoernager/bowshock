@@ -10,18 +10,18 @@
 #include <thread>
 
 namespace bow {
-	struct ServerConfiguration {
+	struct ServerConfiguration final {
 		::std::uint_least16_t network_port;
 	};
 
-	struct ObjectElement {
+	struct ObjectElement final {
 		::bow::Object*        object;
 		::bow::ObjectElement* next;
 	};
 
 	class ObjectRoot;
 
-	class ObjectIterator {
+	class ObjectIterator final {
 	public:
 		ObjectIterator(::bow::ObjectRoot const& root) noexcept;
 
@@ -39,7 +39,7 @@ namespace bow {
 		::bow::ObjectElement* element;
 	};
 
-	class ObjectRoot {
+	class ObjectRoot final {
 	public:
 		ObjectRoot() noexcept;
 
@@ -59,7 +59,7 @@ namespace bow {
 		::bow::ObjectElement* elements;
 	};
 
-	class ServerInstance {
+	class ServerInstance final {
 	public:
 		explicit ServerInstance(::bow::ServerConfiguration const& configuration, ::std::atomic_flag* stop_flag) noexcept;
 
@@ -82,7 +82,7 @@ namespace bow {
 		auto loop() -> void;
 	};
 
-	class Server {
+	class Server final {
 	public:
 		static auto start(::bow::ServerConfiguration const& configuration) -> ::bow::Server*;
 

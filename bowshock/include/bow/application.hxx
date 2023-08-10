@@ -22,7 +22,7 @@ namespace bow {
 		.patch = 0x0u,
 	};
 
-	class Application {
+	class Application final {
 	public:
 		explicit Application(int argc, char const* const* argv) noexcept;
 

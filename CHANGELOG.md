@@ -1,5 +1,11 @@
 # 0.C.0
 
+*0.C.0-10*
+
+* Update readme
+* Add dependencies subsection to readme
+* Add function for logging
+
 *0.C.0-F*
 
 * Fix and update readme

@@ -6,8 +6,6 @@
 #include <cstdint>
 #include <cstring>
 
-#include <fmt/core.h>
-
 auto bow::PlayerData::encode_save(::std::array<::std::uint8_t, ::bow::SAVE_LENGTH>& buffer, ::bow::PlayerData const& source) noexcept -> void {
 	auto data = ::bow::PlayerData::SaveData {
 		.format_version             = ::bow::SAVE_FORMAT_VERSION,

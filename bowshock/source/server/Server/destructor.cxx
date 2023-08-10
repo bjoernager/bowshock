@@ -2,11 +2,10 @@
 
 #include <bow/server.hxx>
 
-#include <cstdio>
-#include <fmt/core.h>
+using namespace ::std::literals::string_literals;
 
 ::bow::Server::~Server() noexcept {
-	::fmt::print(stderr, "[app] stopping server\n");
+	::bow::log("app"s, "stopping server"s);
 
 	this->stop_flag->test_and_set();
 

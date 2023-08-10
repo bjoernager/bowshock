@@ -2,9 +2,8 @@
 
 #include <bow/client.hxx>
 
-#include <cstdio>
 #include <filesystem>
-#include <fmt/core.h>
+#include <format>
 #include <glad/glad.h>
 #include <stdexcept>
 #include <string>
@@ -63,9 +62,9 @@ auto bow::ShaderProgram::compile_shader(::std::string const& name, ::bow::Shader
 
 	using ::bow::DATA_DIRECTORY;
 
-	auto const path = DATA_DIRECTORY + "/shaders/" + name + "." + type_suffix + "." + ::bow::SHADER_FILE_SUFFIX;
+	auto const path = DATA_DIRECTORY + "/shaders/"s + name + "." + type_suffix + "."s + ::bow::SHADER_FILE_SUFFIX;
 
-	::fmt::print(stderr, "[client] compiling {} shader at \"{}\"\n", type_string, path);
+	::bow::log("client"s, ::std::format("compiling {} shader at \"{}\"", type_string, path));
 
 	::std::FILE* file = ::std::fopen(path.c_str(), "r");
 
@@ -75,7 +74,7 @@ auto bow::ShaderProgram::compile_shader(::std::string const& name, ::bow::Shader
 	auto source = ::std::vector<::GLchar>(file_size + 0x1u);
 
 	if (::std::fread(source.data(), sizeof (::GLchar), file_size, file) < file_size) [[unlikely]] {
-		throw ::std::runtime_error("unable to read shader source");
+		throw ::std::runtime_error("unable to read shader source"s);
 	}
 
 	source.push_back('\x00');
@@ -98,13 +97,13 @@ auto bow::ShaderProgram::compile_shader(::std::string const& name, ::bow::Shader
 
 		glGetShaderInfoLog(shader, log_length, nullptr, log);
 
-		::fmt::print(stderr, "[client] unable to compiler shader:\n");
+		::bow::log("client"s, "unable to compiler shader:"s);
 
 		::std::fwrite(log, 0x1u, static_cast<::std::size_t>(log_length), stderr);
 
 		delete[] log;
 
-		throw ::std::runtime_error("unable to compile shader");
+		throw ::std::runtime_error("unable to compile shader"s);
 	}
 
 	return shader;

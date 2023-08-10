@@ -4,11 +4,13 @@
 #include <bow/server.hxx>
 
 #include <cstdint>
-#include <cstdio>
-#include <fmt/core.h>
+#include <format>
+#include <string>
+
+using namespace ::std::literals::string_literals;
 
 auto bow::ServerInstance::generate_system(::bow::ObjectRoot& system, ::std::uint64_t const identifier, ::std::uint64_t const time) -> void {
-	::fmt::print(stderr, "[server] generating system ({:x})\n", identifier);
+	::bow::log("server"s, ::std::format("generating system ({:x})", identifier));
 
 	if (system.has_objects()) [[likely]] {
 		system.~ObjectRoot();

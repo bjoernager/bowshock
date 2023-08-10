@@ -4,20 +4,19 @@
 #include <bow/client.hxx>
 #include <bow/network.hxx>
 
-#include <cstdio>
 #include <cstdlib>
-#include <fmt/core.h>
+#include <format>
 #include <string>
 #include <vector>
 
 using namespace ::std::literals::string_literals;
 
 bow::Application::Application(int const argc, char const* const* const argv) noexcept {
-	::fmt::print(stderr, "[app] configuring application\n");
+	::bow::log("app"s, "configuring application"s);
 
 	auto const program_name = [&argc, argv]() -> ::std::string {
 		if (argc < 0x1) [[unlikely]] {
-			::bow::terminate("app", "program not provided");
+			::bow::terminate("app"s, "program not provided"s);
 		} else {
 			return ::std::string(*argv);
 		}
@@ -35,8 +34,8 @@ bow::Application::Application(int const argc, char const* const* const argv) noe
 		.network_port = ::bow::DEFAULT_NETWORK_PORT,
 	};
 
-	this->client =nullptr;
-	this->server =nullptr;
+	this->client = nullptr;
+	this->server = nullptr;
 
 	::std::vector<char const*> parameters(argv + 0x1u, argv + static_cast<::std::size_t>(argc));
 

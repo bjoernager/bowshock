@@ -2,12 +2,13 @@
 
 #include <bow/client.hxx>
 
-#include <cstdio>
-#include <fmt/core.h>
 #include <GLFW/glfw3.h>
+#include <string>
+
+using namespace ::std::literals::string_literals;
 
 auto bow::Client::start_sequence() -> bool {
-	::fmt::print(stderr, "[client] starting start sequence\n");
+	::bow::log("client"s, "starting start sequence"s);
 
 	auto exit = false;
 

@@ -2,10 +2,5 @@
 
 #include <bow/client.hxx>
 
-#include <cstdio>
-#include <cstdlib>
-#include <fmt/core.h>
-#include <GLFW/glfw3.h>
-
 ::bow::Client::~Client() noexcept {
 }

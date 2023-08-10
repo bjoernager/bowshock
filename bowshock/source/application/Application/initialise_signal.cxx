@@ -4,11 +4,12 @@
 
 #include <atomic>
 #include <csignal>
-#include <cstdio>
 #include <cstdlib>
-#include <fmt/core.h>
 #include <format>
 #include <stdexcept>
+#include <string>
+
+using namespace ::std::literals::string_literals;
 
 // 31.10.4.
 // constexpr atomic_flag::atomic_flag() noexcept;
@@ -27,7 +28,7 @@ static auto bow::interrupt_handler(int const signal) -> void {
 };
 
 auto bow::Application::initialise_signal() -> void {
-	::fmt::print(stderr, "[app] initialising signal handlers\n");
+	::bow::log("app"s, "initialising signal handlers"s);
 
 	auto const set_handler = []<typename Handler>(int const signal, Handler const& handler) -> void {
 		if (::std::signal(signal, static_cast<auto (*)(int) -> void>(handler)) == SIG_ERR) [[unlikely]] {

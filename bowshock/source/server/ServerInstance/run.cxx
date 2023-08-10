@@ -2,25 +2,26 @@
 
 #include <bow/server.hxx>
 
-#include <cstdio>
 #include <exception>
-#include <fmt/core.h>
 #include <format>
+#include <string>
+
+using namespace ::std::literals::string_literals;
 
 auto bow::ServerInstance::run(::bow::ServerInstance* server) noexcept -> void {
-	::fmt::print(stderr, "[server] angle unit:             {:.3f} rad\n",               0x1p0);
-	::fmt::print(stderr, "[server] distance unit:          {:.3f} m\n",                 ::bow::DISTANCE_MODIFIER);
-	::fmt::print(stderr, "[server] mass unit:              {:.3f} kg\n",                ::bow::MASS_MODIFIER);
-	::fmt::print(stderr, "[server] time unit:              {:.3f} s\n",                 ::bow::TIME_MODIFIER);
-	::fmt::print(stderr, "[server] gravitational constant: {:.9f} (factor: {:.3f}))\n", ::bow::GRAVITY_VALUE, ::bow::GRAVITY_FACTOR);
+	::bow::log("server"s, ::std::format("angle unit:             {:.3f} rad",                0x1p0));
+	::bow::log("server"s, ::std::format("distance unit:          {:.3f} m",                  ::bow::DISTANCE_MODIFIER));
+	::bow::log("server"s, ::std::format("mass unit:              {:.3f} kg",                 ::bow::MASS_MODIFIER));
+	::bow::log("server"s, ::std::format("time unit:              {:.3f} s",                  ::bow::TIME_MODIFIER));
+	::bow::log("server"s, ::std::format("gravitational constant: {:.9f} (factor: {:.3f}s))", ::bow::GRAVITY_VALUE, ::bow::GRAVITY_FACTOR));
 
 	if constexpr (!::bow::DEBUG) {
 		try {
 			server->loop();
 		} catch (::std::exception const& exception) {
-			::bow::terminate("server", ::std::format("got uncaught exception: {}", exception.what()));
+			::bow::terminate("server"s, ::std::format("got uncaught exception: {}", exception.what()));
 		} catch (...) {
-			::bow::terminate("server", "got uncaught exception");
+			::bow::terminate("server"s, "got uncaught exception"s);
 		}
 	} else {
 		server->loop();

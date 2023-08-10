@@ -6,9 +6,10 @@
 #include <array>
 #include <cstdint>
 #include <cstdio>
-#include <fmt/core.h>
 #include <stdexcept>
 #include <string>
+
+using namespace ::std::literals::string_literals;
 
 auto bow::PlayerData::read_file(::std::array<::std::uint8_t, ::bow::SAVE_LENGTH>& buffer, ::std::string const& path) -> bool {
 	using ::bow::SAVE_LENGTH;
@@ -16,13 +17,12 @@ auto bow::PlayerData::read_file(::std::array<::std::uint8_t, ::bow::SAVE_LENGTH>
 	auto const file = ::std::fopen(path.c_str(), "rb");
 
 	if (file == nullptr) [[unlikely]] {
-		::fmt::print(stderr, "[client] unable to open save file, using default\n");
-
+		::bow::log("client"s, "unable to open save file, using default"s);
 		return true;
 	}
 
 	if (::std::fread(buffer.data(), sizeof (::std::uint8_t), SAVE_LENGTH, file) < SAVE_LENGTH) [[unlikely]] {
-		throw ::std::runtime_error("unable to read save file");
+		throw ::std::runtime_error("unable to read save file"s);
 	}
 
 	::std::fclose(file);

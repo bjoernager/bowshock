@@ -10,6 +10,8 @@ auto bow::hull_mass(::bow::ShipType const ship) noexcept -> double {
 	switch (ship) {
 	default:
 		mass = 0x1p0;
+		break;
+
 	case ShipType::Aquila:
 		mass = 0x100p0;
 	}

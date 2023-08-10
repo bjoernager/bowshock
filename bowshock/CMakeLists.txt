@@ -49,6 +49,7 @@ add_executable(
 	"source/client/ShaderProgram/destructor.cxx"
 
 	"source/base/base_directory.cxx"
+	"source/base/log.cxx"
 	"source/base/terminate.cxx"
 
 	"source/logic/Canister/constructor.cxx"

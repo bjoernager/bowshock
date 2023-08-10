@@ -1,4 +1,4 @@
-BOWSHOCK 0.C.0-F
+**BOWSHOCK 0.C.0-F**
 
 ![](https://mandelbrot.dk/logo/bowshock.svg)
 
@@ -12,7 +12,7 @@ Bowshock uses CMake as its build system. The standard option `CMAKE_BUILD_TYPE` 
 
 The main program is written in C++20, and a conforming compiler is therefore required. OpenGL 3.2 is used for rendering, and the shaders are therefore written in GLSL 1.5.
 
-Before compilation, an appropriate *GLAD* loader must be downloaded from a web instance. I use the one on `dav1d.de`, with the following settings:
+Before compilation, an appropriate *GLAD* loader must be downloaded. For more information, read: *COMPILATION > DEPENDENCIES > GLAD*
 
 <https://glad.dav1d.de/#language=c&specification=gl&api=gl%3D3.2&api=gles1%3Dnone&api=gles2%3Dnone&api=glsc2%3Dnone&profile=core&loader=on>
 
@@ -26,6 +26,28 @@ Before running – however – the data directory must be installed. This can be
 
 ```
 ./install.sh data [data directory]
+```
+
+## DEPENDENCIES
+
+Bowshock makes use of the following libraries:
+
+* {fmt}
+* GLAD (see below)
+* GLFW3
+
+For {fmt}, the appropriate package is `fmt` (Arch). For GLFW, it's either `glfw-wayland` (Arch) nor `glfw-x11` (Arch) can be used.
+
+### GLAD
+
+The GLAD loader must be downloaded from a web instance. I use the one on `dav1d.de`, with the following settings:
+
+<https://glad.dav1d.de/#language=c&specification=gl&api=gl%3D3.2&api=gles1%3Dnone&api=gles2%3Dnone&api=glsc2%3Dnone&profile=core&loader=on>
+
+The script `extractGlad.sh` will extract `glad.zip` (or any other archive – if specified) to `glad`. It also copies a CMake lists file to the directory.
+
+```
+./extractGlad.sh <archive>
 ```
 
 # DEVELOPMENT

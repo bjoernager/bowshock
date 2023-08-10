@@ -2,15 +2,16 @@
 
 #include <bow/client.hxx>
 
-#include <cstdio>
-#include <fmt/core.h>
 #include <GLFW/glfw3.h>
+#include <string>
+
+using namespace ::std::literals::string_literals;
 
 auto bow::Client::poll_events() noexcept -> bool {
 	::glfwPollEvents();
 
 	if (::bow::GOT_INTERRUPT.test()) [[unlikely]] {
-		::fmt::print(stderr, "got interrupt\n");
+		::bow::log("client"s, "got interrupt"s);
 		::glfwSetWindowShouldClose(renderer.window, GLFW_TRUE);
 	}
 

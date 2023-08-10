@@ -4,13 +4,14 @@
 #include <bow/logic.hxx>
 
 #include <cmath>
-#include <cstdio>
-#include <fmt/core.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <string>
+
+using namespace ::std::literals::string_literals;
 
 auto bow::Client::loop() -> void {
-	::fmt::print(stderr, "[client] entering main loop\n");
+	::bow::log("client"s, "entering main loop"s);
 
 	::GLfloat vertices[] = {
 		-0x1.0000p0f, +0x1.0000p0f, 0x0p0f,

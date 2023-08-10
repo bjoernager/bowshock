@@ -4,11 +4,13 @@
 #include <bow/server.hxx>
 
 #include <cstdint>
-#include <cstdio>
-#include <fmt/core.h>
+#include <format>
+#include <string>
+
+using namespace ::std::literals::string_literals;
 
 auto bow::ServerInstance::simulate(::bow::ObjectRoot& system, ::std::uint64_t const duration) noexcept -> void {
-	::fmt::print(stderr, "[server] simulating for ({}) time units\n", duration);
+	::bow::log("server"s, ::std::format("simulating for ({}) time units", duration));
 
 	for (auto i = UINT64_C(0x0); i <= duration; ++i) {
 		this->gravitate(system);

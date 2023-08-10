@@ -2,18 +2,19 @@
 
 #include <bow/server.hxx>
 
-#include <cstdio>
-#include <fmt/core.h>
-#include <type_traits>
+#include <format>
+#include <string>
+
+using namespace ::std::literals::string_literals;
 
 bow::ObjectRoot::~ObjectRoot() noexcept {
-	::fmt::print(stderr, "[server] deleting objects\n");
+	::bow::log("server"s, "deleting objects"s);
 
 	::bow::ObjectElement* element;
 	::bow::ObjectElement* next;
 
 	for (element = this->elements; element != nullptr; element = next) {
-		::fmt::print(stderr, "[server] deleting object of type {}\n", element->object->object_type_string());
+		::bow::log("server"s, ::std::format("deleting object of type {}", element->object->object_type_string()));
 
 		next = element->next;
 		delete element;

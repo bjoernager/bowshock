@@ -5,16 +5,13 @@
 
 #include <array>
 #include <cstdint>
-#include <cstdio>
-#include <cstring>
-#include <fmt/core.h>
-#include <stdexcept>
+#include <format>
 #include <string>
 
 using namespace ::std::literals::string_literals;
 
 auto bow::PlayerData::load(::std::string const& path) -> void {
-	::fmt::print(stderr, "[client] loading save file at \"{}\"\n", path);
+	::bow::log("client"s, ::std::format("loading save file at \"{}\"", path));
 
 	::std::array<::std::uint8_t, ::bow::SAVE_LENGTH> raw;
 

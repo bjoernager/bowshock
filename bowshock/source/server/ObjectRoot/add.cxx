@@ -2,14 +2,16 @@
 
 #include <bow/server.hxx>
 
-#include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <fmt/core.h>
+#include <format>
+#include <string>
+
+using namespace ::std::literals::string_literals;
 
 template<::bow::ObjectLike T>
 auto bow::ObjectRoot::add(T const& object_value) -> T* {
-	::fmt::print(stderr, "[server] adding object of type {}\n", object_value.object_type_string());
+	::bow::log("server"s, ::std::format("adding object of type {}", object_value.object_type_string()));
 
 	// Ignore exceptions:
 	auto const element = new ::bow::ObjectElement;

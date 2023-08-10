@@ -42,7 +42,7 @@ namespace bow {
 		0x7F    ship_rotational_velocity_z 8     binary64
 	*/
 
-	struct ClientConfiguration {
+	struct ClientConfiguration final {
 		::std::string         directory;
 		::std::string         save_name;
 		::std::uint_least16_t network_port;
@@ -50,7 +50,7 @@ namespace bow {
 		bool                  skip_start_sequence: 0x1;
 	};
 
-	class PlayerData {
+	class PlayerData final {
 	public:
 		::std::string   name;
 		::std::uint64_t time;
@@ -100,7 +100,7 @@ namespace bow {
 		Vertex,
 	};
 
-	class ShaderProgram {
+	class ShaderProgram final {
 	public:
 		::GLuint handle;
 
@@ -114,7 +114,7 @@ namespace bow {
 		static auto compile_shader(::std::string const& name, ::bow::ShaderType type) -> ::GLuint;
 	};
 
-	class Renderer {
+	class Renderer final {
 	public:
 		::GLFWwindow*         window;
 		::bow::ShaderProgram* shader_program;
@@ -128,7 +128,7 @@ namespace bow {
 		auto render(::GLfloat const vertices[], ::std::size_t size) -> void;
 	};
 
-	class Client {
+	class Client final {
 	public:
 		explicit Client(::bow::ClientConfiguration const& configuration);
 

@@ -43,4 +43,6 @@ namespace bow {
 	// If we are unable to determine its path, we
 	// instead use the current directory ".".
 	auto base_directory() noexcept -> ::std::string;
+
+	auto log(::std::string const& location, ::std::string const& message) noexcept -> void;
 }

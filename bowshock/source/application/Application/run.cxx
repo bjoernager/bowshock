@@ -4,17 +4,16 @@
 #include <bow/client.hxx>
 #include <bow/server.hxx>
 
-
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
 #include <fmt/core.h>
+#include <format>
 #include <stdexcept>
 #include <string>
-#include <tuple>
 
-#include <format>
+using namespace ::std::literals::string_literals;
 
 auto bow::Application::run() -> int {
 	::std::srand(static_cast<int unsigned>(::std::time(nullptr)));
@@ -38,10 +37,10 @@ auto bow::Application::run() -> int {
 	);
 
 	if constexpr (::bow::DEBUG) {
-		::fmt::print("[app] debug mode is enabled\n");
+		::bow::log("app"s, "debug mode is enabled"s);
 	}
 
-	::fmt::print(stderr, "[app] data directory at \"{}\"\n", ::bow::DATA_DIRECTORY);
+	::bow::log("app"s, ::std::format("data directory at \"{}\"", ::bow::DATA_DIRECTORY));
 
 	this->initialise_signal();
 

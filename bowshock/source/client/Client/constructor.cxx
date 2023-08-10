@@ -3,27 +3,26 @@
 #include <bow/client.hxx>
 #include <bow/logic.hxx>
 
-#include <cstdio>
 #include <filesystem>
-#include <fmt/core.h>
+#include <format>
 #include <string>
 
 using namespace ::std::literals::string_literals;
 
 bow::Client::Client(::bow::ClientConfiguration const& configuration) {
-	::fmt::print(stderr, "[client] initialising\n");
+	::bow::log("client"s, "initialising"s);
 
 	this->configuration = configuration;
 
-	::fmt::print(stderr, "[client] creating configuration directory at {}\n", this->configuration.directory);
+	::bow::log("client"s, ::std::format("creating configuration directory at {}", this->configuration.directory));
 	::std::filesystem::create_directory(this->configuration.directory);
 	::std::filesystem::create_directory(this->configuration.directory + "/save"s);
 
 	if (this->configuration.new_save) {
-		::fmt::print(stderr, "[client] using default save\n");
+		::bow::log("client"s, "using default save"s);
 	} else {
 		this->player_data.load(::bow::Client::save_path(this->configuration.directory, this->configuration.save_name));;
 	}
 
-	::fmt::print(stderr, "[client] welcome, CMDR {}\n", this->player_data.name);
+	::bow::log("client"s, ::std::format("welcome, CMDR {}", this->player_data.name));
 }

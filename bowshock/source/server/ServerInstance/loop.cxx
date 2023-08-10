@@ -4,12 +4,13 @@
 #include <bow/logic.hxx>
 
 #include <cmath>
-#include <cstdio>
-#include <fmt/core.h>
 #include <stdexcept>
+#include <string>
+
+using namespace ::std::literals::string_literals;
 
 auto bow::ServerInstance::loop() -> void {
-	::fmt::print(stderr, "[server] entering main loop\n");
+	::bow::log("server"s, "entering main loop"s);
 
 	// For stellar bodies:
 	auto system_root = ::bow::ObjectRoot();
@@ -36,5 +37,5 @@ auto bow::ServerInstance::loop() -> void {
 		this->move(objects_root);
 	}
 
-	::fmt::print(stderr, "[server] submitting\n");
+	::bow::log("server"s, "submitting"s);
 }

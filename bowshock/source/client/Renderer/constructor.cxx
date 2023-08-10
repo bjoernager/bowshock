@@ -2,23 +2,24 @@
 
 #include <bow/client.hxx>
 
-#include <cstdio>
 #include <cstdlib>
-#include <fmt/core.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <stdexcept>
+#include <string>
+
+using namespace ::std::literals::string_literals;
 
 bow::Renderer::Renderer() {
-	::fmt::print(stderr, "[client] initialising graphics\n");
+	::bow::log("client"s, "initialising graphics"s);
 
-	::fmt::print(stderr, "[client] initialising glfw\n");
+	::bow::log("client"s, "initialising glfw"s);
 
 	if (!::glfwInit()) [[unlikely]] {
-		throw ::std::runtime_error("unable to initialise glfw");
+		throw ::std::runtime_error("unable to initialise glfw"s);
 	}
 
-	::fmt::print(stderr, "[client] initialising window\n");
+	::bow::log("client"s, "initialising window"s);
 
 	::glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 0x4);
 	::glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0x1);
@@ -27,13 +28,13 @@ bow::Renderer::Renderer() {
 	::glfwWindowHint(GLFW_RESIZABLE,             GLFW_FALSE);
 	::glfwWindowHint(GLFW_SAMPLES,               0x8);
 
-	this->window = ::glfwCreateWindow(0x400, 0x240, "Bowshock", ::glfwGetPrimaryMonitor(), nullptr);
+	this->window = ::glfwCreateWindow(0x400, 0x240, "Bowshock \u2011 Procyon", ::glfwGetPrimaryMonitor(), nullptr);
 
 	if (this->window == nullptr) [[unlikely]] {
-		throw ::std::runtime_error("unable to open window");
+		throw ::std::runtime_error("unable to open window"s);
 	}
 
-	::fmt::print(stderr, "[client] initialising context\n");
+	::bow::log("client"s, "initialising context"s);
 
 	::glfwMakeContextCurrent(this->window);
 	::gladLoadGL();
@@ -49,7 +50,7 @@ bow::Renderer::Renderer() {
 	::glfwSwapBuffers(this->window);
 	::glfwSwapInterval(0x1);
 
-	this->shader_program = new ::bow::ShaderProgram("main");
+	this->shader_program = new ::bow::ShaderProgram("main"s);
 
 	glGenVertexArrays(0x1, &this->vao);
 	glGenBuffers(0x1, &this->vbo);

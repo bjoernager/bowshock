@@ -2,21 +2,14 @@
 
 #include <bow/client.hxx>
 
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <filesystem>
-#include <fmt/core.h>
+#include <format>
 #include <glad/glad.h>
-#include <stdexcept>
 #include <string>
-#include <type_traits>
-#include <vector>
 
 using namespace ::std::literals::string_literals;
 
 bow::ShaderProgram::ShaderProgram(::std::string const& name) {
-	::fmt::print(stderr, "[client] compiling shader program \"{}\"\n", name);
+	::bow::log("client"s, ::std::format("compiling shader program \"{}\"", name));
 
 	// Ignore exceptions:
 	auto const vertex_shader   = ::bow::ShaderProgram::compile_shader(name, ::bow::ShaderType::Vertex);
